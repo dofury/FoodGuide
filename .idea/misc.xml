@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/drawable/ic_baseline_local_dining_24.xml" value="0.3463541666666667" />
+        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/drawable/ic_baseline_museum_24.xml" value="0.3463541666666667" />
+        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/layout/activity_background.xml" value="0.3302083333333333" />
+        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/layout/activity_community.xml" value="0.3302083333333333" />
+        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/layout/activity_detail.xml" value="0.3302083333333333" />
+        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/layout/activity_home.xml" value="0.16058763931104356" />
+        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/layout/activity_main.xml" value="0.315625" />
+        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/layout/activity_setting.xml" value="0.3302083333333333" />
+        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/layout/activity_table.xml" value="0.3302083333333333" />
+        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/layout/food_item.xml" value="0.3302083333333333" />
+        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/layout/food_list.xml" value="0.315625" />
+        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/menu/bottom_menu.xml" value="0.3302083333333333" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.315625" />
+      </ProjectState>
+    </option>
+  </component>
+</project>
