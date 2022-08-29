@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1076429461340",
+    "project_id": "foodguide-f5be6",
+    "storage_bucket": "foodguide-f5be6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076429461340:android:648b5038a815aa8f38d399",
+        "android_client_info": {
+          "package_name": "com.dofury.foodguide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076429461340-rr9u8qpdid7962hvbu644nj6c6b9ovqd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSWdm3LrAbtgZTeMmmU4gkFZBT0cm39ac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1076429461340-rr9u8qpdid7962hvbu644nj6c6b9ovqd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
