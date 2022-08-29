@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_vertical"
+    android:background="#c29967"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/da"
+        android:layout_alignParentLeft="true"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@drawable/ic_baseline_museum_24"/>
+
+    <ImageButton
+        android:id="@+id/da2"
+        android:layout_alignParentRight="true"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@drawable/ic_baseline_museum_24"/>
+
+
+
+
+</RelativeLayout>

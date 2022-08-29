@@ -6,7 +6,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,20 +27,26 @@ public class Activity extends AppCompatActivity {
     private Community community;
     private Setting setting;
     private Food fd;
+    // 확인할 권한 목록
+    String [] permission_list = {
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_background);
-
         bottomNavigationView = findViewById(R.id.bottomNavi);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.action_main:
+                    case R.id.action_write:
                         setMenu(0);
                         break;
-                    case R.id.action_table:
+                    case R.id.action_profile:
                         setMenu(1);
                         break;
                     case R.id.action_community:
@@ -55,6 +65,28 @@ public class Activity extends AppCompatActivity {
         setting = new Setting();
         setMenu(0); //첫 메뉴 화면을 무엇을 지정해줄 것인지 선택.
         //세이브선//
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            requestPermissions(permission_list, 0);
+        } else {
+            init();
+        }
+        // init();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        for(int result: grantResults){
+            if(result == PackageManager.PERMISSION_DENIED){
+                return;
+            }
+            init();
+        }
+    }
+
+    private void init(){
+        String tempPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        String dirPath = tempPath + "/Android/data/" + getPackageName();
     }
     //메뉴내에서 탭교체 함수
     private void setMenu(int n) {

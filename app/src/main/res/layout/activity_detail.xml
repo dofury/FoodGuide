@@ -6,13 +6,21 @@
     android:orientation="vertical"
     tools:context=".DetailFood">
 
+    <ImageButton
+        android:id="@+id/food_detail_write"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@android:drawable/ic_menu_edit" />
     <TextView
         android:id="@+id/food_detail_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:gravity="center"
-        android:text="음식이름"
+        android:text="미등록"
         android:textColor="#000"
         android:textSize="50sp" />
 
@@ -22,15 +30,6 @@
         android:id="@+id/food_detail_image"
         android:layout_marginTop="30dp"
         android:layout_gravity="center"/>
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text = "사진 업로드"
-        android:layout_marginTop="30dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:id="@+id/viewButton"/>
 
 </LinearLayout>
 

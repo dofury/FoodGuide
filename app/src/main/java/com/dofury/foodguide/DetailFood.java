@@ -1,37 +1,26 @@
 package com.dofury.foodguide;
 
-import static android.app.Activity.RESULT_OK;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class DetailFood extends Fragment {
     Food selectedFood;
     View view;
     ImageView imageView;
-    Button selectImageBtn;
+    ImageButton selectImageBtn;
     Uri uri;
-
     public static DetailFood newInstance(){
         return new DetailFood();
     }
@@ -43,7 +32,8 @@ public class DetailFood extends Fragment {
         getSelectedFood(); //선택한 음식정보 가져오기
 
         setValues(); //가져온 정보 화면에 보여주기
-        viewImage(); //이미지 구현 함수
+        write();
+        //viewImage(); //이미지 구현 함수
         return view;
     }
     private void setValues(){
@@ -59,7 +49,17 @@ public class DetailFood extends Fragment {
         Bundle bundle = getArguments();
         selectedFood = bundle.getParcelable("ClickedFood");
     }
-    private void viewImage(){
+    private void write(){
+        selectImageBtn = view.findViewById(R.id.food_detail_write);
+        selectImageBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View arg0){
+                ((Activity)getActivity()).setFrag(FoodWrite.newInstance());
+            }
+        });
+
+    }
+/*    private void viewImage(){
         selectImageBtn = view.findViewById(R.id.viewButton);
 
         selectImageBtn.setOnClickListener(new View.OnClickListener(){
@@ -71,8 +71,8 @@ public class DetailFood extends Fragment {
                 startActivityResult.launch(intent);
             }
         });
-    }
-    ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
+    }*/
+/*    ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
@@ -91,5 +91,5 @@ public class DetailFood extends Fragment {
                         }
                     }
                 }
-            });
+            });*/
 }

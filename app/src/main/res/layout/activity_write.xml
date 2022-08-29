@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DetailFood">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:id="@+id/write_camera"
+            android:src="@android:drawable/ic_menu_camera" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/write_gallery"
+            android:src="@android:drawable/ic_menu_gallery" />
+    </LinearLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:id="@+id/write_image"
+        android:layout_height="300dp">
+
+    </ImageView>
+    <EditText
+        android:id="@+id/food_write_text"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/write_upload"
+        android:src="@android:drawable/ic_menu_upload" />
+
+
+</LinearLayout>
+
