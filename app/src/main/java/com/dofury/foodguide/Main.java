@@ -12,11 +12,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class Main extends Fragment implements TextSetAble{
     private View view;
     SearchView searchView;
+    private FirebaseDatabase firebaseDatabase;
     String preFrag;
     public static Main newInstance(){
         return new Main();
