@@ -117,7 +117,6 @@ public class EditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()) {
-                            // 데이터베이스 삭제가 안됨 나중에 다시 해봄
                             databaseReference.child("FoodGuide").child("UserAccount").child(userAccount.getIdToken()).removeValue();
                             firebaseUser.delete();
                             Toast.makeText(EditProfileActivity.this, "탈퇴가 완료되었습니다.", Toast.LENGTH_SHORT).show();
