@@ -2,6 +2,7 @@ package com.dofury.foodguide;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,7 @@ public class Setting extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -105,6 +107,13 @@ public class Setting extends Fragment {
     }
 
     void logout() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("preFile", 0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("auto_login", false);
+        editor.putString("auto_id", null);
+        editor.putString("auto_pw", null);
+        editor.commit();
+
         firebaseAuth.signOut();
         Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);
