@@ -81,7 +81,8 @@ public class Setting extends Fragment {
     }
 
     void editProfile() {
-
+        Intent intent = new Intent(getContext(), EditProfileActivity.class);
+        startActivity(intent);
     }
 
     void changePw() {

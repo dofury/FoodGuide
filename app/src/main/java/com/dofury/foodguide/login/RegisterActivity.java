@@ -75,16 +75,16 @@ public class RegisterActivity extends AppCompatActivity{
                 if(task.isSuccessful()) {
                     // 데이터베이스 연동에 성공하여 로그인이 성공함
                     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                    UserAccount userAccount = new UserAccount();
+                    UserAccount userAccount = UserAccount.getInstance();
                     userAccount.setIdToken(firebaseUser.getUid());
                     // setEmail에는 연동된 이메일을 set
                     userAccount.setEmail(firebaseUser.getEmail());
-                    userAccount.setPw(pw);
                     userAccount.setNickname(nickname);
 
                     // 데이터 베이스 삽입
                     databaseReference.child("UserAccount").child(firebaseUser.getUid()).setValue(userAccount);
                     Toast.makeText(RegisterActivity.this, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show();
+                    onBackPressed();
                 } else {
                     Toast.makeText(RegisterActivity.this, "회원가입에 실패했습니다", Toast.LENGTH_SHORT).show();
                 }
