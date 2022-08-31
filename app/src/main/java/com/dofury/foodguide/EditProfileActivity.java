@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -116,11 +117,16 @@ public class EditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()) {
-                            // 데이터베이스 삭제가 안됨 나중에 다시 해봄
-                            databaseReference = FirebaseDatabase.getInstance().getReference();
-                            databaseReference.child("UserAccount").child(userAccount.getIdToken()).removeValue();
+                            databaseReference.child("FoodGuide").child("UserAccount").child(userAccount.getIdToken()).removeValue();
                             firebaseUser.delete();
                             Toast.makeText(EditProfileActivity.this, "탈퇴가 완료되었습니다.", Toast.LENGTH_SHORT).show();
+
+                            SharedPreferences sharedPreferences = getSharedPreferences("preFile", 0);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putBoolean("auto_login", false);
+                            editor.putString("auto_id", null);
+                            editor.putString("auto_pw", null);
+                            editor.commit();
 
                             PackageManager packageManager = getPackageManager();
                             Intent intent = packageManager.getLaunchIntentForPackage(getPackageName());

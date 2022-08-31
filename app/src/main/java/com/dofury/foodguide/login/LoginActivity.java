@@ -2,13 +2,17 @@ package com.dofury.foodguide.login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.PagerTabStrip;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dofury.foodguide.Activity;
@@ -33,12 +37,17 @@ public class LoginActivity extends AppCompatActivity{
     private DatabaseReference databaseReference;    // 실시간 데이터베이스
 
     private EditText et_email, et_pw;
-    private Button btn_login, btn_register;
+    private Button btn_login;
+    private TextView tv_register;
+    private Switch swch_auto_login;
 
+    private SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        sharedPreferences = getSharedPreferences("preFile", 0);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -48,33 +57,50 @@ public class LoginActivity extends AppCompatActivity{
         et_email = findViewById(R.id.et_email);
         et_pw = findViewById(R.id.et_pw);
 
+        swch_auto_login = findViewById(R.id.swch_auto_login);
+        swch_auto_login.setChecked(sharedPreferences.getBoolean("auto_login", false));
+
         //
 
         btn_login = findViewById(R.id.btn_login);
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login();
+                login(0);
             }
         });
 
 
-        btn_register = findViewById(R.id.btn_register);
-        btn_register.setOnClickListener(new View.OnClickListener() {
+        tv_register = findViewById(R.id.tv_register);
+        tv_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 register();
             }
         });
+
+        // 자동로그인 체크였을 시 자동으로 로그인됨
+        if(sharedPreferences.getBoolean("auto_login", false)) {
+            login(1);
+        }
     }
 
-    private void login() {
-        String email = et_email.getText().toString();
-        String pw = et_pw.getText().toString();
+    private void login(int type) {
+        String email;
+        String pw;
 
-        if(email.isEmpty() || pw.isEmpty()) {
-            Toast.makeText(LoginActivity.this, "입력되지 않은 데이터가 있습니다", Toast.LENGTH_SHORT).show();
-            return;
+        if(type == 1) {
+            email = sharedPreferences.getString("auto_id", "");
+            pw = sharedPreferences.getString("auto_pw", "");
+
+        } else {
+            email = et_email.getText().toString();
+            pw = et_pw.getText().toString();
+
+            if(email.isEmpty() || pw.isEmpty()) {
+                Toast.makeText(LoginActivity.this, "입력되지 않은 데이터가 있습니다", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
 
         firebaseAuth.signInWithEmailAndPassword(email, pw).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
@@ -101,6 +127,22 @@ public class LoginActivity extends AppCompatActivity{
                             Toast.makeText(LoginActivity.this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
                         }
                     });
+
+                    // 자동 로그인 설정
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    Boolean auto_flag = swch_auto_login.isChecked();
+                    if(auto_flag) {
+                        editor.putBoolean("auto_login", true);
+                        editor.putString("auto_id", email);
+                        editor.putString("auto_pw", pw);
+                        editor.commit();
+                    } else {
+                        editor.putBoolean("auto_login", false);
+                        editor.putString("auto_id", null);
+                        editor.putString("auto_pw", null);
+                        editor.commit();
+                    }
+
                     // 로그인 성공했으니 로그인 액티비티는 제거
                     finish();
                 } else {
@@ -115,4 +157,5 @@ public class LoginActivity extends AppCompatActivity{
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
     }
+
 }
