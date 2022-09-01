@@ -80,8 +80,8 @@ public class RegisterActivity extends AppCompatActivity{
                     // setEmail에는 연동된 이메일을 set
                     userAccount.setEmail(firebaseUser.getEmail());
                     userAccount.setNickname(nickname);
-                    userAccount.setProfile(null);
-                    userAccount.setProfileNet(null);
+                    userAccount.setProfile("null");
+                    userAccount.setProfileM("null");
 
                     // 데이터 베이스 삽입
                     databaseReference.child("UserAccount").child(firebaseUser.getUid()).setValue(userAccount);

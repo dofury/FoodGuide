@@ -10,7 +10,7 @@ public class UserAccount {
     private String email;
     private String nickname;
     private String profile;
-    private String profileNet;
+    private String profileM;
 
     private static final UserAccount singleton = new UserAccount();
 
@@ -30,12 +30,12 @@ public class UserAccount {
         this.profile = profile;
     }
 
-    public String getProfileNet() {
-        return profileNet;
+    public String getProfileM() {
+        return profileM;
     }
 
-    public void setProfileNet(String profileNet) {
-        this.profileNet = profileNet;
+    public void setProfileM(String profileM) {
+        this.profileM = profileM;
     }
 
     public String getIdToken() {
@@ -68,6 +68,8 @@ public class UserAccount {
         result.put("idToken", idToken);
         result.put("email", email);
         result.put("nickname", nickname);
+        result.put("profile", profile);
+        result.put("profileM", profileM);
 
         return result;
     }

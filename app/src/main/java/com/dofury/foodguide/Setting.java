@@ -89,8 +89,8 @@ public class Setting extends Fragment {
         super.onResume();
         UserAccount userAccount = UserAccount.getInstance();
         tv_nickname.setText(userAccount.getNickname());
-        if(userAccount.getProfile() != null) {
-            Glide.with(circleImageView).load(userAccount.getProfile());
+        if(!userAccount.getProfile().equals("null")) {
+            Glide.with(requireContext()).load(userAccount.getProfileM()).into(circleImageView);
         }
     }
 
