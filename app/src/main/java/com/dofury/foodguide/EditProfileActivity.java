@@ -33,10 +33,10 @@ import java.util.Map;
 
 public class EditProfileActivity extends AppCompatActivity {
 
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-    private UserAccount userAccount = UserAccount.getInstance();
+    private final UserAccount userAccount = UserAccount.getInstance();
     private EditText et_nickname, et_email;
     private Button btn_save, btn_delete;
 
@@ -85,7 +85,7 @@ public class EditProfileActivity extends AppCompatActivity {
         String key = userAccount.getIdToken();
         Map<String, Object> postValues = userAccount.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/FoodGuide/UserAccount/" + key, postValues);;
+        childUpdates.put("/FoodGuide/UserAccount/" + key, postValues);
         databaseReference.updateChildren(childUpdates);
         firebaseUser.updateEmail(email);
 

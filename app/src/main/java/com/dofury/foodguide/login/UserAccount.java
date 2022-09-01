@@ -9,8 +9,10 @@ public class UserAccount {
     private String idToken;
     private String email;
     private String nickname;
+    private String profile;
+    private String profileNet;
 
-    private static UserAccount singleton = new UserAccount();
+    private static final UserAccount singleton = new UserAccount();
 
     private UserAccount() {
         // 파이어베이스는 빈 생성자나 혹은 다른 생성자를 미리 만들어 놔야함
@@ -20,6 +22,21 @@ public class UserAccount {
         return singleton;
     }
 
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    public String getProfileNet() {
+        return profileNet;
+    }
+
+    public void setProfileNet(String profileNet) {
+        this.profileNet = profileNet;
+    }
 
     public String getIdToken() {
         return idToken;

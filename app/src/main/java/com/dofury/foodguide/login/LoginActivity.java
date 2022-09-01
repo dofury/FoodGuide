@@ -121,6 +121,8 @@ public class LoginActivity extends AppCompatActivity{
                             userAccount.setIdToken(dataSnapshot.getValue(UserAccount.class).getIdToken());
                             userAccount.setEmail(dataSnapshot.getValue(UserAccount.class).getEmail());
                             userAccount.setNickname(dataSnapshot.getValue(UserAccount.class).getNickname());
+                            userAccount.setProfile(dataSnapshot.getValue(UserAccount.class).getProfile());
+                            userAccount.setProfileNet(dataSnapshot.getValue(UserAccount.class).getProfileNet());
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {

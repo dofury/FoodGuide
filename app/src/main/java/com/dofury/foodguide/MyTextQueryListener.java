@@ -4,7 +4,7 @@ package com.dofury.foodguide;
 import androidx.appcompat.widget.SearchView;
 
 public class MyTextQueryListener implements SearchView.OnQueryTextListener {
-    private TextSetAble iPostSearchProcedure;
+    private final TextSetAble iPostSearchProcedure;
     public MyTextQueryListener(TextSetAble text) {
         this.iPostSearchProcedure = text;
     }

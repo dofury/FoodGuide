@@ -100,10 +100,6 @@ public class ChangePwActivity extends AppCompatActivity {
         Matcher matcher = pattern.matcher(pw);
 
         if(pw.contains(" ")) return false;
-        else if(!matcher.find()){
-            return false;
-        }
-
-        return true;
+        else return matcher.find();
     }
 }
