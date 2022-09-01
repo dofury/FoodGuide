@@ -21,7 +21,7 @@ public class Table extends Fragment {
     View view;
     ImageView imageView;
     Food selectedFood;
-    String preFrag = "dd";
+    String preFrag = "table";
     Bundle bundle;
     private ViewGroup mainLayout;
     private int xDelta;
@@ -52,21 +52,18 @@ public class Table extends Fragment {
         if(bundle != null)
             preFrag = bundle.getString("preFrag");
 
+        mainLayout = (LinearLayout) view.findViewById(R.id.main);
+        imageView = view.findViewById(R.id.appetizer_image);
+        imageView.setOnTouchListener(onTouchListener());
         switch (preFrag) {
             case "foodlist":
                 selectFood();
                 getSelectedFood();
                 setValues();
-                preFrag = "";
                 break;
             default:
-                selectFood();
-                preFrag = "";
                 break;
         }
-        mainLayout = (LinearLayout) view.findViewById(R.id.main);
-        imageView = view.findViewById(R.id.appetizer_image);
-        imageView.setOnTouchListener(onTouchListener());
         return view;
     }
     private View.OnTouchListener onTouchListener() {
@@ -86,8 +83,7 @@ public class Table extends Fragment {
                         break;
 
                     case MotionEvent.ACTION_UP:
-                        Toast.makeText(getActivity(), " I'm here", Toast.LENGTH_SHORT)
-                                .show();
+                        ((Activity)getActivity()).setFrag(FoodList.newInstance("table"));
                         break;
 
                     case MotionEvent.ACTION_MOVE:
