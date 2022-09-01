@@ -89,6 +89,7 @@ public class LoginActivity extends AppCompatActivity{
         String email;
         String pw;
 
+
         if(type == 1) {
             email = sharedPreferences.getString("auto_id", "");
             pw = sharedPreferences.getString("auto_pw", "");
@@ -98,6 +99,7 @@ public class LoginActivity extends AppCompatActivity{
             pw = et_pw.getText().toString();
 
             if(email.isEmpty() || pw.isEmpty()) {
+                Log.d("112", "입력안된친구있음");
                 Toast.makeText(LoginActivity.this, "입력되지 않은 데이터가 있습니다", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -121,6 +123,8 @@ public class LoginActivity extends AppCompatActivity{
                             userAccount.setIdToken(dataSnapshot.getValue(UserAccount.class).getIdToken());
                             userAccount.setEmail(dataSnapshot.getValue(UserAccount.class).getEmail());
                             userAccount.setNickname(dataSnapshot.getValue(UserAccount.class).getNickname());
+                            userAccount.setProfile(dataSnapshot.getValue(UserAccount.class).getProfile());
+                            userAccount.setProfileM(dataSnapshot.getValue(UserAccount.class).getProfileM());
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -146,6 +150,7 @@ public class LoginActivity extends AppCompatActivity{
                     // 로그인 성공했으니 로그인 액티비티는 제거
                     finish();
                 } else {
+
                     Toast.makeText(LoginActivity.this, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show();
                 }
             }

@@ -148,7 +148,7 @@ public class FoodList extends Fragment{
                 Bundle bundle = new Bundle();
                 DetailFood detailFood = new DetailFood();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                bundle.putParcelable("ClickedFood",(Parcelable)selectFood);
+                bundle.putParcelable("ClickedFood", selectFood);
                 detailFood.setArguments(bundle);
                 transaction.replace(R.id.main_frame, detailFood);
                 transaction.commit();
@@ -167,7 +167,7 @@ public class FoodList extends Fragment{
                 Table table = new Table();
                 preFrag = "foodlist";
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                bundle.putParcelable("foodlist", (Parcelable) selectFood);
+                bundle.putParcelable("foodlist", selectFood);
                 bundle.putString("preFrag",preFrag);
                 table.setArguments(bundle);
                 transaction.replace(R.id.main_frame, table);

@@ -80,6 +80,8 @@ public class RegisterActivity extends AppCompatActivity{
                     // setEmail에는 연동된 이메일을 set
                     userAccount.setEmail(firebaseUser.getEmail());
                     userAccount.setNickname(nickname);
+                    userAccount.setProfile("null");
+                    userAccount.setProfileM("null");
 
                     // 데이터 베이스 삽입
                     databaseReference.child("UserAccount").child(firebaseUser.getUid()).setValue(userAccount);
@@ -97,10 +99,6 @@ public class RegisterActivity extends AppCompatActivity{
         Matcher matcher = pattern.matcher(pw);
 
         if(pw.contains(" ")) return false;
-        else if(!matcher.find()){
-            return false;
-        }
-
-        return true;
+        else return matcher.find();
     }
 }
