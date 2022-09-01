@@ -1,17 +1,13 @@
 package com.dofury.foodguide;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,11 +17,8 @@ public class Table extends Fragment {
     View view;
     ImageView imageView;
     Food selectedFood;
-    String preFrag = "table";
+    String preFrag = "dd";
     Bundle bundle;
-    private ViewGroup mainLayout;
-    private int xDelta;
-    private int yDelta;
     Food testA;
 
 
@@ -52,55 +45,19 @@ public class Table extends Fragment {
         if(bundle != null)
             preFrag = bundle.getString("preFrag");
 
-        mainLayout = (LinearLayout) view.findViewById(R.id.main);
-        imageView = view.findViewById(R.id.appetizer_image);
-        imageView.setOnTouchListener(onTouchListener());
         switch (preFrag) {
             case "foodlist":
                 selectFood();
                 getSelectedFood();
                 setValues();
+                preFrag = "";
                 break;
             default:
+                selectFood();
+                preFrag = "";
                 break;
         }
         return view;
-    }
-    private View.OnTouchListener onTouchListener() {
-        return (view, event) -> {
-
-                final int x = (int) event.getRawX();
-                final int y = (int) event.getRawY();
-
-                switch (event.getAction() & MotionEvent.ACTION_MASK) {
-
-                    case MotionEvent.ACTION_DOWN:
-                        LinearLayout.LayoutParams lParams = (LinearLayout.LayoutParams)
-                                view.getLayoutParams();
-
-                        xDelta = x - lParams.leftMargin;
-                        yDelta = y - lParams.topMargin;
-                        break;
-
-                    case MotionEvent.ACTION_UP:
-                        ((Activity)getActivity()).setFrag(FoodList.newInstance("table"));
-                        break;
-
-                    case MotionEvent.ACTION_MOVE:
-                        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) view.getLayoutParams();
-                        layoutParams.leftMargin = x - xDelta;
-                        layoutParams.topMargin = y - yDelta;
-                        layoutParams.rightMargin = 0;
-                        layoutParams.bottomMargin = 0;
-                        view.setLayoutParams(layoutParams);
-                        break;
-                }
-
-                mainLayout.invalidate();
-                return true;
-
-
-        };
     }
     private void selectFood(){
         imageView = view.findViewById(R.id.appetizer_image);
