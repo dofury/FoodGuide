@@ -93,7 +93,7 @@ public class Setting extends Fragment {
     }
 
     void help() {
-
+    //di
     }
 
     void inquiry() {
