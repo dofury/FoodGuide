@@ -134,15 +134,18 @@ public class EditProfileActivity extends AppCompatActivity {
         userAccount.setNickname(nickname);
         userAccount.setEmail(email);
 
-        storageReference.child(userAccount.getIdToken()).child("Profile").child("profile.png").putFile(uri);
-        storageReference.child(userAccount.getIdToken()).child("Profile/profile.png").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri u) {
-                userAccount.setProfile(u.toString());
-            }
-        });
-        // 내부 사진 경로가 바뀌면 사진도 바뀜 그러니 이거 나중에 디풀더 만들어서 고쳐야함
-        userAccount.setProfileM(uri.toString());
+        if(uri != null)
+        {
+            storageReference.child(userAccount.getIdToken()).child("Profile").child("profile.png").putFile(uri);
+            storageReference.child(userAccount.getIdToken()).child("Profile/profile.png").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri u) {
+                    userAccount.setProfile(u.toString());
+                }
+            });
+            // 내부 사진 경로가 바뀌면 사진도 바뀜 그러니 이거 나중에 디풀더 만들어서 고쳐야함
+            userAccount.setProfileM(uri.toString());
+        }
 
         String key = userAccount.getIdToken();
         Map<String, Object> postValues = userAccount.toMap();
