@@ -2,27 +2,38 @@ package com.dofury.foodguide.community;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Registry;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
 import com.dofury.foodguide.R;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.InputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
 public class CommunityReadActivity extends AppCompatActivity {
     private TextView tv_title, tv_nickname, tv_date, tv_date_, tv_content;
     private EditText et_reply;
@@ -65,11 +76,21 @@ public class CommunityReadActivity extends AppCompatActivity {
                     tv_date.setText(communityDAO.getData());
                     tv_date_.setText(communityDAO.getData_());
                     tv_content.setText(communityDAO.getContent());
+
+                    if(communityDAO.getImage() != null) {
+                        Glide.with(CommunityReadActivity.this).load(communityDAO.getImage()).into(iv_image);
+                    } else {
+                        iv_image.setVisibility(View.GONE);
+                    }
+
                 }
             }
         });
 
-
-
     }
+
+
+
+
 }
+

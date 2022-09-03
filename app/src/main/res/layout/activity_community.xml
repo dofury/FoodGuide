@@ -41,11 +41,11 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:paddingHorizontal="20dp"
+        android:paddingHorizontal="31dp"
         android:id="@+id/rv_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="110dp"
         tools:listitem="@layout/custom_item_community"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 

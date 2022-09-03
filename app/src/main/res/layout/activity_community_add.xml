@@ -59,11 +59,11 @@
         app:layout_constraintTop_toBottomOf="@id/tv_content" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+
+        android:id="@+id/iv_image"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_marginTop="10dp"
-        android:src="@drawable/ic_baseline_person_24"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_content" />
@@ -82,7 +82,6 @@
         app:layout_constraintTop_toTopOf="@+id/btn_save" />
 
     <Button
-
         android:id="@+id/btn_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -92,6 +91,8 @@
         android:text="저장"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/et_content"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_image" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

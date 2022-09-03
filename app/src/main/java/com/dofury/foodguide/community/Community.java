@@ -68,7 +68,7 @@ public class Community extends Fragment {
                 communityDAOList.clear();
                 for(DataSnapshot dataSnapshot : task.getResult().getChildren()) {
                     CommunityDAO communityDAO = dataSnapshot.getValue(CommunityDAO.class);
-                    communityDAOList.add(communityDAO);
+                    communityDAOList.add(0, communityDAO);
                 }
                 CommunityAdapter communityAdapter = new CommunityAdapter(communityDAOList, getContext());
                 rv_list.setHasFixedSize(true);
