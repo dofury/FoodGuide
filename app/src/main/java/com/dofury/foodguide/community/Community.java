@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dofury.foodguide.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,7 +35,6 @@ public class Community extends Fragment {
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
     private List<CommunityDAO> communityDAOList = new ArrayList<>();
     private RecyclerView rv_list;
-    private CommunityAdapter communityAdapter;
 
     @Nullable
     @Override
@@ -56,33 +57,26 @@ public class Community extends Fragment {
                 startActivity(intent);
             }
         });
-        loadDatabase();
-        communityAdapter = new CommunityAdapter(communityDAOList, requireContext());
-        rv_list.setHasFixedSize(true);
 
-        rv_list.addItemDecoration(new DividerItemDecoration(view.getContext(), 1));
-        rv_list.setAdapter(communityAdapter);
+        loadDatabase();
     }
 
     private void loadDatabase() {
-        databaseReference.child("Community").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("Community").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
                 communityDAOList.clear();
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                for(DataSnapshot dataSnapshot : task.getResult().getChildren()) {
                     CommunityDAO communityDAO = dataSnapshot.getValue(CommunityDAO.class);
-                    Log.d("__FoodGuide__", communityDAO.toString());
                     communityDAOList.add(communityDAO);
                 }
-                communityAdapter.notifyDataSetChanged();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("__FoodGuide__", "데이터 불러오기 error");
+                CommunityAdapter communityAdapter = new CommunityAdapter(communityDAOList, getContext());
+                rv_list.setHasFixedSize(true);
+                rv_list.addItemDecoration(new DividerItemDecoration(getContext(), 1));
+                rv_list.setAdapter(communityAdapter);
             }
         });
     }
-
 
     @Override
     public void onResume() {

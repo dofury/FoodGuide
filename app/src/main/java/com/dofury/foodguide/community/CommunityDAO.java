@@ -11,6 +11,7 @@ public class CommunityDAO {
     Boolean delete;
     String data;
     String data_;
+    String cUid;
 
     public String getReply() {
         return reply;
@@ -23,7 +24,7 @@ public class CommunityDAO {
     public CommunityDAO() {
     }
 
-    public CommunityDAO(String title, String uid, String nickname, String content, String likes, String image, String reply, Boolean delete, String data, String data_) {
+    public CommunityDAO(String title, String uid, String nickname, String content, String likes, String image, String reply, Boolean delete, String data, String data_, String cUid) {
         this.title = title;
         this.uid = uid;
         this.nickname = nickname;
@@ -34,6 +35,15 @@ public class CommunityDAO {
         this.delete = delete;
         this.data = data;
         this.data_ = data_;
+        this.cUid = cUid;
+    }
+
+    public String getcUid() {
+        return cUid;
+    }
+
+    public void setcUid(String cUid) {
+        this.cUid = cUid;
     }
 
     public String getData() {

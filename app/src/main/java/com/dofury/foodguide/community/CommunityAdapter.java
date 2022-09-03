@@ -1,6 +1,7 @@
 package com.dofury.foodguide.community;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,8 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         if(communityDAO.getImage() != null) {
             Glide.with(context).load(communityDAO.getImage()).into(holder.iv_image);
         }
-        
+
+
 
     }
 
@@ -90,6 +92,16 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
             iv_image = itemView.findViewById(R.id.iv_image);
             tgb_like = itemView.findViewById(R.id.tgb_like);
             tv_time = itemView.findViewById(R.id.tv_time);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    CommunityDAO communityDAO = communityDAOList.get(getAdapterPosition());
+                    Intent intent = new Intent(context, CommunityReadActivity.class);
+                    intent.putExtra("id", communityDAO.getcUid());
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }

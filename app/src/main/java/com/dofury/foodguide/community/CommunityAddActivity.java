@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -61,9 +62,10 @@ public class CommunityAddActivity extends AppCompatActivity {
             return;
         }
 
+        String key = databaseReference.child("Community").push().getKey();
         CommunityDAO communityDAO = new CommunityDAO(title, userAccount.getIdToken(), userAccount.getNickname(), content,
-                null, image, null, false, time, time);
-        databaseReference.child("Community").push().setValue(communityDAO).addOnCompleteListener(new OnCompleteListener<Void>() {
+                null, image, null, false, time, time, key);
+        databaseReference.child("Community").child(key).setValue(communityDAO).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()) {

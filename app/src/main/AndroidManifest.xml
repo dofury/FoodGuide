@@ -9,15 +9,18 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodGuide"
+        android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity
+            android:name=".community.CommunityReadActivity"
+            android:exported="false" />
         <activity
             android:name=".community.CommunityAddActivity"
             android:exported="false" />
