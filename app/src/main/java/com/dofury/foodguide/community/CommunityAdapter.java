@@ -12,23 +12,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.dofury.foodguide.Community;
 import com.dofury.foodguide.R;
 import com.dofury.foodguide.login.UserAccount;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.ViewHolder> {
-    private CommunityDAO communityDAO;
     private Context context;
     private UserAccount userAccount = UserAccount.getInstance();
-    public CommunityAdapter(List<CommunityDAO> communityDAOList, Context context, int i) {
-        this.communityDAO = communityDAOList.get(i);
-        this.context = context;
+    private List<CommunityDAO> communityDAOList;
 
+    public CommunityAdapter(List<CommunityDAO> communityDAOList, Context context) {
+        this.context = context;
+        this.communityDAOList = communityDAOList;
     }
 
     @NonNull
@@ -40,13 +40,19 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull CommunityAdapter.ViewHolder holder, int position) {
+        CommunityDAO communityDAO = communityDAOList.get(position);
         holder.tv_title.setText(communityDAO.getTitle());
-        holder.tv_nickname.setText(communityDAO.getTitle());
-        holder.tv_content.setText(communityDAO.getTitle());
-        
+        holder.tv_nickname.setText(communityDAO.getNickname());
+        holder.tv_content.setText(communityDAO.getContent());
+        holder.tv_time.setText(communityDAO.getData());
         // 좋아요 누른 사람들의 닉네임을 List에 넣음
-        List<String> likes = new Gson().fromJson(communityDAO.getLikes(), new TypeToken<List<String>>(){}.getType());
-        holder.tv_like.setText(likes.size());
+        List<String> likes = new ArrayList<>();
+        if(communityDAO.getLikes() != null) {
+            likes = new Gson().fromJson(communityDAO.getLikes(), new TypeToken<List<String>>(){}.getType());
+            holder.tv_like.setText(likes.size());
+        }
+
+
         
         // 일단 false 하고 자기 닉네임이 있으면 true
         holder.tgb_like.setChecked(false);
@@ -67,11 +73,11 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
 
     @Override
     public int getItemCount() {
-        return 0;
+        return communityDAOList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_title, tv_nickname, tv_content, tv_like;
+        private TextView tv_title, tv_nickname, tv_content, tv_like, tv_time;
         private ImageView iv_image;
         private ToggleButton tgb_like;
 
@@ -83,6 +89,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
             tv_like = itemView.findViewById(R.id.tv_like);
             iv_image = itemView.findViewById(R.id.iv_image);
             tgb_like = itemView.findViewById(R.id.tgb_like);
+            tv_time = itemView.findViewById(R.id.tv_time);
         }
     }
 }

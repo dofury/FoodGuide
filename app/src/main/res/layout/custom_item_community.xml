@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/custom_bg_gray_box"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="#FFF6DE">
 
     <TextView
-        android:layout_marginStart="10sp"
+        android:layout_marginStart="5sp"
         android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,58 +19,71 @@
         android:text="제목"/>
 
     <ImageView
-        android:layout_marginTop="10dp"
         android:id="@+id/iv_image"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:src="@drawable/ic_baseline_person_24"
+        android:visibility="gone"
+        android:layout_marginStart="5dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_content"
+        app:layout_constraintTop_toTopOf="@+id/tv_content" />
+
+    <TextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="닉네임"
+        android:textColor="#707070"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
     <TextView
-        android:layout_marginTop="10dp"
+        android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_nickname"
-        android:text="닉네임"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/iv_image"
-        app:layout_constraintStart_toStartOf="@id/tv_title"
-        android:textColor="@color/black"/>
+        android:text="2000-05-00"
+        android:layout_marginTop="5dp"
+        android:textColor="#707070"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/tgb_like"
+        app:layout_constraintTop_toBottomOf="@+id/tgb_like" />
 
     <TextView
+        android:id="@+id/tv_like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_like"
-        android:text="15"
+        android:layout_marginEnd="5dp"
+        android:text="0"
+        android:textColor="#B7000000"
+        android:textSize="15sp"
         app:layout_constraintEnd_toStartOf="@+id/tgb_like"
-        app:layout_constraintTop_toTopOf="@id/tv_nickname"
-        android:layout_marginEnd="10dp"
-        android:textSize="20sp"
-        android:textColor="@color/black"/>
+        app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
     <ToggleButton
         android:id="@+id/tgb_like"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginEnd="10dp"
+        android:backgroundTint="#B7000000"
         android:background="@drawable/custon_tgb_favorites"
         android:textOff=""
         android:textOn=""
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_nickname" />
+        app:layout_constraintTop_toTopOf="@+id/tv_like" />
 
     <TextView
         android:id="@+id/tv_content"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
+        android:layout_width="295dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="5dp"
         android:text="글의 내용"
         android:textColor="@color/black"
+        android:textSize="13sp"
         app:layout_constraintStart_toStartOf="@+id/tv_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_nickname"
-        android:textSize="15sp"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_nickname" />
 
 
 

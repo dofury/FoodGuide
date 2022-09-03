@@ -13,8 +13,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.MenuItem;
 
+import com.dofury.foodguide.community.Community;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabLayout;
 
 
 public class Activity extends AppCompatActivity {

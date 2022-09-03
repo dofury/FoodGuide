@@ -1,7 +1,6 @@
 package com.dofury.foodguide.community;
 
 public class CommunityDAO {
-    String id;
     String title;
     String uid;
     String nickname;
@@ -10,6 +9,8 @@ public class CommunityDAO {
     String image;
     String reply;
     Boolean delete;
+    String data;
+    String data_;
 
     public String getReply() {
         return reply;
@@ -22,16 +23,45 @@ public class CommunityDAO {
     public CommunityDAO() {
     }
 
+    public CommunityDAO(String title, String uid, String nickname, String content, String likes, String image, String reply, Boolean delete, String data, String data_) {
+        this.title = title;
+        this.uid = uid;
+        this.nickname = nickname;
+        this.content = content;
+        this.likes = likes;
+        this.image = image;
+        this.reply = reply;
+        this.delete = delete;
+        this.data = data;
+        this.data_ = data_;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getData_() {
+        return data_;
+    }
+
+    public void setData_(String data_) {
+        this.data_ = data_;
+    }
+
     public String getTitle() {
         return title;
     }
 
-    public String getId() {
-        return id;
+    public Boolean getDelete() {
+        return delete;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     public void setTitle(String title) {
