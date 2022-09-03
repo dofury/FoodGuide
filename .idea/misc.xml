@@ -3,17 +3,36 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_detail.xml" value="0.31302083333333336" />
-        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_edit_profile.xml" value="0.31302083333333336" />
-        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_login.xml" value="0.31302083333333336" />
-        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_main.xml" value="0.31302083333333336" />
-        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_table.xml" value="0.31302083333333336" />
-        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/custom_delete_dialog.xml" value="0.31302083333333336" />
-        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/food_item.xml" value="0.31302083333333336" />
-        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/food_list.xml" value="0.31302083333333336" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.348" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/drawable/ic_baseline_house_24.xml" value="0.348" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/drawable/ic_baseline_language_24.xml" value="0.348" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/drawable/ic_baseline_local_dining_24.xml" value="0.348" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/drawable/ic_baseline_museum_24.xml" value="0.348" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/drawable/ic_baseline_notes_24.xml" value="0.348" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/drawable/ic_baseline_power_input_24.xml" value="0.348" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.348" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/drawable/ic_baseline_security_24.xml" value="0.348" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.348" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.348" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/drawable/ic_launcher_background.xml" value="0.348" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/layout/activity_actionbar.xml" value="0.6336050724637681" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/layout/activity_background.xml" value="0.3097771023302938" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/layout/activity_community.xml" value="0.6336050724637681" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/layout/activity_detail.xml" value="0.3097771023302938" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/layout/activity_edit_profile.xml" value="0.6336050724637681" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/layout/activity_main.xml" value="0.6336050724637681" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/layout/activity_register.xml" value="0.3097771023302938" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/layout/activity_setting.xml" value="0.3097771023302938" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/layout/activity_write.xml" value="0.3097771023302938" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/layout/custom_delete_dialog.xml" value="0.6336050724637681" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/layout/fragment_food_detail_page1.xml" value="0.6336050724637681" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/layout/fragment_food_detail_page2.xml" value="0.6336050724637681" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/layout/fragment_food_detail_page3.xml" value="0.6336050724637681" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/layout/fragment_page1.xml" value="0.6336050724637681" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/layout/fragment_page2.xml" value="0.6336050724637681" />
+        <entry key="..\:/Users/dofury/StudioProjects/FoodGuide/app/src/main/res/layout/fragment_page3.xml" value="0.6336050724637681" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/drawable/ic_baseline_local_dining_24.xml" value="0.3463541666666667" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/drawable/ic_baseline_museum_24.xml" value="0.3463541666666667" />
-        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/layout/activity_actionbar.xml" value="0.284375" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/layout/activity_background.xml" value="0.3302083333333333" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/layout/activity_community.xml" value="0.3302083333333333" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/layout/activity_detail.xml" value="0.3302083333333333" />
@@ -21,27 +40,9 @@
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/layout/activity_main.xml" value="0.315625" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/layout/activity_setting.xml" value="0.3302083333333333" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/layout/activity_table.xml" value="0.3302083333333333" />
-        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/layout/activity_write.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/layout/food_item.xml" value="0.3302083333333333" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/layout/food_list.xml" value="0.315625" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/menu/bottom_menu.xml" value="0.3302083333333333" />
-        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/menu/menu.xml" value="0.2526041666666667" />
-        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/menu/top_menu.xml" value="0.2526041666666667" />
-        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/drawable/custom_editTextBackground.xml" value="0.4515" />
-        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/drawable/custom_edit_text.xml" value="0.4515" />
-        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/drawable/ic_baseline_museum_24.xml" value="0.4515" />
-        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_background.xml" value="0.5536458333333333" />
-        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_detail.xml" value="0.5536458333333333" />
-        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_edit_pfrofile.xml" value="0.5536458333333333" />
-        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_edit_profile.xml" value="0.5536458333333333" />
-        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_login.xml" value="0.4759259259259259" />
-        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_main.xml" value="0.5536458333333333" />
-        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_register.xml" value="0.5536458333333333" />
-        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_setting.xml" value="0.5536458333333333" />
-        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_table.xml" value="0.5536458333333333" />
-        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_write.xml" value="0.5536458333333333" />
-        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/custom_dialog.xml" value="0.5526041666666667" />
-        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/food_item.xml" value="0.5536458333333333" />
       </map>
     </option>
   </component>

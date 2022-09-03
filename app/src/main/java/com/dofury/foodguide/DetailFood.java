@@ -3,6 +3,8 @@ package com.dofury.foodguide;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.ViewPager;
 
 import android.media.Image;
 import android.net.Uri;
@@ -14,6 +16,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
 
 public class DetailFood extends Fragment {
     Food selectedFood;
@@ -28,28 +34,38 @@ public class DetailFood extends Fragment {
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_detail, container, false);
-        imageView = view.findViewById(R.id.food_detail_image);
+        setTap(view);//탭 설정 함수
+        imageView = view.findViewById(R.id.food_detail_icon);
+
         getSelectedFood(); //선택한 음식정보 가져오기
 
         setValues(); //가져온 정보 화면에 보여주기
-        write();
+
+        //write();
         //viewImage(); //이미지 구현 함수
         return view;
     }
     private void setValues(){
 
         TextView tv = view.findViewById(R.id.food_detail_name);
-        ImageView iv = view.findViewById(R.id.food_detail_image);
+        ImageView iv = view.findViewById(R.id.food_detail_icon);
 
         tv.setText(selectedFood.getName());
         iv.setImageResource(selectedFood.getImage());
     }
 
+    private void setTap(View view){
+        ViewPager vp = view.findViewById(R.id.food_detail_view);
+        ViewPageAdapter adapter = new ViewPageAdapter(getFragmentManager());
+        vp.setAdapter(adapter);
+        TabLayout tab = view.findViewById(R.id.food_detail_tap);
+        tab.setupWithViewPager(vp);
+    }
     private void getSelectedFood(){
         Bundle bundle = getArguments();
         selectedFood = bundle.getParcelable("ClickedFood");
     }
-    private void write(){
+/*    private void write(){
         selectImageBtn = view.findViewById(R.id.food_detail_write);
         selectImageBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -58,7 +74,7 @@ public class DetailFood extends Fragment {
             }
         });
 
-    }
+    }*/
 /*    private void viewImage(){
         selectImageBtn = view.findViewById(R.id.viewButton);
 

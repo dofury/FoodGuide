@@ -14,7 +14,7 @@ import android.os.Environment;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
+import com.google.android.material.tabs.TabLayout;
 
 
 public class Activity extends AppCompatActivity {
@@ -33,7 +33,6 @@ public class Activity extends AppCompatActivity {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE
     };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
