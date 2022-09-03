@@ -19,8 +19,8 @@ public class ViewPageAdapter extends FragmentPagerAdapter {
         items.add(new FoodDetailPage3());
 
         itext.add("정보");
-        itext.add("아이");
-        itext.add("후기");
+        itext.add("다이어리");
+        itext.add("한마디");
     }
 
     @Nullable
