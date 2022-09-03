@@ -42,6 +42,17 @@
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_write.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/custom_dialog.xml" value="0.5526041666666667" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/food_item.xml" value="0.5536458333333333" />
+        <entry key="..\:/Users/ymail/StudioProjects/FoodGuide/app/src/main/res/drawable/custom_bg_gray_box.xml" value="0.198" />
+        <entry key="..\:/Users/ymail/StudioProjects/FoodGuide/app/src/main/res/drawable/custon_tgb_favorites.xml" value="0.259" />
+        <entry key="..\:/Users/ymail/StudioProjects/FoodGuide/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.259" />
+        <entry key="..\:/Users/ymail/StudioProjects/FoodGuide/app/src/main/res/layout/activity_background.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/ymail/StudioProjects/FoodGuide/app/src/main/res/layout/activity_community.xml" value="0.25" />
+        <entry key="..\:/Users/ymail/StudioProjects/FoodGuide/app/src/main/res/layout/activity_community_add.xml" value="0.33" />
+        <entry key="..\:/Users/ymail/StudioProjects/FoodGuide/app/src/main/res/layout/activity_edit_profile.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/ymail/StudioProjects/FoodGuide/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/ymail/StudioProjects/FoodGuide/app/src/main/res/layout/activity_setting.xml" value="0.1" />
+        <entry key="..\:/Users/ymail/StudioProjects/FoodGuide/app/src/main/res/layout/custom_item_community.xml" value="0.33" />
+        <entry key="..\:/Users/ymail/StudioProjects/FoodGuide/app/src/main/res/layout/food_item.xml" value="0.36614583333333334" />
       </map>
     </option>
   </component>

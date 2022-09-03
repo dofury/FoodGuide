@@ -16,6 +16,9 @@
         android:theme="@style/Theme.FoodGuide"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".community.CommunityAddActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditProfileActivity"
             android:exported="false" />
         <activity
