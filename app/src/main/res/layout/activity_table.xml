@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
-        app:srcCompat="@drawable/sandwitch" />
+        app:srcCompat="@drawable/sandwich" />
     <TextView
         android:id="@+id/appetizer_name"
         android:layout_width="wrap_content"

@@ -1,19 +1,16 @@
 package com.dofury.foodguide;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
@@ -123,12 +120,12 @@ public class FoodList extends Fragment{
 
     //데이터셋팅//
     private void setUpData() {
-        Food kimchi = new Food("0","샌드위치",R.drawable.sandwitch);
-        foodList.add(kimchi);
-        Food kimchi2 = new Food("1","김치2",R.drawable.ic_baseline_language_24);
-        foodList.add(kimchi2);
-        Food kimchi3 = new Food("23","김치3",R.drawable.ic_baseline_settings_24);
-        foodList.add(kimchi3);
+        Food food1 = new Food("1","샌드위치",R.drawable.sandwich);
+        foodList.add(food1);
+        Food food2 = new Food("2","치킨",R.drawable.chicken);
+        foodList.add(food2);
+        Food food3 = new Food("3","국수",R.drawable.steaming_bowl);
+        foodList.add(food3);
     }
     //리스트 셋팅//
     private void setUpList(){

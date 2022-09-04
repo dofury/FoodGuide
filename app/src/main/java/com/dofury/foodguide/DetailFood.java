@@ -3,23 +3,18 @@ package com.dofury.foodguide;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
 
 public class DetailFood extends Fragment {
     Food selectedFood;
@@ -30,31 +25,31 @@ public class DetailFood extends Fragment {
     public static DetailFood newInstance(){
         return new DetailFood();
     }
-    @Override
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_detail, container, false);
-        setTap(view);//탭 설정 함수
+        setTap();//탭 설정 함수
         imageView = view.findViewById(R.id.food_detail_icon);
 
         getSelectedFood(); //선택한 음식정보 가져오기
-
         setValues(); //가져온 정보 화면에 보여주기
-
+        foodTrans();
         //write();
         //viewImage(); //이미지 구현 함수
         return view;
     }
     private void setValues(){
 
-        TextView tv = view.findViewById(R.id.food_detail_name);
+        TextView tv1 = view.findViewById(R.id.food_detail_name);
+        TextView tv2 = view.findViewById(R.id.food_detail_number);
         ImageView iv = view.findViewById(R.id.food_detail_icon);
 
-        tv.setText(selectedFood.getName());
+        tv1.setText(selectedFood.getName());
+        tv2.setText("#"+selectedFood.getId());
         iv.setImageResource(selectedFood.getImage());
     }
 
-    private void setTap(View view){
+    private void setTap(){
         ViewPager vp = view.findViewById(R.id.food_detail_view);
         ViewPageAdapter adapter = new ViewPageAdapter(getFragmentManager());
         vp.setAdapter(adapter);
@@ -65,6 +60,12 @@ public class DetailFood extends Fragment {
         Bundle bundle = getArguments();
         selectedFood = bundle.getParcelable("ClickedFood");
     }
+    public void foodTrans() {
+        FoodDetailPage1 foodDetailPage1 = new FoodDetailPage1();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("FoodPage", selectedFood);
+    }
+
 /*    private void write(){
         selectImageBtn = view.findViewById(R.id.food_detail_write);
         selectImageBtn.setOnClickListener(new View.OnClickListener(){
