@@ -31,6 +31,18 @@
 
 
             <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="삭제하기"
+                app:layout_constraintEnd_toStartOf="@id/tv_like"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="11sp"
+                android:layout_marginEnd="10dp"/>
+
+
+            <TextView
                 android:id="@+id/tv_like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -135,7 +147,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 app:layout_goneMarginTop="0dp"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -154,12 +166,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_content"
+
             >
 
             <EditText
+                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:id="@+id/et_reply"
                 android:layout_width="320dp"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:background="@drawable/custom_edit_text"
                 android:layout_marginStart="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -175,7 +190,8 @@
                 android:src="@drawable/ic_baseline_send_24"
                 app:layout_constraintLeft_toRightOf="@id/et_reply"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/et_reply" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
