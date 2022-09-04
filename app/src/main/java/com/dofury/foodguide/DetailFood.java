@@ -22,6 +22,7 @@ public class DetailFood extends Fragment {
     ImageView imageView;
     ImageButton selectImageBtn;
     Uri uri;
+    Activity activity;
     public static DetailFood newInstance(){
         return new DetailFood();
     }
@@ -61,9 +62,10 @@ public class DetailFood extends Fragment {
         selectedFood = bundle.getParcelable("ClickedFood");
     }
     public void foodTrans() {
-        FoodDetailPage1 foodDetailPage1 = new FoodDetailPage1();
         Bundle bundle = new Bundle();
+        activity = (Activity) getActivity();
         bundle.putParcelable("FoodPage", selectedFood);
+        activity.fragBtnClick(bundle);
     }
 
 /*    private void write(){
