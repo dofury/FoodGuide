@@ -1,14 +1,12 @@
 package com.dofury.foodguide.community;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,10 +30,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
@@ -49,7 +45,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 public class CommunityReadActivity extends AppCompatActivity {
-    private TextView tv_title, tv_nickname, tv_date, tv_date_, tv_content,tv_delete;
+    private TextView tv_title, tv_nickname, tv_date, tv_date_, tv_content;
     private EditText et_reply;
     private CircleImageView civ_profile;
     private ImageView iv_image;
@@ -77,36 +73,7 @@ public class CommunityReadActivity extends AppCompatActivity {
             }
         });
 
-        tv_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                delete();
-            }
-        });
 
-
-
-    }
-
-    private void delete() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("게시글 삭제");
-        dialog.setMessage("정말로 게시글을 삭제하시겠습니까?");
-        dialog.setPositiveButton("예", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(CommunityReadActivity.this, "글을 삭제하고 있습니다.", Toast.LENGTH_SHORT).show();
-                databaseReference.child("Community").child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(CommunityReadActivity.this, "삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                        onBackPressed();
-                    }
-                });
-            }
-        });
-        dialog.setNegativeButton("아니요", null);
-        dialog.show();
     }
 
     private void loadContent() {
@@ -130,45 +97,25 @@ public class CommunityReadActivity extends AppCompatActivity {
                         iv_image.setVisibility(View.GONE);
                     }
 
-                    databaseReference.child("UserAccount").child(communityDAO.getUid()).child("profile").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            if(task.isSuccessful()) {
-                                String profile = task.getResult().getValue().toString();
-                                if(!profile.equals("null")) Glide.with(CommunityReadActivity.this).load(profile).into(civ_profile);
-                            }
-                        }
-                    });
-
                     String reply = communityDAO.getReply();
-                    CommunityReplyAdapter communityReplyAdapter = new CommunityReplyAdapter(reply, CommunityReadActivity.this, key);
-                    rv_reply.setHasFixedSize(true);
-                    rv_reply.setAdapter(communityReplyAdapter);
+                    if(reply != null) {
+                        CommunityReplyAdapter communityReplyAdapter = new CommunityReplyAdapter(reply, CommunityReadActivity.this);
+                        rv_reply.setHasFixedSize(true);
+                        rv_reply.setAdapter(communityReplyAdapter);
 
-                    if(communityDAO.getUid().equals(userAccount.getIdToken())) {
-                        tv_delete.setVisibility(View.VISIBLE);
                     }
-
-                    databaseReference.child("Community").child(key).child("reply").addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String reply = snapshot.getValue(String.class);
-                            CommunityReplyAdapter communityReplyAdapter = new CommunityReplyAdapter(reply, CommunityReadActivity.this, key);
-                            rv_reply.setHasFixedSize(true);
-                            rv_reply.setAdapter(communityReplyAdapter);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
 
                 }
             }
         });
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadContent();
+    }
 
     private void sendReply() {
         String strReply = et_reply.getText().toString();
@@ -218,7 +165,6 @@ public class CommunityReadActivity extends AppCompatActivity {
         iv_image = findViewById(R.id.iv_image);
         rv_reply = findViewById(R.id.rv_reply);
         btn_send = findViewById(R.id.btn_send);
-        tv_delete = findViewById(R.id.tv_delete);
     }
 }
 
