@@ -84,17 +84,7 @@ public class CommunityReadActivity extends AppCompatActivity {
             }
         });
 
-        databaseReference.child("Community").child(key).child("reply").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                loadContent();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
     }
 
@@ -148,6 +138,21 @@ public class CommunityReadActivity extends AppCompatActivity {
                     if(communityDAO.getUid().equals(userAccount.getIdToken())) {
                         tv_delete.setVisibility(View.VISIBLE);
                     }
+
+                    databaseReference.child("Community").child(key).child("reply").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String reply = snapshot.getValue(String.class);
+                            CommunityReplyAdapter communityReplyAdapter = new CommunityReplyAdapter(reply, CommunityReadActivity.this, key);
+                            rv_reply.setHasFixedSize(true);
+                            rv_reply.setAdapter(communityReplyAdapter);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
 
                 }
             }
