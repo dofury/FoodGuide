@@ -27,6 +27,7 @@
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/menu/bottom_menu.xml" value="0.3302083333333333" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/menu/menu.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide6/app/src/main/res/menu/top_menu.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/drawable/custom_bg_gray_box.xml" value="0.342" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/drawable/custom_editTextBackground.xml" value="0.4515" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/drawable/custom_edit_text.xml" value="0.4515" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/drawable/ic_baseline_museum_24.xml" value="0.4515" />
@@ -45,6 +46,7 @@
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_write.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/custom_dialog.xml" value="0.5526041666666667" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/custom_item_community.xml" value="0.45260416666666664" />
+        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/custom_item_community_reply.xml" value="0.5" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/food_item.xml" value="0.5536458333333333" />
       </map>
     </option>
