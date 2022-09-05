@@ -110,7 +110,7 @@ public class Activity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_frame, fragment).commit();
     }
-    public void fragBtnClick(Bundle bundle) {
+    public void bundleSave(Bundle bundle) {
         this.mBundle = bundle;
     }
 }

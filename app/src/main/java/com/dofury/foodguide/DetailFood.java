@@ -2,9 +2,12 @@ package com.dofury.foodguide;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +18,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class DetailFood extends Fragment {
     Food selectedFood;
@@ -23,18 +30,23 @@ public class DetailFood extends Fragment {
     ImageButton selectImageBtn;
     Uri uri;
     Activity activity;
+    private TabLayout mTabLayout;
+    private ViewPager2 mViewPager;
+    private ViewPageAdapter viewPageAdapter;
+    Context context;
     public static DetailFood newInstance(){
         return new DetailFood();
     }
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_detail, container, false);
+        context = container.getContext();
         setTap();//탭 설정 함수
         imageView = view.findViewById(R.id.food_detail_icon);
 
         getSelectedFood(); //선택한 음식정보 가져오기
         setValues(); //가져온 정보 화면에 보여주기
-        foodTrans();
+        foodTrans();//음식 정보 전송
         //write();
         //viewImage(); //이미지 구현 함수
         return view;
@@ -51,11 +63,25 @@ public class DetailFood extends Fragment {
     }
 
     private void setTap(){
-        ViewPager vp = view.findViewById(R.id.food_detail_view);
-        ViewPageAdapter adapter = new ViewPageAdapter(getFragmentManager());
-        vp.setAdapter(adapter);
-        TabLayout tab = view.findViewById(R.id.food_detail_tap);
-        tab.setupWithViewPager(vp);
+        mTabLayout = (TabLayout) view.findViewById(R.id.food_detail_tap);
+        mViewPager = (ViewPager2) view.findViewById(R.id.food_detail_view);
+
+        //프레그먼트 이동 구현
+        viewPageAdapter = new ViewPageAdapter((AppCompatActivity) getActivity());
+        mViewPager.setAdapter(viewPageAdapter);
+
+        final List<String> tabElement = Arrays.asList("기본 정보","다이어리","한마디");
+        //tabLyout와 viewPager 연결
+        new TabLayoutMediator(mTabLayout,mViewPager,new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                TextView textView = new TextView(context);
+                textView.setText(tabElement.get(position));
+                tab.setCustomView(textView);
+            }
+
+        }).attach();
+
     }
     private void getSelectedFood(){
         Bundle bundle = getArguments();
@@ -65,7 +91,7 @@ public class DetailFood extends Fragment {
         Bundle bundle = new Bundle();
         activity = (Activity) getActivity();
         bundle.putParcelable("FoodPage", selectedFood);
-        activity.fragBtnClick(bundle);
+        activity.bundleSave(bundle);
     }
 
 /*    private void write(){

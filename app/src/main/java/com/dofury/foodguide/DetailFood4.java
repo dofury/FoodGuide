@@ -49,8 +49,7 @@ public class DetailFood4 extends AppCompatActivity {
 
     private void setTap(){
         ViewPager vp = findViewById(R.id.food_detail_view);
-        ViewPageAdapter adapter = new ViewPageAdapter(getSupportFragmentManager());
-        vp.setAdapter(adapter);
+        //ViewPageAdapter adapter = new ViewPageAdapter(getSupportFragmentManager());
         TabLayout tab = findViewById(R.id.food_detail_tap);
         tab.setupWithViewPager(vp);
     }
