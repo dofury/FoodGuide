@@ -8,8 +8,10 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +79,9 @@ public class DetailFood extends Fragment {
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 TextView textView = new TextView(context);
                 textView.setText(tabElement.get(position));
+                textView.setGravity(Gravity.CENTER);
+                textView.setTextColor(Color.parseColor("#000000"));
+                //textView.setBackgroundColor(Color.parseColor("#afe3ff"));//백그라운드 색 설정
                 tab.setCustomView(textView);
             }
 

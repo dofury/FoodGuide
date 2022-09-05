@@ -19,11 +19,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name=".DetailFood4"
-            android:exported="false"
-            android:label="@string/title_activity_detail_food2"
-            android:theme="@style/Theme.FoodGuide.NoActionBar" />
-        <activity
             android:name=".community.CommunityReadActivity"
             android:exported="false" />
         <activity
