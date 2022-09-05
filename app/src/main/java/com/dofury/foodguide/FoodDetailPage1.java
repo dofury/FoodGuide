@@ -3,10 +3,14 @@ package com.dofury.foodguide;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,7 +49,9 @@ public class FoodDetailPage1 extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
+    Food selectedFood;
+    View view;
+    Activity activity;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +60,47 @@ public class FoodDetailPage1 extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    private void getSelectedFood(){
+        activity = (Activity) getActivity();
+        Bundle bundle = activity.mBundle;
+        if (activity.mBundle != null) {
+            selectedFood = bundle.getParcelable("FoodPage");
+            activity.mBundle = null;
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_food_detail_page1, container, false);
+        view = inflater.inflate(R.layout.fragment_food_detail_page1,container,false);
+        getSelectedFood();
+        printFood();
+        return view;
+    }
+    private void printFood(){
+        TextView detailText1 = view.findViewById(R.id.food_detail_tap_item1_text1);
+        TextView detailText2 = view.findViewById(R.id.food_detail_tap_item1_text2);
+        switch (selectedFood.getId())
+        {
+            case "1":
+            {
+                detailText1.setText("빵을 포갠 음식");
+                detailText2.setText("예전에 서양권에서 즐겨먹었다");
+                break;
+            }
+            case "2":
+            {
+                detailText1.setText("닭을 튀긴 음식");
+                detailText2.setText("한국에서 즐겨먹는다");
+                break;
+            }
+            case "3":
+            {
+                detailText1.setText("면을 넣은 국");
+                detailText2.setText("동남권에서 즐겨먹는다");
+                break;
+            }
+        }
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
     }
 }

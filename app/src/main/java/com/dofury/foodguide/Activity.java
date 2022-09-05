@@ -27,6 +27,7 @@ public class Activity extends AppCompatActivity {
     private Community community;
     private Setting setting;
     private Food fd;
+    Bundle mBundle;
     // 확인할 권한 목록
     String [] permission_list = {
             Manifest.permission.CAMERA,
@@ -67,9 +68,7 @@ public class Activity extends AppCompatActivity {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             requestPermissions(permission_list, 0);
         } else {
-            init();
         }
-        // init();
     }
 
     @Override
@@ -79,14 +78,9 @@ public class Activity extends AppCompatActivity {
             if(result == PackageManager.PERMISSION_DENIED){
                 return;
             }
-            init();
         }
     }
 
-    private void init(){
-        String tempPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-        String dirPath = tempPath + "/Android/data/" + getPackageName();
-    }
     //메뉴내에서 탭교체 함수
     private void setMenu(int n) {
         fm = getSupportFragmentManager();
@@ -116,5 +110,7 @@ public class Activity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_frame, fragment).commit();
     }
-
+    public void bundleSave(Bundle bundle) {
+        this.mBundle = bundle;
+    }
 }
