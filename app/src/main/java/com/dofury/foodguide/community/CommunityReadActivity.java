@@ -130,6 +130,16 @@ public class CommunityReadActivity extends AppCompatActivity {
                         iv_image.setVisibility(View.GONE);
                     }
 
+                    databaseReference.child("UserAccount").child(communityDAO.getUid()).child("profile").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if(task.isSuccessful()) {
+                                String profile = task.getResult().getValue().toString();
+                                if(!profile.equals("null")) Glide.with(CommunityReadActivity.this).load(profile).into(civ_profile);
+                            }
+                        }
+                    });
+
                     String reply = communityDAO.getReply();
                     CommunityReplyAdapter communityReplyAdapter = new CommunityReplyAdapter(reply, CommunityReadActivity.this, key);
                     rv_reply.setHasFixedSize(true);
