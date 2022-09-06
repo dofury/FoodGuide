@@ -46,6 +46,28 @@
             android:text="#1"
             app:layout_constraintLeft_toRightOf="@id/food_detail_icon"
             app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/food_detail_like_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="11sp"
+            android:textColor="#B77E7E7E"
+            app:layout_constraintRight_toLeftOf="@id/food_detail_like_button"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintTop_toTopOf="@+id/food_deatil_baground1" />
+
+        <ToggleButton
+            android:id="@+id/food_detail_like_button"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="#B77E7E7E"
+            android:background="@drawable/custon_tgb_favorites"
+            android:textOff=""
+            android:textOn=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/food_deatil_baground1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
