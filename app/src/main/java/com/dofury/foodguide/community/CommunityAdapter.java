@@ -15,10 +15,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.dofury.foodguide.R;
 import com.dofury.foodguide.login.UserAccount;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -46,30 +52,71 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         holder.tv_nickname.setText(communityDAO.getNickname());
         holder.tv_content.setText(communityDAO.getContent());
         holder.tv_time.setText(communityDAO.getData());
+
+
         // 좋아요 누른 사람들의 닉네임을 List에 넣음
-        List<String> likes = new ArrayList<>();
-        if(communityDAO.getLikes() != null) {
-            likes = new Gson().fromJson(communityDAO.getLikes(), new TypeToken<List<String>>(){}.getType());
-            holder.tv_like.setText(likes.size());
-        }
 
 
-        
-        // 일단 false 하고 자기 닉네임이 있으면 true
-        holder.tgb_like.setChecked(false);
-        for(String s : likes) {
-            if(s.equals(userAccount.getNickname())) {
-                holder.tgb_like.setChecked(true);
-                break;
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
+        databaseReference.child("Community").child(communityDAO.getcUid()).child("likes").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                List<String> likes = new ArrayList<>();
+                if(task.getResult().getValue() != null) {
+                    likes = new Gson().fromJson(task.getResult().getValue().toString(), new TypeToken<List<String>>(){}.getType());
+                    holder.tv_like.setText(String.valueOf(likes.size()));
+                    holder.tv_like.setVisibility(View.VISIBLE);
+                }
+                boolean flag = false;
+                for(String s : likes) {
+                    if(s.equals(userAccount.getIdToken())) {
+                        flag = true;
+                        break;
+                    }
+                    else {
+                        flag = false;
+                    }
+                }
+                if(flag) holder.tgb_like.setChecked(true);
+                else holder.tgb_like.setChecked(false);
+                holder.tgb_like.setVisibility(View.VISIBLE);
             }
-        }
-        
+        });
+
+        int pos = position;
+
+        holder.tgb_like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                databaseReference.child("Community").child(communityDAO.getcUid()).child("likes").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        List<String> jsonLikesList = new Gson().fromJson(task.getResult().getValue().toString(), new TypeToken<List<String>>(){}.getType());
+                        if(holder.tgb_like.isChecked()) {
+                            jsonLikesList.add(userAccount.getIdToken());
+                        } else {
+                            jsonLikesList.remove(userAccount.getIdToken());
+                        }
+
+                        String likesJson = new Gson().toJson(jsonLikesList);
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
+                        databaseReference.child("Community").child(communityDAO.getcUid()).child("likes").setValue(likesJson).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()) {
+                                    notifyItemChanged(pos);
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
         // 이미지가 있으면 설정
         if(communityDAO.getImage() != null) {
             Glide.with(context).load(communityDAO.getImage()).into(holder.iv_image);
         }
-
-
 
     }
 

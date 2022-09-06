@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Registry;
@@ -49,9 +50,10 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 public class CommunityReadActivity extends AppCompatActivity {
-    private TextView tv_title, tv_nickname, tv_date, tv_date_, tv_content,tv_delete;
+    private TextView tv_title, tv_nickname, tv_date, tv_date_, tv_content,tv_delete, tv_like;
     private EditText et_reply;
     private CircleImageView civ_profile;
+    private ToggleButton tgb_like;
     private ImageView iv_image;
     private RecyclerView rv_reply;
     private ImageButton btn_send;
@@ -123,6 +125,48 @@ public class CommunityReadActivity extends AppCompatActivity {
                     tv_date.setText(communityDAO.getData());
                     tv_date_.setText(communityDAO.getData_());
                     tv_content.setText(communityDAO.getContent());
+
+                    final List<String>[] jsonLikeList = new List[]{new Gson().fromJson(communityDAO.getLikes(), new TypeToken<List<String>>() {
+                    }.getType())};
+                    tv_like.setText(String.valueOf(jsonLikeList[0].size()));
+                    boolean flag = false;
+                    for(String s : jsonLikeList[0]) {
+                        if(s.equals(userAccount.getIdToken())) {
+                            flag = true;
+                            break;
+                        } else {
+                            flag = false;
+                        }
+                    }
+                    if(flag) tgb_like.setChecked(true);
+                    else tgb_like.setChecked(false);
+
+
+                    tgb_like.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            databaseReference.child("Community").child(key).child("likes").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                    jsonLikeList[0] = new Gson().fromJson(task.getResult().getValue().toString(), new TypeToken<List<String>>(){}.getType());
+                                    if(tgb_like.isChecked()) {
+                                        jsonLikeList[0].add(userAccount.getIdToken());
+                                    }
+                                    else {
+                                        jsonLikeList[0].remove(userAccount.getIdToken());
+                                    }
+                                    String json = new Gson().toJson(jsonLikeList[0]);
+                                    databaseReference.child("Community").child(key).child("likes").setValue(json).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                                loadContent();
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+
 
                     if(communityDAO.getImage() != null) {
                         Glide.with(CommunityReadActivity.this).load(communityDAO.getImage()).into(iv_image);
@@ -219,6 +263,8 @@ public class CommunityReadActivity extends AppCompatActivity {
         rv_reply = findViewById(R.id.rv_reply);
         btn_send = findViewById(R.id.btn_send);
         tv_delete = findViewById(R.id.tv_delete);
+        tv_like = findViewById(R.id.tv_like);
+        tgb_like = findViewById(R.id.tgb_like);
     }
 }
 

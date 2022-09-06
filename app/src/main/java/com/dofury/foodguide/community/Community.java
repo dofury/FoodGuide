@@ -71,6 +71,7 @@ public class Community extends Fragment {
                     communityDAOList.add(0, communityDAO);
                 }
                 CommunityAdapter communityAdapter = new CommunityAdapter(communityDAOList, getContext());
+
                 rv_list.setHasFixedSize(true);
                 rv_list.addItemDecoration(new DividerItemDecoration(getContext(), 1));
                 rv_list.setAdapter(communityAdapter);
