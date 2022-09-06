@@ -29,9 +29,9 @@ import java.util.List;
 
 
 public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.ViewHolder> {
-    private Context context;
-    private UserAccount userAccount = UserAccount.getInstance();
-    private List<CommunityDAO> communityDAOList;
+    private final Context context;
+    private final UserAccount userAccount = UserAccount.getInstance();
+    private final List<CommunityDAO> communityDAOList;
 
     public CommunityAdapter(List<CommunityDAO> communityDAOList, Context context) {
         this.context = context;
@@ -74,8 +74,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
                         flag = false;
                     }
                 }
-                if(flag) holder.tgb_like.setChecked(true);
-                else holder.tgb_like.setChecked(false);
+                holder.tgb_like.setChecked(flag);
                 holder.tgb_like.setVisibility(View.VISIBLE);
             }
         });
@@ -123,9 +122,13 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_title, tv_nickname, tv_content, tv_like, tv_time;
-        private ImageView iv_image;
-        private ToggleButton tgb_like;
+        private final TextView tv_title;
+        private final TextView tv_nickname;
+        private final TextView tv_content;
+        private final TextView tv_like;
+        private final TextView tv_time;
+        private final ImageView iv_image;
+        private final ToggleButton tgb_like;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

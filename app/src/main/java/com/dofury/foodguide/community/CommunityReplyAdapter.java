@@ -29,10 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommunityReplyAdapter extends RecyclerView.Adapter<CommunityReplyAdapter.ViewHolder> {
-    private UserAccount userAccount = UserAccount.getInstance();
-    private Context context;
+    private final UserAccount userAccount = UserAccount.getInstance();
+    private final Context context;
     private List<Reply> replyList = new ArrayList<>();
-    private String key;
+    private final String key;
 
     public CommunityReplyAdapter(String stringJson, Context context, String key) {
         this.context = context;
@@ -116,7 +116,10 @@ public class CommunityReplyAdapter extends RecyclerView.Adapter<CommunityReplyAd
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_nickname, tv_reply, tv_date, tv_delete;
+        private final TextView tv_nickname;
+        private final TextView tv_reply;
+        private final TextView tv_date;
+        private final TextView tv_delete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -12,7 +12,6 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dofury.foodguide.food.FoodComment;
@@ -32,7 +31,7 @@ import java.util.List;
 
 public class FoodDetailPage3 extends Fragment {
     private List<FoodComment> foodCommentList = new ArrayList<>();
-    private UserAccount userAccount = UserAccount.getInstance();
+    private final UserAccount userAccount = UserAccount.getInstance();
     private RecyclerView recyclerView;
     private String mFoodName;
 
@@ -54,6 +53,10 @@ public class FoodDetailPage3 extends Fragment {
         recyclerView = view.findViewById(R.id.rv_list);
         FloatingActionButton fab = view.findViewById(R.id.fab_add);
 
+        getParentFragmentManager().setFragmentResultListener("key", this, (requestKey, result) -> {
+            mFoodName = result.getString("food_name");
+        });
+
         fab.setOnClickListener(v -> {
             Dialog dialog = new Dialog(requireContext());
             dialog.setContentView(R.layout.custom_dialog_add_own_word);
@@ -72,17 +75,18 @@ public class FoodDetailPage3 extends Fragment {
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
                     databaseReference.child("Food").child(mFoodName).child("comment").get().addOnCompleteListener(task -> {
                         String json = String.valueOf(task.getResult().getValue());
-                        List<FoodComment> foodCommentList = new Gson().fromJson(json, new TypeToken<List<FoodComment>>(){}.getType());
+
+                        if(!json.equals("null")) foodCommentList = new Gson().fromJson(json, new TypeToken<List<FoodComment>>(){}.getType());
                         foodCommentList.add(foodComment);
                         json = new Gson().toJson(foodCommentList);
                         databaseReference.child("Food").child(mFoodName).child("comment").setValue(json).addOnCompleteListener(task1 -> {
+                            dialog.onBackPressed();
                             loadComment();
                         });
                     });
                 }
             });
             dialog.show();
-
 
         });
     }

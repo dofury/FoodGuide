@@ -24,10 +24,10 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FoodCommentAdapter extends RecyclerView.Adapter<FoodCommentAdapter.ViewHolder> {
-    private Context context;
-    private List<FoodComment> foodCommentList;
-    private UserAccount userAccount = UserAccount.getInstance();
-    private String foodName;
+    private final Context context;
+    private final List<FoodComment> foodCommentList;
+    private final UserAccount userAccount = UserAccount.getInstance();
+    private final String foodName;
     public FoodCommentAdapter(Context context, List<FoodComment> foodCommentList, String foodName) {
         this.context = context;
         this.foodCommentList = foodCommentList;
@@ -72,12 +72,15 @@ public class FoodCommentAdapter extends RecyclerView.Adapter<FoodCommentAdapter.
 
     @Override
     public int getItemCount() {
-        return 0;
+        return foodCommentList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_nickname, tv_content, tv_date,tv_delete;
-        private CircleImageView civ_profile;
+        private final TextView tv_nickname;
+        private final TextView tv_content;
+        private final TextView tv_date;
+        private final TextView tv_delete;
+        private final CircleImageView civ_profile;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_nickname = itemView.findViewById(R.id.tv_nickname);

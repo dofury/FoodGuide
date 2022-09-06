@@ -41,4 +41,13 @@ public class FoodComment {
         Date = date;
     }
 
+    @Override
+    public String toString() {
+        return "FoodComment{" +
+                "uid='" + uid + '\'' +
+                ", name='" + name + '\'' +
+                ", content='" + content + '\'' +
+                ", Date='" + Date + '\'' +
+                '}';
+    }
 }

@@ -36,9 +36,9 @@ import java.util.Date;
 
 public class CommunityAddActivity extends AppCompatActivity {
 
-    private UserAccount userAccount = UserAccount.getInstance();
+    private final UserAccount userAccount = UserAccount.getInstance();
 
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
 
     private EditText et_title, et_content;
     private Button btn_save, btn_image;

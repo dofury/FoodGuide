@@ -58,9 +58,9 @@ public class CommunityReadActivity extends AppCompatActivity {
     private RecyclerView rv_reply;
     private ImageButton btn_send;
     private String key;
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
 
-    private UserAccount userAccount = UserAccount.getInstance();
+    private final UserAccount userAccount = UserAccount.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,8 +138,7 @@ public class CommunityReadActivity extends AppCompatActivity {
                             flag = false;
                         }
                     }
-                    if(flag) tgb_like.setChecked(true);
-                    else tgb_like.setChecked(false);
+                    tgb_like.setChecked(flag);
 
 
                     tgb_like.setOnClickListener(new View.OnClickListener() {
