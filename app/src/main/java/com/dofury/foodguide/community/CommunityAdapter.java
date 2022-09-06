@@ -54,9 +54,6 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         holder.tv_time.setText(communityDAO.getData());
 
 
-        // 좋아요 누른 사람들의 닉네임을 List에 넣음
-
-
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
         databaseReference.child("Community").child(communityDAO.getcUid()).child("likes").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override

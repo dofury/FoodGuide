@@ -13,6 +13,8 @@ public class ViewPageAdapter extends FragmentPagerAdapter {
     private ArrayList<String> itext = new ArrayList<String>();
     public ViewPageAdapter(@NonNull FragmentManager fm) {
         super(fm);
+
+
         items = new ArrayList<Fragment>();
         items.add(new FoodDetailPage1());
         items.add(new FoodDetailPage2());

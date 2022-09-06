@@ -45,6 +45,15 @@ public class DetailFood extends Fragment {
         //viewImage(); //이미지 구현 함수
         return view;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Bundle bundle = new Bundle();
+        bundle.putString("food_name", selectedFood.getName());
+        getParentFragmentManager().setFragmentResult("key", bundle);
+    }
+
     private void setValues(){
 
         TextView tv = view.findViewById(R.id.food_detail_name);
@@ -57,6 +66,7 @@ public class DetailFood extends Fragment {
     private void setTap(View view){
         ViewPager vp = view.findViewById(R.id.food_detail_view);
         ViewPageAdapter adapter = new ViewPageAdapter(getFragmentManager());
+
         vp.setAdapter(adapter);
         TabLayout tab = view.findViewById(R.id.food_detail_tap);
         tab.setupWithViewPager(vp);
