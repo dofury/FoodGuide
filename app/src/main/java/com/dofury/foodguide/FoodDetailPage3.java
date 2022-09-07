@@ -80,8 +80,11 @@ public class FoodDetailPage3 extends Fragment {
                         foodCommentList.add(foodComment);
                         json = new Gson().toJson(foodCommentList);
                         databaseReference.child("Food").child(mFoodName).child("comment").setValue(json).addOnCompleteListener(task1 -> {
+                            FoodCommentAdapter foodCommentAdapter = new FoodCommentAdapter(requireContext(), foodCommentList, mFoodName);
+                            foodCommentAdapter.notifyDataSetChanged();
+                            recyclerView.setAdapter(foodCommentAdapter);
+
                             dialog.onBackPressed();
-                            loadComment();
                         });
                     });
                 }
@@ -89,6 +92,8 @@ public class FoodDetailPage3 extends Fragment {
             dialog.show();
 
         });
+
+        loadComment();
     }
 
     @Override
