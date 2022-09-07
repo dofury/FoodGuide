@@ -157,6 +157,21 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
             });
         }
+        else {
+            String key = userAccount.getIdToken();
+            Map<String, Object> postValues = userAccount.toMap();
+            Map<String, Object> childUpdates = new HashMap<>();
+            childUpdates.put("/FoodGuide/UserAccount/" + key, postValues);
+            databaseReference.updateChildren(childUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    firebaseUser.updateEmail(email);
+
+                    finish();
+                    Toast.makeText(EditProfileActivity.this, "프로필이 업데이트 되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
     private void delete() {
 
