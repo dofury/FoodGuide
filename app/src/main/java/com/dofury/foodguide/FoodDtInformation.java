@@ -10,14 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FoodDetailPage1#newInstance} factory method to
+ * Use the {@link FoodDtInformation#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FoodDetailPage1 extends Fragment {
+public class FoodDtInformation extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,7 +26,7 @@ public class FoodDetailPage1 extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FoodDetailPage1() {
+    public FoodDtInformation() {
         // Required empty public constructor
     }
 
@@ -41,8 +39,8 @@ public class FoodDetailPage1 extends Fragment {
      * @return A new instance of fragment FoodDetailPage1.
      */
     // TODO: Rename and change types and number of parameters
-    public static FoodDetailPage1 newInstance(String param1, String param2) {
-        FoodDetailPage1 fragment = new FoodDetailPage1();
+    public static FoodDtInformation newInstance(String param1, String param2) {
+        FoodDtInformation fragment = new FoodDtInformation();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -71,7 +69,7 @@ public class FoodDetailPage1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_food_detail_page1,container,false);
+        view = inflater.inflate(R.layout.fragment_food_detail_information,container,false);
         getSelectedFood();
         printFood();
         return view;

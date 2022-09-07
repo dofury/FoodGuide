@@ -10,7 +10,6 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.MenuItem;
 
 import com.dofury.foodguide.community.Community;
@@ -110,6 +109,7 @@ public class Activity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_frame, fragment).commit();
     }
+
     public void bundleSave(Bundle bundle) {
         this.mBundle = bundle;
     }

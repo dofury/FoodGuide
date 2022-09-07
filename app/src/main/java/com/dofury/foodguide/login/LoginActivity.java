@@ -2,7 +2,6 @@ package com.dofury.foodguide.login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.PagerTabStrip;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

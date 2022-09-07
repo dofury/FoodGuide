@@ -6,7 +6,7 @@
     android:background="#c0cfdf"
     android:padding = "15dp"
     android:orientation="vertical"
-    tools:context=".FoodDetailPage1">
+    tools:context=".FoodDtInformation">
 
 
     <LinearLayout
