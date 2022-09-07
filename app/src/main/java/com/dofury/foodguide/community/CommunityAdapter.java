@@ -90,7 +90,10 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
                 databaseReference.child("Community").child(communityDAO.getcUid()).child("likes").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        List<String> jsonLikesList = new Gson().fromJson(task.getResult().getValue().toString(), new TypeToken<List<String>>(){}.getType());
+                        String json = String.valueOf(task.getResult().getValue());
+                        List<String> jsonLikesList = new ArrayList<>();
+                        if(!json.equals("null")) jsonLikesList = new Gson().fromJson(json, new TypeToken<List<String>>(){}.getType());
+
                         if(holder.tgb_like.isChecked()) {
                             jsonLikesList.add(userAccount.getIdToken());
                         } else {

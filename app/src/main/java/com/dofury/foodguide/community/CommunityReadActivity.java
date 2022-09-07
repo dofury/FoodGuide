@@ -129,7 +129,8 @@ public class CommunityReadActivity extends AppCompatActivity {
                     List<String>jsonLikeList = new ArrayList<>();
                     if(communityDAO.getLikes() != null) jsonLikeList = new Gson().fromJson(communityDAO.getLikes(), new TypeToken<List<String>>() {}.getType());
 
-                    tv_like.setText(jsonLikeList.toString());
+                    if(jsonLikeList.isEmpty()) tv_like.setText("0");
+                    else tv_like.setText(String.valueOf(jsonLikeList.size()));
 
                     boolean flag = false;
                     for(String s : jsonLikeList) {
@@ -142,7 +143,6 @@ public class CommunityReadActivity extends AppCompatActivity {
                     }
                     tgb_like.setChecked(flag);
 
-
                     tgb_like.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -150,9 +150,9 @@ public class CommunityReadActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<DataSnapshot> task) {
                                     List<String>jsonLikeList = new ArrayList<>();
-                                    String taskJson = task.getResult().getValue().toString();
+                                    String taskJson = String.valueOf(task.getResult().getValue());
                                     if(!taskJson.equals("null")) {
-                                        jsonLikeList = new Gson().fromJson(task.getResult().getValue().toString(), new TypeToken<List<String>>(){}.getType());
+                                        jsonLikeList = new Gson().fromJson(taskJson, new TypeToken<List<String>>(){}.getType());
                                     }
 
                                     if(tgb_like.isChecked()) {
@@ -162,9 +162,9 @@ public class CommunityReadActivity extends AppCompatActivity {
                                         jsonLikeList.remove(userAccount.getIdToken());
                                     }
 
-                                    String json = new Gson().toJson(jsonLikeList);
+                                    taskJson = new Gson().toJson(jsonLikeList);
 
-                                    databaseReference.child("Community").child(key).child("likes").setValue(json).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    databaseReference.child("Community").child(key).child("likes").setValue(taskJson).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                                 loadContent();
