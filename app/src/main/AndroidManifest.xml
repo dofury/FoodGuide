@@ -45,6 +45,9 @@
         <activity
             android:name=".Activity"
             android:exported="true" />
+        <activity
+            android:name=".DiaryPost"
+            android:exported="true"/>
     </application>
 
 </manifest>

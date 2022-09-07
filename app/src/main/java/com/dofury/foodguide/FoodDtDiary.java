@@ -70,7 +70,7 @@ public class FoodDtDiary extends Fragment {
         });
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_food_detail_diary, container, false);
+        return view;
     }
 
 
