@@ -10,6 +10,7 @@ public class Food implements Parcelable {
     private String id;
     private String name;
     private int image;
+    private String comment;
 
     public Food(String id,String name,int image){
         this.id = id;
@@ -35,6 +36,14 @@ public class Food implements Parcelable {
             return new Food[size];
         }
     };
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
     public String getId(){
         return id;

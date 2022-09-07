@@ -32,8 +32,8 @@ import java.util.List;
 public class Community extends Fragment {
 
     private TextView tv_isnull;
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
-    private List<CommunityDAO> communityDAOList = new ArrayList<>();
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
+    private final List<CommunityDAO> communityDAOList = new ArrayList<>();
     private RecyclerView rv_list;
 
     @Nullable

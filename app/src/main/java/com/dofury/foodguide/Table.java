@@ -52,7 +52,7 @@ public class Table extends Fragment {
         if(bundle != null)
             preFrag = bundle.getString("preFrag");
 
-        mainLayout = (LinearLayout) view.findViewById(R.id.main);
+        mainLayout = view.findViewById(R.id.main);
         imageView = view.findViewById(R.id.appetizer_image);
         imageView.setOnTouchListener(onTouchListener());
         switch (preFrag) {

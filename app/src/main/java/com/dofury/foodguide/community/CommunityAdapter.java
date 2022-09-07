@@ -29,9 +29,9 @@ import java.util.List;
 
 
 public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.ViewHolder> {
-    private Context context;
-    private UserAccount userAccount = UserAccount.getInstance();
-    private List<CommunityDAO> communityDAOList;
+    private final Context context;
+    private final UserAccount userAccount = UserAccount.getInstance();
+    private final List<CommunityDAO> communityDAOList;
 
     public CommunityAdapter(List<CommunityDAO> communityDAOList, Context context) {
         this.context = context;
@@ -54,9 +54,6 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         holder.tv_time.setText(communityDAO.getData());
 
 
-        // 좋아요 누른 사람들의 닉네임을 List에 넣음
-
-
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
         databaseReference.child("Community").child(communityDAO.getcUid()).child("likes").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -65,8 +62,11 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
                 if(task.getResult().getValue() != null) {
                     likes = new Gson().fromJson(task.getResult().getValue().toString(), new TypeToken<List<String>>(){}.getType());
                     holder.tv_like.setText(String.valueOf(likes.size()));
-                    holder.tv_like.setVisibility(View.VISIBLE);
+                } else {
+                    holder.tv_like.setText(String.valueOf(likes.size()));
                 }
+                holder.tv_like.setVisibility(View.VISIBLE);
+
                 boolean flag = false;
                 for(String s : likes) {
                     if(s.equals(userAccount.getIdToken())) {
@@ -77,8 +77,7 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
                         flag = false;
                     }
                 }
-                if(flag) holder.tgb_like.setChecked(true);
-                else holder.tgb_like.setChecked(false);
+                holder.tgb_like.setChecked(flag);
                 holder.tgb_like.setVisibility(View.VISIBLE);
             }
         });
@@ -91,7 +90,10 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
                 databaseReference.child("Community").child(communityDAO.getcUid()).child("likes").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        List<String> jsonLikesList = new Gson().fromJson(task.getResult().getValue().toString(), new TypeToken<List<String>>(){}.getType());
+                        String json = String.valueOf(task.getResult().getValue());
+                        List<String> jsonLikesList = new ArrayList<>();
+                        if(!json.equals("null")) jsonLikesList = new Gson().fromJson(json, new TypeToken<List<String>>(){}.getType());
+
                         if(holder.tgb_like.isChecked()) {
                             jsonLikesList.add(userAccount.getIdToken());
                         } else {
@@ -126,9 +128,13 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_title, tv_nickname, tv_content, tv_like, tv_time;
-        private ImageView iv_image;
-        private ToggleButton tgb_like;
+        private final TextView tv_title;
+        private final TextView tv_nickname;
+        private final TextView tv_content;
+        private final TextView tv_like;
+        private final TextView tv_time;
+        private final ImageView iv_image;
+        private final ToggleButton tgb_like;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

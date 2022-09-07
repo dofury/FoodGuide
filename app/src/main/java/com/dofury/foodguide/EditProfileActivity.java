@@ -131,31 +131,39 @@ public class EditProfileActivity extends AppCompatActivity {
             Toast.makeText(EditProfileActivity.this, "입력되지 않은 데이터가 있습니다.", Toast.LENGTH_SHORT).show();
             return;
         }
+        Toast.makeText(EditProfileActivity.this, "프로필을 업데이트 하고 있습니다", Toast.LENGTH_SHORT).show();
+
         userAccount.setNickname(nickname);
         userAccount.setEmail(email);
 
         if(uri != null)
         {
-            storageReference.child(userAccount.getIdToken()).child("Profile").child("profile.png").putFile(uri);
-            storageReference.child(userAccount.getIdToken()).child("Profile/profile.png").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri u) {
-                    userAccount.setProfile(u.toString());
+            storageReference.child(userAccount.getIdToken()).child("Profile").child("profile.png").putFile(uri).addOnCompleteListener(task -> {
+                if(task.isSuccessful()) {
+                    storageReference.child(userAccount.getIdToken()).child("Profile/profile.png").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri u) {
+                            userAccount.setProfile(u.toString());
+                            userAccount.setProfileM(uri.toString());
+
+                            String key = userAccount.getIdToken();
+                            Map<String, Object> postValues = userAccount.toMap();
+                            Map<String, Object> childUpdates = new HashMap<>();
+                            childUpdates.put("/FoodGuide/UserAccount/" + key, postValues);
+                            databaseReference.updateChildren(childUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    firebaseUser.updateEmail(email);
+
+                                    finish();
+                                    Toast.makeText(EditProfileActivity.this, "프로필이 업데이트 되었습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
                 }
             });
-            // 내부 사진 경로가 바뀌면 사진도 바뀜 그러니 이거 나중에 디풀더 만들어서 고쳐야함
-            userAccount.setProfileM(uri.toString());
         }
-
-        String key = userAccount.getIdToken();
-        Map<String, Object> postValues = userAccount.toMap();
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/FoodGuide/UserAccount/" + key, postValues);
-        databaseReference.updateChildren(childUpdates);
-        firebaseUser.updateEmail(email);
-
-        finish();
-        Toast.makeText(EditProfileActivity.this, "프로필이 업데이트 되었습니다.", Toast.LENGTH_SHORT).show();
     }
     private void delete() {
 
