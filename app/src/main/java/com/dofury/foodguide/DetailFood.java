@@ -56,9 +56,11 @@ public class DetailFood extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Bundle bundle = new Bundle();
+        foodTrans2();
+/*        Bundle bundle = new Bundle();
         bundle.putString("food_name", selectedFood.getName());
-        getParentFragmentManager().setFragmentResult("key", bundle);
+        getParentFragmentManager().setFragmentResult("key", bundle);*/
+        //getParentFragmentManager().setFragmentResult("key", bundle);
     }
 
     private void setValues(){
@@ -105,6 +107,12 @@ public class DetailFood extends Fragment {
         activity = (Activity) getActivity();
         bundle.putParcelable("FoodPage", selectedFood);
         activity.bundleSave(bundle);
+    }
+    public void foodTrans2() {
+        Bundle bundle = new Bundle();
+        activity = (Activity) getActivity();
+        bundle.putParcelable("FoodTest", selectedFood);
+        activity.bundleSave2(bundle);
     }
 
 /*    private void write(){

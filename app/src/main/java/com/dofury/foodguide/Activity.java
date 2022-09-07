@@ -27,6 +27,7 @@ public class Activity extends AppCompatActivity {
     private Setting setting;
     private Food fd;
     Bundle mBundle;
+    Bundle mBundle2;
     // 확인할 권한 목록
     String [] permission_list = {
             Manifest.permission.CAMERA,
@@ -112,5 +113,8 @@ public class Activity extends AppCompatActivity {
 
     public void bundleSave(Bundle bundle) {
         this.mBundle = bundle;
+    }
+    public void bundleSave2(Bundle bundle) {
+        this.mBundle2 = bundle;
     }
 }

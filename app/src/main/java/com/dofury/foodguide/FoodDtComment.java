@@ -34,7 +34,8 @@ public class FoodDtComment extends Fragment {
     private final UserAccount userAccount = UserAccount.getInstance();
     private RecyclerView recyclerView;
     private String mFoodName;
-
+    Activity activity;
+    Food selectedFood;
     public FoodDtComment() {
         // Required empty public constructor
     }
@@ -49,13 +50,14 @@ public class FoodDtComment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         recyclerView = view.findViewById(R.id.rv_list);
         FloatingActionButton fab = view.findViewById(R.id.fab_add);
 
-        getParentFragmentManager().setFragmentResultListener("key", this, (requestKey, result) -> {
+        getSelectedFood();
+        mFoodName = selectedFood.getName();
+        /*getParentFragmentManager().setFragmentResultListener("key", this, (requestKey, result) -> {
             mFoodName = result.getString("food_name");
-        });
+        });*/
 
         fab.setOnClickListener(v -> {
             Dialog dialog = new Dialog(requireContext());
@@ -101,6 +103,14 @@ public class FoodDtComment extends Fragment {
         super.onResume();
         loadComment();
 
+    }
+    private void getSelectedFood(){
+        activity = (Activity) getActivity();
+        Bundle bundle = activity.mBundle2;
+        if (activity.mBundle2 != null) {
+            selectedFood = bundle.getParcelable("FoodTest");
+            activity.mBundle2 = null;
+        }
     }
 
     private void loadComment(){
