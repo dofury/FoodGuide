@@ -58,7 +58,7 @@ public class FoodDtComment extends Fragment {
         /*getParentFragmentManager().setFragmentResultListener("key", this, (requestKey, result) -> {
             mFoodName = result.getString("food_name");
         });*/
-
+        loadComment();
         fab.setOnClickListener(v -> {
             Dialog dialog = new Dialog(requireContext());
             dialog.setContentView(R.layout.custom_dialog_add_own_word);
@@ -95,7 +95,7 @@ public class FoodDtComment extends Fragment {
 
         });
 
-        loadComment();
+
     }
 
     @Override
@@ -116,21 +116,16 @@ public class FoodDtComment extends Fragment {
     private void loadComment(){
 
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("FoodGuide");
-        getParentFragmentManager().setFragmentResultListener("key", this, (requestKey, result) -> {
-            mFoodName = result.getString("food_name");
+        dbRef.child("Food").child(mFoodName).child("comment").get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()) {
+                String comment = String.valueOf(task.getResult().getValue());
+                if(!comment.isEmpty()) foodCommentList = new Gson().fromJson(comment, new TypeToken<List<FoodComment>>(){}.getType());
 
-            dbRef.child("Food").child(mFoodName).child("comment").get().addOnCompleteListener(task -> {
-                if(task.isSuccessful()) {
-                    String comment = String.valueOf(task.getResult().getValue());
-                    if(!comment.isEmpty()) foodCommentList = new Gson().fromJson(comment, new TypeToken<List<FoodComment>>(){}.getType());
-
-                    FoodCommentAdapter foodCommentAdapter = new FoodCommentAdapter(requireContext(), foodCommentList, mFoodName);
-                    recyclerView.setHasFixedSize(true);
-                    recyclerView.setAdapter(foodCommentAdapter);
-                }
-            });
+                FoodCommentAdapter foodCommentAdapter = new FoodCommentAdapter(requireContext(), foodCommentList, mFoodName);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setAdapter(foodCommentAdapter);
+            }
         });
-
 
     }
 }
