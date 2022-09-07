@@ -62,8 +62,11 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
                 if(task.getResult().getValue() != null) {
                     likes = new Gson().fromJson(task.getResult().getValue().toString(), new TypeToken<List<String>>(){}.getType());
                     holder.tv_like.setText(String.valueOf(likes.size()));
-                    holder.tv_like.setVisibility(View.VISIBLE);
+                } else {
+                    holder.tv_like.setText(String.valueOf(likes.size()));
                 }
+                holder.tv_like.setVisibility(View.VISIBLE);
+
                 boolean flag = false;
                 for(String s : likes) {
                     if(s.equals(userAccount.getIdToken())) {
