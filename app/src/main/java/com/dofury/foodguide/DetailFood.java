@@ -53,6 +53,14 @@ public class DetailFood extends Fragment {
         //viewImage(); //이미지 구현 함수
         return view;
     }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Bundle bundle = new Bundle();
+        bundle.putString("food_name", selectedFood.getName());
+        getParentFragmentManager().setFragmentResult("key", bundle);
+    }
+
     private void setValues(){
 
         TextView tv1 = view.findViewById(R.id.food_detail_name);
