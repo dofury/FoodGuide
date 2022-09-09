@@ -1,20 +1,12 @@
 package com.dofury.foodguide;
 
-import android.app.FragmentManager;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.google.android.material.tabs.TabLayout;
+import com.dofury.foodguide.diary.FoodDtDiary;
 import com.google.firebase.database.annotations.NotNull;
-
-import java.util.ArrayList;
 
 public class ViewPageAdapter extends FragmentStateAdapter{
     private int mPageCount = 3;

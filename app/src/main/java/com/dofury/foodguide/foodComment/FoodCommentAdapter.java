@@ -1,4 +1,4 @@
-package com.dofury.foodguide.food;
+package com.dofury.foodguide.foodComment;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,14 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dofury.foodguide.R;
-import com.dofury.foodguide.community.CommunityAdapter;
 import com.dofury.foodguide.login.UserAccount;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;

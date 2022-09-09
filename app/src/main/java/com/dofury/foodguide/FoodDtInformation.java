@@ -63,7 +63,6 @@ public class FoodDtInformation extends Fragment {
         Bundle bundle = activity.mBundle;
         if (activity.mBundle != null) {
             selectedFood = bundle.getParcelable("FoodPage");
-            activity.mBundle = null;
         }
     }
     @Override
@@ -98,7 +97,7 @@ public class FoodDtInformation extends Fragment {
                 break;
             }
         }
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         ft.detach(this).attach(this).commit();
     }
 }

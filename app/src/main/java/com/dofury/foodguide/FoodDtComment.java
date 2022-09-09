@@ -2,7 +2,6 @@ package com.dofury.foodguide;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dofury.foodguide.food.FoodComment;
-import com.dofury.foodguide.food.FoodCommentAdapter;
+import com.dofury.foodguide.foodComment.FoodComment;
+import com.dofury.foodguide.foodComment.FoodCommentAdapter;
 import com.dofury.foodguide.login.UserAccount;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
@@ -106,10 +105,9 @@ public class FoodDtComment extends Fragment {
     }
     private void getSelectedFood(){
         activity = (Activity) getActivity();
-        Bundle bundle = activity.mBundle2;
-        if (activity.mBundle2 != null) {
-            selectedFood = bundle.getParcelable("FoodTest");
-            activity.mBundle2 = null;
+        Bundle bundle = activity.mBundle;
+        if (activity.mBundle != null) {
+            selectedFood = bundle.getParcelable("FoodComment");
         }
     }
 

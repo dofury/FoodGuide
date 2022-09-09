@@ -1,4 +1,4 @@
-package com.dofury.foodguide.food;
+package com.dofury.foodguide.foodComment;
 
 public class FoodComment {
     private String uid;

@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dofury.foodguide.diary.DiaryPost;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -56,7 +58,6 @@ public class DetailFood extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        foodTrans2();
 /*        Bundle bundle = new Bundle();
         bundle.putString("food_name", selectedFood.getName());
         getParentFragmentManager().setFragmentResult("key", bundle);*/
@@ -106,15 +107,10 @@ public class DetailFood extends Fragment {
         Bundle bundle = new Bundle();
         activity = (Activity) getActivity();
         bundle.putParcelable("FoodPage", selectedFood);
+        bundle.putParcelable("FoodDiary",selectedFood);
+        bundle.putParcelable("FoodComment", selectedFood);
         activity.bundleSave(bundle);
     }
-    public void foodTrans2() {
-        Bundle bundle = new Bundle();
-        activity = (Activity) getActivity();
-        bundle.putParcelable("FoodTest", selectedFood);
-        activity.bundleSave2(bundle);
-    }
-
 /*    private void write(){
         selectImageBtn = view.findViewById(R.id.food_detail_write);
         selectImageBtn.setOnClickListener(new View.OnClickListener(){
