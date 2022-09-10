@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -40,10 +41,13 @@ public class DiaryPost extends AppCompatActivity {
     private static final String TAG = "DiaryPost";
     private final UserAccount userAccount = UserAccount.getInstance();
     private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
-    Food food;
-    Button diaryImageBtn;
-    ImageView diaryImageView;
-    Uri uri;
+    public Food food;
+    private Button diaryImageBtn;
+    private ImageView diaryImageView;
+    private EditText edTitle;
+    private EditText edContent;
+    private Uri uri;
+    private RelativeLayout loaderLayout;
     public DiaryPost() {
 
     }
@@ -53,11 +57,9 @@ public class DiaryPost extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_food_detail_dirary_write);
-        findViewById(R.id.btn_diary_save).setOnClickListener(onClickListener);
-        Intent intent = getIntent();
-        food = intent.getParcelableExtra("DiaryPost");
-        diaryImageBtn= findViewById(R.id.btn_diary_image_select);
-        diaryImageView= findViewById(R.id.iv_diary_image);
+        init();
+        edTitle.setHint("제목");
+        edContent.setHint("간단한 한마디 적어주세요.");
         diaryImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,7 +74,16 @@ public class DiaryPost extends AppCompatActivity {
 
         launcher.launch(intent);
     }
-
+    private void init()
+    {
+        findViewById(R.id.btn_diary_save).setOnClickListener(onClickListener);
+        Intent intent = getIntent();
+        food = intent.getParcelableExtra("DiaryPost");
+        diaryImageBtn= findViewById(R.id.btn_diary_image_select);
+        edTitle = findViewById(R.id.et_diary_title);
+        edContent = findViewById(R.id.et_diary_content);
+        diaryImageView= findViewById(R.id.iv_diary_image);
+    }
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -102,13 +113,15 @@ public class DiaryPost extends AppCompatActivity {
         final String contents = ((EditText) findViewById(R.id.et_diary_content)).getText().toString();
         String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         String key = databaseReference.child("UserAccount").push().getKey();
+        loaderLayout = findViewById(R.id.loaderLayout);
         if(title.length() > 0 || contents.length() > 0)
         {
-
+            loaderLayout.setVisibility(View.VISIBLE);
             PostInfo postInfo = new PostInfo(title,contents);
             uploader(postInfo,key);
         }
         else {
+            loaderLayout.setVisibility(View.GONE);
             Toast.makeText(getApplicationContext(),"빈칸이 있습니다",Toast.LENGTH_SHORT).show();
         }
 
@@ -128,9 +141,11 @@ public class DiaryPost extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
+                                            loaderLayout.setVisibility(View.GONE);
                                             Toast.makeText(DiaryPost.this, "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show();
                                             onBackPressed();
                                         } else {
+                                            loaderLayout.setVisibility(View.GONE);
                                             Toast.makeText(DiaryPost.this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
                                         }
                                     }
@@ -146,9 +161,11 @@ public class DiaryPost extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
+                        loaderLayout.setVisibility(View.GONE);
                         Toast.makeText(DiaryPost.this, "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show();
                         onBackPressed();
                     } else {
+                        loaderLayout.setVisibility(View.GONE);
                         Toast.makeText(DiaryPost.this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     }
                 }

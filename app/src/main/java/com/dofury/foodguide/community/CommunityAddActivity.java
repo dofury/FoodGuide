@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -43,12 +44,12 @@ public class CommunityAddActivity extends AppCompatActivity {
     private ImageView iv_image;
 
     private Uri uri;
-
+    private RelativeLayout loaderLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_community_add);
-
+        loaderLayout = findViewById(R.id.loaderLayout);
         et_title = findViewById(R.id.et_title);
         et_content = findViewById(R.id.et_content);
 
@@ -96,8 +97,10 @@ public class CommunityAddActivity extends AppCompatActivity {
         String title = et_title.getText().toString();
         String content = et_content.getText().toString();
         String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        loaderLayout.setVisibility(View.VISIBLE);
 
         if(title.isEmpty() || content.isEmpty()) {
+            loaderLayout.setVisibility(View.GONE);
             Toast.makeText(CommunityAddActivity.this, "입력되지 않은 칸이 있습니다.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -121,10 +124,12 @@ public class CommunityAddActivity extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if(task.isSuccessful()) {
+                                            loaderLayout.setVisibility(View.GONE);
                                             Toast.makeText(CommunityAddActivity.this, "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show();
                                             onBackPressed();
                                         }
                                         else {
+                                            loaderLayout.setVisibility(View.GONE);
                                             Toast.makeText(CommunityAddActivity.this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
                                         }
                                     }
@@ -141,10 +146,12 @@ public class CommunityAddActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()) {
+                        loaderLayout.setVisibility(View.GONE);
                         Toast.makeText(CommunityAddActivity.this, "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show();
                         onBackPressed();
                     }
                     else {
+                        loaderLayout.setVisibility(View.GONE);
                         Toast.makeText(CommunityAddActivity.this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     }
                 }
