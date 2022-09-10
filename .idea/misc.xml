@@ -3,13 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/activity_community.xml" value="0.4505208333333333" />
         <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/activity_community_add.xml" value="0.3692708333333333" />
-        <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/activity_community_read.xml" value="0.3692708333333333" />
+        <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/activity_community_read.xml" value="0.315625" />
         <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/activity_detail.xml" value="0.5760869565217391" />
+        <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/activity_edit_profile.xml" value="0.4505208333333333" />
         <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/activity_login.xml" value="0.3651041666666667" />
+        <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/activity_register.xml" value="0.4505208333333333" />
+        <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/activity_setting.xml" value="0.4505208333333333" />
         <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/activity_write.xml" value="0.3692708333333333" />
+        <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/custom_delete_dialog.xml" value="0.4505208333333333" />
         <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/custom_item_community.xml" value="0.3692708333333333" />
         <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/custom_item_community_reply.xml" value="0.3692708333333333" />
+        <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/custom_one_word_item.xml" value="0.4505208333333333" />
+        <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/diary_post_item.xml" value="0.44947916666666665" />
         <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/food_item.xml" value="0.3692708333333333" />
         <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/fragment_food_detail_comment.xml" value="0.3692708333333333" />
         <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/fragment_food_detail_diary.xml" value="0.3692708333333333" />

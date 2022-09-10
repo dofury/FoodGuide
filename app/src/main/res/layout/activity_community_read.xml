@@ -8,12 +8,10 @@
     android:padding="10dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none"
-    >
-
+    android:scrollbars="none">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".community.CommunityReadActivity"
         android:background="#FFF6DE">
 
@@ -120,6 +118,7 @@
                 app:layout_constraintLeft_toRightOf="@id/civ_profile"
                 app:layout_constraintTop_toBottomOf="@+id/tv_date" />
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -218,7 +217,7 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 

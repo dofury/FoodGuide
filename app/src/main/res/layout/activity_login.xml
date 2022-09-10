@@ -12,11 +12,12 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FoodGuid에 오신 것을 환영합니다"
+        android:text="FoodGuide"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_margin="80dp"
         android:textSize="22sp"
+        android:textStyle="bold"
         android:textColor="@color/black"
         app:layout_constraintRight_toRightOf="parent"/>
 
@@ -83,12 +84,12 @@
         android:id="@+id/btn_login"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
         android:backgroundTint="#FFC107"
-        android:layout_marginTop="80dp"
         android:text="로그인"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_pw"/>
+        app:layout_constraintTop_toBottomOf="@id/et_pw" />
 
 
 
@@ -109,6 +110,7 @@
         layout="@layout/view_loader"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="@id/btn_login"
         android:visibility="gone"/>
 
 

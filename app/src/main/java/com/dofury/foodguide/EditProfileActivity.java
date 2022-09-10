@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private Button btn_save, btn_delete;
     private TextView tv_change_profile;
     private CircleImageView civ_profile;
+    private RelativeLayout loaderLayout;
 
     private Uri uri;
     @Override
@@ -119,8 +121,10 @@ public class EditProfileActivity extends AppCompatActivity {
     private void save() {
         String nickname = et_nickname.getText().toString();
         String email = et_email.getText().toString();
-
+        loaderLayout = findViewById(R.id.loaderLayout);
+        loaderLayout.setVisibility(View.VISIBLE);
         if(nickname.isEmpty() || email.isEmpty()) {
+            loaderLayout.setVisibility(View.GONE);
             Toast.makeText(EditProfileActivity.this, "입력되지 않은 데이터가 있습니다.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -149,6 +153,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                     firebaseUser.updateEmail(email);
 
                                     finish();
+                                    loaderLayout.setVisibility(View.GONE);
                                     Toast.makeText(EditProfileActivity.this, "프로필이 업데이트 되었습니다.", Toast.LENGTH_SHORT).show();
                                 }
                             });
@@ -168,6 +173,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     firebaseUser.updateEmail(email);
 
                     finish();
+                    loaderLayout.setVisibility(View.GONE);
                     Toast.makeText(EditProfileActivity.this, "프로필이 업데이트 되었습니다.", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -180,13 +186,15 @@ public class EditProfileActivity extends AppCompatActivity {
 
         EditText editText = dialog.findViewById(R.id.et_pw);
         Button button = dialog.findViewById(R.id.btn_save);
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String pw = editText.getText().toString();
+                loaderLayout = findViewById(R.id.loaderLayout);
+                loaderLayout.setVisibility(View.VISIBLE);
                 Log.d("test", pw);
                 if(pw.isEmpty()) {
+                    loaderLayout.setVisibility(View.GONE);
                     Toast.makeText(EditProfileActivity.this, "패스워드를 정확하게 입력하세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -199,6 +207,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         if(task.isSuccessful()) {
                             databaseReference.child("FoodGuide").child("UserAccount").child(userAccount.getIdToken()).removeValue();
                             firebaseUser.delete();
+                            loaderLayout.setVisibility(View.GONE);
                             Toast.makeText(EditProfileActivity.this, "탈퇴가 완료되었습니다.", Toast.LENGTH_SHORT).show();
 
                             SharedPreferences sharedPreferences = getSharedPreferences("preFile", 0);
@@ -216,6 +225,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             System.exit(0);
 
                         }
+                        loaderLayout.setVisibility(View.GONE);
                         Toast.makeText(EditProfileActivity.this, "패스워드를 정확하게 입력하세요.", Toast.LENGTH_SHORT).show();
                     }
                 });

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +40,7 @@ public class LoginActivity extends AppCompatActivity{
     private Button btn_login;
     private TextView tv_register;
     private Switch swch_auto_login;
-
+    private RelativeLayout loaderLayout;
     private SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +88,8 @@ public class LoginActivity extends AppCompatActivity{
     private void login(int type) {
         String email;
         String pw;
-
+        loaderLayout = findViewById(R.id.loaderLayout);
+        loaderLayout.setVisibility(View.VISIBLE);
 
         if(type == 1) {
             email = sharedPreferences.getString("auto_id", "");
@@ -98,7 +100,8 @@ public class LoginActivity extends AppCompatActivity{
             pw = et_pw.getText().toString();
 
             if(email.isEmpty() || pw.isEmpty()) {
-                Log.d("112", "입력안된친구있음");
+                loaderLayout.setVisibility(View.GONE);
+                Log.d("112", "입력안된데이터가 있음");
                 Toast.makeText(LoginActivity.this, "입력되지 않은 데이터가 있습니다", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -111,6 +114,7 @@ public class LoginActivity extends AppCompatActivity{
                     // 로그인 성공
                     Intent intent = new Intent(LoginActivity.this, Activity.class);
                     startActivity(intent);
+                    loaderLayout.setVisibility(View.GONE);
                     Toast.makeText(LoginActivity.this, "환영합니다", Toast.LENGTH_SHORT).show();
 
                     UserAccount userAccount = UserAccount.getInstance();
@@ -127,6 +131,7 @@ public class LoginActivity extends AppCompatActivity{
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
+                            loaderLayout.setVisibility(View.GONE);
                             Toast.makeText(LoginActivity.this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -149,7 +154,7 @@ public class LoginActivity extends AppCompatActivity{
                     // 로그인 성공했으니 로그인 액티비티는 제거
                     finish();
                 } else {
-
+                    loaderLayout.setVisibility(View.GONE);
                     Toast.makeText(LoginActivity.this, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show();
                 }
             }

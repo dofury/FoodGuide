@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.dofury.foodguide.Activity;
 import com.dofury.foodguide.R;
+import com.dofury.foodguide.diary.DiaryPost;
 import com.dofury.foodguide.login.UserAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,7 +50,6 @@ public class CommunityAddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_community_add);
-        loaderLayout = findViewById(R.id.loaderLayout);
         et_title = findViewById(R.id.et_title);
         et_content = findViewById(R.id.et_content);
 
@@ -97,6 +97,7 @@ public class CommunityAddActivity extends AppCompatActivity {
         String title = et_title.getText().toString();
         String content = et_content.getText().toString();
         String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        loaderLayout = findViewById(R.id.loaderLayout);
         loaderLayout.setVisibility(View.VISIBLE);
 
         if(title.isEmpty() || content.isEmpty()) {
@@ -110,7 +111,8 @@ public class CommunityAddActivity extends AppCompatActivity {
                 null, null, null, false, time, time, key);
 
         if(uri != null) {
-            Toast.makeText(CommunityAddActivity.this, "게시글을 저장중입니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CommunityAddActivity.this, "게시물을 등록중입니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CommunityAddActivity.this, "잠시만 기다려주세요.", Toast.LENGTH_SHORT).show();
             StorageReference storageReference = FirebaseStorage.getInstance().getReference("Community");
             storageReference.child(key).child("image.png").putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -141,17 +143,18 @@ public class CommunityAddActivity extends AppCompatActivity {
                 }
             });
         } else {
-            Toast.makeText(CommunityAddActivity.this, "게시글을 저장중입니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CommunityAddActivity.this, "게시물을 등록중입니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CommunityAddActivity.this, "잠시만 기다려주세요.", Toast.LENGTH_SHORT).show();
             databaseReference.child("Community").child(key).setValue(communityDAO).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()) {
-                        loaderLayout.setVisibility(View.GONE);
+                        //loaderLayout.setVisibility(View.GONE);
                         Toast.makeText(CommunityAddActivity.this, "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show();
                         onBackPressed();
                     }
                     else {
-                        loaderLayout.setVisibility(View.GONE);
+                        //loaderLayout.setVisibility(View.GONE);
                         Toast.makeText(CommunityAddActivity.this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
                     }
                 }

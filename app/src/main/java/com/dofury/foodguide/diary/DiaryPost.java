@@ -35,6 +35,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class DiaryPost extends AppCompatActivity {
@@ -114,20 +115,32 @@ public class DiaryPost extends AppCompatActivity {
         String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         String key = databaseReference.child("UserAccount").push().getKey();
         loaderLayout = findViewById(R.id.loaderLayout);
-        if(title.length() > 0 || contents.length() > 0)
+        if(title.length() > 0 && contents.length() > 0 && uri != null)
         {
             loaderLayout.setVisibility(View.VISIBLE);
-            PostInfo postInfo = new PostInfo(title,contents);
+            PostInfo postInfo = new PostInfo(title,contents,null,time);
             uploader(postInfo,key);
         }
-        else {
+        else if(title.length() == 0 || contents.length() == 0){
             loaderLayout.setVisibility(View.GONE);
-            Toast.makeText(getApplicationContext(),"빈칸이 있습니다",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"제목이나 내용중 공백이 있습니다",Toast.LENGTH_SHORT).show();
+        }
+        else if(uri == null)
+        {
+            loaderLayout.setVisibility(View.GONE);
+            Toast.makeText(getApplicationContext(),"이미지를 올려주세요",Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            loaderLayout.setVisibility(View.GONE);
+            Toast.makeText(getApplicationContext(),"오류가 발생했습니다.",Toast.LENGTH_SHORT).show();
         }
 
     }
     private void uploader(PostInfo postInfo,String key) {
         if (uri != null) {
+            Toast.makeText(DiaryPost.this, "다이어리를 등록중입니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(DiaryPost.this, "잠시만 기다려주세요.", Toast.LENGTH_SHORT).show();
             StorageReference storageReference = FirebaseStorage.getInstance().getReference("Diary");
             storageReference.child(key).child("image.png").putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -142,7 +155,7 @@ public class DiaryPost extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
                                             loaderLayout.setVisibility(View.GONE);
-                                            Toast.makeText(DiaryPost.this, "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(DiaryPost.this, "다이어리가 등록되었습니다.", Toast.LENGTH_SHORT).show();
                                             onBackPressed();
                                         } else {
                                             loaderLayout.setVisibility(View.GONE);

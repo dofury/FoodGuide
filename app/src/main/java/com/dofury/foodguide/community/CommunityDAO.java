@@ -21,8 +21,7 @@ public class CommunityDAO {
         this.reply = reply;
     }
 
-    public CommunityDAO() {
-    }
+    public CommunityDAO() {}
 
     public CommunityDAO(String title, String uid, String nickname, String content, String likes, String image, String reply, Boolean delete, String data, String data_, String cUid) {
         this.title = title;

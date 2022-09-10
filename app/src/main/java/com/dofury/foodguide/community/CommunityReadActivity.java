@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -58,6 +59,7 @@ public class CommunityReadActivity extends AppCompatActivity {
     private RecyclerView rv_reply;
     private ImageButton btn_send;
     private String key;
+    private RelativeLayout loaderLayout;
     private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
 
     private final UserAccount userAccount = UserAccount.getInstance();
@@ -65,7 +67,6 @@ public class CommunityReadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_community_read);
-
         Intent intent = getIntent();
         key = intent.getStringExtra("id");
 
@@ -91,16 +92,19 @@ public class CommunityReadActivity extends AppCompatActivity {
     }
 
     private void delete() {
+        loaderLayout = findViewById(R.id.loaderLayout);
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("게시글 삭제");
         dialog.setMessage("정말로 게시글을 삭제하시겠습니까?");
         dialog.setPositiveButton("예", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                loaderLayout.setVisibility(View.VISIBLE);
                 Toast.makeText(CommunityReadActivity.this, "글을 삭제하고 있습니다.", Toast.LENGTH_SHORT).show();
                 databaseReference.child("Community").child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                        loaderLayout.setVisibility(View.GONE);
                         Toast.makeText(CommunityReadActivity.this, "삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show();
                         onBackPressed();
                     }
@@ -112,6 +116,7 @@ public class CommunityReadActivity extends AppCompatActivity {
     }
 
     private void loadContent() {
+        loaderLayout = findViewById(R.id.loaderLayout);
         databaseReference.child("Community").child(key).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -224,11 +229,13 @@ public class CommunityReadActivity extends AppCompatActivity {
 
     private void sendReply() {
         String strReply = et_reply.getText().toString();
+        loaderLayout = findViewById(R.id.loaderLayout);
         if(strReply.isEmpty()) {
             Toast.makeText(CommunityReadActivity.this, "댓글이 입력되지 않았습니다.", Toast.LENGTH_SHORT).show();
             return;
         }
         et_reply.setText(null);
+        loaderLayout.setVisibility(View.VISIBLE);
         Toast.makeText(CommunityReadActivity.this, "댓글을 등록중입니다.", Toast.LENGTH_SHORT).show();
         databaseReference.child("Community").child(key).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -249,6 +256,7 @@ public class CommunityReadActivity extends AppCompatActivity {
                     databaseReference.child("Community").child(key).child("reply").setValue(json).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
+                            loaderLayout.setVisibility(View.GONE);
                             Toast.makeText(CommunityReadActivity.this, "댓글이 등록되었습니다.", Toast.LENGTH_SHORT);
                             loadContent();
                         }
