@@ -11,9 +11,17 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.dofury.foodguide.community.Community;
+import com.dofury.foodguide.diary.DiaryPost;
+import com.dofury.foodguide.inform.FoodInform;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class Activity extends AppCompatActivity {
@@ -27,6 +35,7 @@ public class Activity extends AppCompatActivity {
     private Setting setting;
     private Food fd;
     public Bundle mBundle;
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
     // 확인할 권한 목록
     String [] permission_list = {
             Manifest.permission.CAMERA,
@@ -68,6 +77,31 @@ public class Activity extends AppCompatActivity {
             requestPermissions(permission_list, 0);
         } else {
         }
+        //foodInit();
+    }
+    //메뉴 추가시 사용하는 관리함수
+    private void foodInit()
+    {
+        String name = "샌드위치";
+        String id = "1";
+        String intro = "빵을 포갠 음식";
+        String origin = "미국에서 즐겨먹는다";
+        String recipe = "https://wtable.co.kr/recipes/2qn9139vimEpjh8e3QN9PFFA";
+        FoodInform foodInform = new FoodInform();
+        foodInform.setIntro(intro);
+        foodInform.setOrigin(origin);
+        foodInform.setRecipes(recipe);
+        Food food = new Food(id,name,0,foodInform,0);
+        databaseReference.child("Food").child(name).setValue(food).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(Activity.this, name+"이 추가되었습니다 앱이 종료됩니다.", Toast.LENGTH_SHORT).show();
+                    onBackPressed();
+                } else {
+                }
+            }
+        });
     }
 
     @Override

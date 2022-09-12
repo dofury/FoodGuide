@@ -6,7 +6,7 @@
     android:background="#c0cfdf"
     android:padding = "15dp"
     android:orientation="vertical"
-    tools:context=".FoodDtInformation">
+    tools:context=".inform.FoodDtInformation">
 
 
     <LinearLayout
@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:id="@+id/food_detail_tap_item1_text1"
+                android:id="@+id/food_detail_tap_item_text1"
                 android:layout_marginTop="5dp"
                 android:text="" />
         </LinearLayout>
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:layout_marginTop="5dp"
-                android:id="@+id/food_detail_tap_item1_text2"
+                android:id="@+id/food_detail_tap_item_text2"
                 android:text="" />
 
         </LinearLayout>
@@ -82,8 +82,9 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:layout_marginTop="5dp"
-                android:id="@+id/food_detail_tap_item1_text3"
-                android:text="1번 레시피: http://www.naver.com" />
+                android:autoLink="web"
+                android:id="@+id/food_detail_tap_item_text3"
+                tools:text="1번 레시피: http://www.naver.com" />
 
         </LinearLayout>
 

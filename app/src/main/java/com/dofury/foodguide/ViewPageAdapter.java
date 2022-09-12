@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.dofury.foodguide.diary.FoodDtDiary;
+import com.dofury.foodguide.inform.FoodDtInformation;
 import com.google.firebase.database.annotations.NotNull;
 
 public class ViewPageAdapter extends FragmentStateAdapter{

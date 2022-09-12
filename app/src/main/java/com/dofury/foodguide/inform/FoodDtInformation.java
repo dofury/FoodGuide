@@ -1,14 +1,32 @@
-package com.dofury.foodguide;
+package com.dofury.foodguide.inform;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.dofury.foodguide.Activity;
+import com.dofury.foodguide.Food;
+import com.dofury.foodguide.R;
+import com.dofury.foodguide.community.CommunityDAO;
+import com.dofury.foodguide.diary.DiaryAdapter;
+import com.dofury.foodguide.diary.PostInfo;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,42 +38,32 @@ public class FoodDtInformation extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
-    private String mParam2;
 
     public FoodDtInformation() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FoodDetailPage1.
-     */
     // TODO: Rename and change types and number of parameters
-    public static FoodDtInformation newInstance(String param1, String param2) {
+    public static FoodDtInformation newInstance(String param1) {
         FoodDtInformation fragment = new FoodDtInformation();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
-    Food selectedFood;
-    View view;
-    Activity activity;
+    private Food selectedFood;
+    private View view;
+    private Activity activity;
+    private TextView tv_intro,tv_recipes,tv_origin;
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
     private void getSelectedFood(){
@@ -65,16 +73,39 @@ public class FoodDtInformation extends Fragment {
             selectedFood = bundle.getParcelable("FoodPage");
         }
     }
+    private void loadDatabase() {
+        databaseReference.child("Food").child(selectedFood.getName()).child("foodInform").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.d("__FoodGuide__", "글 불러오기 실패");
+                } else {
+                    FoodInform foodInform = task.getResult().getValue(FoodInform.class);
+                    tv_intro.setText(foodInform.getIntro());
+                    tv_origin.setText(foodInform.getOrigin());
+                    tv_recipes.setText(foodInform.getRecipes());
+
+                }
+            }
+        });
+    }
+    private void init(){
+        tv_intro = view.findViewById(R.id.food_detail_tap_item_text1);
+        tv_origin = view.findViewById(R.id.food_detail_tap_item_text2);
+        tv_recipes = view.findViewById(R.id.food_detail_tap_item_text3);
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_food_detail_information,container,false);
+        init();
         getSelectedFood();
-        printFood();
+        loadDatabase();
+        //printFood();
         return view;
     }
-    private void printFood(){
-        TextView detailText1 = view.findViewById(R.id.food_detail_tap_item1_text1);
+    /*private void printFood(){
+       TextView detailText1 = view.findViewById(R.id.food_detail_tap_item1_text1);
         TextView detailText2 = view.findViewById(R.id.food_detail_tap_item1_text2);
         switch (selectedFood.getId())
         {
@@ -99,5 +130,5 @@ public class FoodDtInformation extends Fragment {
         }
         FragmentTransaction ft = getParentFragmentManager().beginTransaction();
         ft.detach(this).attach(this).commit();
-    }
+    }*/
 }

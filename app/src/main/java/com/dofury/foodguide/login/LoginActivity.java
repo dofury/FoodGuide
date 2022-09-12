@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity{
                     Intent intent = new Intent(LoginActivity.this, Activity.class);
                     startActivity(intent);
                     loaderLayout.setVisibility(View.GONE);
-                    Toast.makeText(LoginActivity.this, "환영합니다", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(LoginActivity.this, "환영합니다", Toast.LENGTH_SHORT).show();
 
                     UserAccount userAccount = UserAccount.getInstance();
 

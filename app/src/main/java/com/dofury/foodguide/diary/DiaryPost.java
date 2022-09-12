@@ -168,21 +168,6 @@ public class DiaryPost extends AppCompatActivity {
                     }
                 }
             });
-        } else {
-            databaseReference.child("UserAccount").child(userAccount.getIdToken()).child("food").child(food.getId()).child(key).setValue(postInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        loaderLayout.setVisibility(View.GONE);
-                        Toast.makeText(DiaryPost.this, "게시물이 등록되었습니다.", Toast.LENGTH_SHORT).show();
-                        onBackPressed();
-                    } else {
-                        loaderLayout.setVisibility(View.GONE);
-                        Toast.makeText(DiaryPost.this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-
         }
     }
 
