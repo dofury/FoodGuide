@@ -61,7 +61,6 @@ public class FoodDtDiary extends Fragment {
     private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
     private final UserAccount userAccount = UserAccount.getInstance();
     private final ArrayList<PostInfo> postInfoList = new ArrayList<>();
-    private Context context;
     private String key;
     public FoodDtDiary() {
         // Required empty public constructor
@@ -77,7 +76,6 @@ public class FoodDtDiary extends Fragment {
     public static FoodDtDiary newInstance(String key) {
         FoodDtDiary fragment = new FoodDtDiary();
         Bundle args = new Bundle();
-        args.putString("diaryId", key);
         fragment.setArguments(args);
         return fragment;
     }
@@ -85,8 +83,7 @@ public class FoodDtDiary extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        context = getContext();
-        key = getArguments().getString("diaryId");
+        view = inflater.inflate(R.layout.fragment_food_detail_diary, container, false);
         foodDtDiary = this;
         getSelectedFood();
         //init();
@@ -97,38 +94,9 @@ public class FoodDtDiary extends Fragment {
                 myStartActivity();
             }
         });
-        diaryDelete = view.findViewById(R.id.tv_diary_item_delete);
-        diaryDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                delete();
-            }
-        });
 
         // Inflate the layout for this fragment
         return view;
-    }
-    private void delete() {
-        loaderLayout = view.findViewById(R.id.loaderLayout);
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this.getContext());
-        dialog.setTitle("다이어리 삭제");
-        dialog.setMessage("정말로 다이어리를 삭제하시겠습니까?");
-        dialog.setPositiveButton("예", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                loaderLayout.setVisibility(View.VISIBLE);
-                Toast.makeText(context, "글을 삭제하고 있습니다.", Toast.LENGTH_SHORT).show();
-                databaseReference.child("UserAccount").child(userAccount.getIdToken()).child("food").child(food.getId()).child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        loaderLayout.setVisibility(View.GONE);
-                        Toast.makeText(context, "삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-        dialog.setNegativeButton("아니요", null);
-        dialog.show();
     }
 
     @Override
@@ -156,7 +124,7 @@ public class FoodDtDiary extends Fragment {
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
                 linearLayoutManager.setReverseLayout(true);//역순으로 출력
                 recyclerView.setLayoutManager(linearLayoutManager);
-                DiaryAdapter diaryAdapter = new DiaryAdapter(foodDtDiary, postInfoList);
+                DiaryAdapter diaryAdapter = new DiaryAdapter(foodDtDiary, postInfoList, food);
                 recyclerView.setAdapter(diaryAdapter);
 
             }

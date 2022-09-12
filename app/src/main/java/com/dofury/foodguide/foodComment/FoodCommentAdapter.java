@@ -48,7 +48,6 @@ public class FoodCommentAdapter extends RecyclerView.Adapter<FoodCommentAdapter.
 
         if(foodComment.getUid().equals(userAccount.getIdToken())) {
             holder.tv_delete.setVisibility(View.VISIBLE);
-
             holder.tv_delete.setOnClickListener(view -> {
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
 
