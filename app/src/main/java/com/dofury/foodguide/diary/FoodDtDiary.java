@@ -1,14 +1,20 @@
 package com.dofury.foodguide.diary;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -20,6 +26,7 @@ import com.dofury.foodguide.Food;
 import com.dofury.foodguide.R;
 import com.dofury.foodguide.community.CommunityAdapter;
 import com.dofury.foodguide.community.CommunityDAO;
+import com.dofury.foodguide.community.CommunityReadActivity;
 import com.dofury.foodguide.login.UserAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -49,9 +56,13 @@ public class FoodDtDiary extends Fragment {
     private Activity activity;
     FoodDtDiary foodDtDiary;
     private FloatingActionButton floatingActionButton;
+    private TextView diaryDelete;
+    RelativeLayout loaderLayout;
     private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
     private final UserAccount userAccount = UserAccount.getInstance();
     private final ArrayList<PostInfo> postInfoList = new ArrayList<>();
+    private Context context;
+    private String key;
     public FoodDtDiary() {
         // Required empty public constructor
     }
@@ -59,15 +70,14 @@ public class FoodDtDiary extends Fragment {
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
+
      * @return A new instance of fragment FoodDetailPage1.
      */
     // TODO: Rename and change types and number of parameters
-    public static FoodDtDiary newInstance(String param1) {
+    public static FoodDtDiary newInstance(String key) {
         FoodDtDiary fragment = new FoodDtDiary();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putString("diaryId", key);
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,7 +85,8 @@ public class FoodDtDiary extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_food_detail_diary, container, false);
+        context = getContext();
+        key = getArguments().getString("diaryId");
         foodDtDiary = this;
         getSelectedFood();
         //init();
@@ -86,9 +97,38 @@ public class FoodDtDiary extends Fragment {
                 myStartActivity();
             }
         });
+        diaryDelete = view.findViewById(R.id.tv_diary_item_delete);
+        diaryDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                delete();
+            }
+        });
 
         // Inflate the layout for this fragment
         return view;
+    }
+    private void delete() {
+        loaderLayout = view.findViewById(R.id.loaderLayout);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this.getContext());
+        dialog.setTitle("다이어리 삭제");
+        dialog.setMessage("정말로 다이어리를 삭제하시겠습니까?");
+        dialog.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                loaderLayout.setVisibility(View.VISIBLE);
+                Toast.makeText(context, "글을 삭제하고 있습니다.", Toast.LENGTH_SHORT).show();
+                databaseReference.child("UserAccount").child(userAccount.getIdToken()).child("food").child(food.getId()).child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        loaderLayout.setVisibility(View.GONE);
+                        Toast.makeText(context, "삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+        dialog.setNegativeButton("아니요", null);
+        dialog.show();
     }
 
     @Override
@@ -104,10 +144,11 @@ public class FoodDtDiary extends Fragment {
                 for(DataSnapshot dataSnapshot : task.getResult().getChildren()) {
                     PostInfo postInfo = dataSnapshot.getValue(PostInfo.class);
                     postInfoList.add(new PostInfo(
-                            postInfo.getTitle().toString(),
+                            postInfo.getId().toString(),
                             postInfo.getContents().toString(),
                             postInfo.getImage().toString(),
-                            postInfo.getDate().toString()));
+                            postInfo.getDate().toString(),
+                            postInfo.getRating()));
                 }
                 RecyclerView recyclerView = view.findViewById(R.id.diary_recycle_view);
                 recyclerView.setHasFixedSize(true);

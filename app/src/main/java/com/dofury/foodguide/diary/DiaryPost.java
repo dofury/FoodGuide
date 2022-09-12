@@ -1,12 +1,14 @@
 package com.dofury.foodguide.diary;
 
 import android.content.Intent;
+import android.media.Rating;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -45,7 +47,6 @@ public class DiaryPost extends AppCompatActivity {
     public Food food;
     private Button diaryImageBtn;
     private ImageView diaryImageView;
-    private EditText edTitle;
     private EditText edContent;
     private Uri uri;
     private RelativeLayout loaderLayout;
@@ -59,7 +60,6 @@ public class DiaryPost extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_food_detail_dirary_write);
         init();
-        edTitle.setHint("제목");
         edContent.setHint("간단한 한마디 적어주세요.");
         diaryImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +81,6 @@ public class DiaryPost extends AppCompatActivity {
         Intent intent = getIntent();
         food = intent.getParcelableExtra("DiaryPost");
         diaryImageBtn= findViewById(R.id.btn_diary_image_select);
-        edTitle = findViewById(R.id.et_diary_title);
         edContent = findViewById(R.id.et_diary_content);
         diaryImageView= findViewById(R.id.iv_diary_image);
     }
@@ -110,20 +109,20 @@ public class DiaryPost extends AppCompatActivity {
         }
     };
     private void postUpdate(){
-        final String title = ((EditText) findViewById(R.id.et_diary_title)).getText().toString();
         final String contents = ((EditText) findViewById(R.id.et_diary_content)).getText().toString();
+        final float rating = ((RatingBar) findViewById(R.id.diary_rating)).getRating();
         String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         String key = databaseReference.child("UserAccount").push().getKey();
         loaderLayout = findViewById(R.id.loaderLayout);
-        if(title.length() > 0 && contents.length() > 0 && uri != null)
+        if(contents.length() > 0 && uri != null)
         {
             loaderLayout.setVisibility(View.VISIBLE);
-            PostInfo postInfo = new PostInfo(title,contents,null,time);
+            PostInfo postInfo = new PostInfo(key,contents,null,time,rating);
             uploader(postInfo,key);
         }
-        else if(title.length() == 0 || contents.length() == 0){
+        else if(contents.length() == 0){
             loaderLayout.setVisibility(View.GONE);
-            Toast.makeText(getApplicationContext(),"제목이나 내용중 공백이 있습니다",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"내용이 공백이 있습니다",Toast.LENGTH_SHORT).show();
         }
         else if(uri == null)
         {
