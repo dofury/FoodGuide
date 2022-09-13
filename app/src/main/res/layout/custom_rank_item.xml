@@ -17,20 +17,29 @@
             android:layout_height="wrap_content"
             android:text="1"
             android:textSize="50sp"
-            android:paddingHorizontal="10dp"
+            android:paddingLeft="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
+            android:layout_marginStart="10dp"
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="음식 이름"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_rank"
+            app:layout_constraintStart_toEndOf="@id/tv_rank_end"
             android:textSize="35sp"/>
+
+        <TextView
+            android:text="등"
+            android:id="@+id/tv_rank_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/tv_name"
+            app:layout_constraintStart_toEndOf="@id/tv_rank"/>
 
         <TextView
             android:id="@+id/tv_like"

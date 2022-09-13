@@ -59,6 +59,7 @@
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_edit_profile.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_login.xml" value="0.4759259259259259" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_main.xml" value="0.5536458333333333" />
+        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_rank_dir.xml" value="0.26851851851851855" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_register.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_setting.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/activity_table.xml" value="0.5536458333333333" />
@@ -68,7 +69,7 @@
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/custom_dialog_add_own_word.xml" value="0.39895833333333336" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/custom_item_community.xml" value="0.5" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/custom_item_community_reply.xml" value="0.5" />
-        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/custom_rank_item.xml" value="0.22864583333333333" />
+        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/custom_rank_item.xml" value="0.33" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/food_item.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/food_list.xml" value="0.39895833333333336" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/fragment_main.xml" value="0.5536458333333333" />
