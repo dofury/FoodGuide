@@ -13,6 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
+import com.dofury.foodguide.inform.FoodInform;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class FoodAdapter extends ArrayAdapter<Food> {
 
@@ -24,8 +30,30 @@ public class FoodAdapter extends ArrayAdapter<Food> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
+        Food food = new Food();
 
-        Food food = getItem(position);
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("FoodGuide");
+        dbRef.child("Food").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                for(DataSnapshot dataSnapshot : task.getResult().getChildren()) {
+                    FoodInform foodInform =  dataSnapshot.child("foodInform").getValue(FoodInform.class);
+                    food.setFoodInform(foodInform);
+                    food.setId(dataSnapshot.child("id").getValue().toString());
+                    food.setName(dataSnapshot.child("name").getValue().toString());
+                    food.setImage(dataSnapshot.child("image").getValue().toString());
+                    food.setComment(dataSnapshot.child("comment").getValue().toString());
+                    String json = dataSnapshot.child("like").getValue().toString();
+
+                    if(json.isEmpty()) {
+                        food.setLike("[]");
+                    } else {
+                        food.setLike(json);
+                    }
+                }
+            }
+        });
+
 
         if(convertView == null){
 
