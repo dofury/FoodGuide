@@ -21,8 +21,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Main extends Fragment implements TextSetAble {
@@ -30,6 +33,8 @@ public class Main extends Fragment implements TextSetAble {
     private SearchView searchView;
     private FirebaseDatabase firebaseDatabase;
     private String preFrag;
+    private Context context;
+    private Fragment fragment;
     private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
     private final UserAccount userAccount = UserAccount.getInstance();
     public static Main newInstance(){
@@ -39,6 +44,8 @@ public class Main extends Fragment implements TextSetAble {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_main, container, false);
+        context = this.getContext();
+        fragment = this;
         searchView = view.findViewById(R.id.food_search);
         searchView.setOnQueryTextListener(new MyTextQueryListener(this));
         searchView.setOnClickListener(new View.OnClickListener() {
@@ -48,37 +55,49 @@ public class Main extends Fragment implements TextSetAble {
             }
 
         });
-        dataSet();
+        //dataSet();
         return view;
     }
 
     private void dataSet(){
         // 리사이클러뷰에 표시할 데이터 리스트 생성.
-/*        ArrayList<Food> list = new ArrayList<>();
-
-        databaseReference.child("Food").child(food.getId()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        ArrayList<Food> list = new ArrayList<>();
+        databaseReference.child("UserAccount").child(userAccount.getIdToken()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                list.clear();
-                for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
-                    PostInfo postInfo = dataSnapshot.getValue(PostInfo.class);
-                    postInfo.add(new PostInfo(
-                            Food.getId().toString(),
-                            postInfo.getContents().toString(),
-                            postInfo.getImage().toString(),
-                            postInfo.getDate().toString(),
-                            postInfo.getRating()));
+                List<String> foodLogs = new ArrayList<>();
+                if(userAccount.getFoodLogs() != null) foodLogs = new Gson().fromJson(userAccount.getFoodLogs(), new TypeToken<List<String>>() {}.getType());
+
+                for(String log: foodLogs)
+                {
+                    databaseReference.child("Food").child(log).child("image").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            list.clear();
+                            for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
+                                Food food = dataSnapshot.getValue(Food.class);
+                                list.add(new Food(
+                                        food.getId().toString(),
+                                        food.getName().toString(),
+                                        food.getImage()
+                                ));
+                            }
+
+                            // 리사이클러뷰에 LinearLayoutManager 객체 지정.
+                            RecyclerView recyclerView = view.findViewById(R.id.main_recycle_view);
+                            recyclerView.setLayoutManager(new GridLayoutManager(getCurrentContext(), 3));
+
+                            // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
+                            MainAdapter adapter = new MainAdapter(fragment, list);
+                            recyclerView.setAdapter(adapter);
+                        }
+                    });
+
                 }
 
-                // 리사이클러뷰에 LinearLayoutManager 객체 지정.
-                RecyclerView recyclerView = view.findViewById(R.id.main_recycle_view);
-                recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 3));
-
-                // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-                MainAdapter adapter = new MainAdapter(this, list);
-                recyclerView.setAdapter(adapter);
             }
-        });*/
+        });
+
     }
 
     @Override
