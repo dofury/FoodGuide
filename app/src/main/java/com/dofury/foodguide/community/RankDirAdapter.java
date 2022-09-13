@@ -67,7 +67,7 @@ public class RankDirAdapter extends RecyclerView.Adapter<RankDirAdapter.ViewHold
             tv_like = itemView.findViewById(R.id.tv_like);
 
             itemView.setOnClickListener(v -> {
-                int pos = getAdapterPosition() + 1;
+                int pos = getAdapterPosition();
                 // 랭크 클릭
                 Intent intent = new Intent(context, Activity.class);
                 intent.putExtra("foodNameForRank", String.valueOf(foodList.get(pos).getName()));

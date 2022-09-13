@@ -89,7 +89,22 @@ public class Activity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
                     if(task.isSuccessful()) {
-                        Food food = task.getResult().getValue(Food.class);
+                        Food food = new Food();
+
+                        FoodInform foodInform =  task.getResult().child("foodInform").getValue(FoodInform.class);
+                        food.setFoodInform(foodInform);
+                        food.setId(task.getResult().child("id").getValue().toString());
+                        food.setName(task.getResult().child("name").getValue().toString());
+                        food.setImage(task.getResult().child("image").getValue().toString());
+                        food.setComment(task.getResult().child("comment").getValue().toString());
+                        String json = task.getResult().child("like").getValue().toString();
+
+                        if(json.isEmpty()) {
+                            food.setLike("[]");
+                        } else {
+                            food.setLike(json);
+                        }
+
                         Bundle bundle = new Bundle();
                         DetailFood detailFood = new DetailFood();
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -118,7 +133,7 @@ public class Activity extends AppCompatActivity {
         foodInform.setIntro(intro);
         foodInform.setOrigin(origin);
         foodInform.setRecipes(recipe);
-        Food food = new Food(id,name,0,foodInform,comment,like);
+        Food food = new Food(id,name,null,foodInform,comment,like);
         databaseReference.child("Food").child(name).setValue(food).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

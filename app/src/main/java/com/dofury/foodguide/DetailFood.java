@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.bumptech.glide.Glide;
 import com.dofury.foodguide.community.CommunityDAO;
 import com.dofury.foodguide.login.UserAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -145,7 +146,7 @@ public class DetailFood extends Fragment {
 
         tv1.setText(selectedFood.getName());
         tv2.setText("#"+selectedFood.getId());
-        iv.setImageResource(selectedFood.getImage());
+        Glide.with(context).load(selectedFood.getImage()).into(iv);
 
 
     }

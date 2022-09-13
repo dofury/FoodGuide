@@ -12,6 +12,8 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
+
 public class FoodAdapter extends ArrayAdapter<Food> {
 
     public FoodAdapter(Context context, int resource, List<Food> foodList){
@@ -34,7 +36,8 @@ public class FoodAdapter extends ArrayAdapter<Food> {
         ImageView iv = convertView.findViewById(R.id.food_image);
 
         tv.setText(food.getName());
-        iv.setImageResource(food.getImage());
+
+        Glide.with(getContext()).load(food.getImage()).into(iv);
 
         return convertView;
     }

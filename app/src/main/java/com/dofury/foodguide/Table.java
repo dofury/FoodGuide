@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+
 public class Table extends Fragment {
     View view;
     ImageView imageView;
@@ -114,7 +116,7 @@ public class Table extends Fragment {
         ImageView iv = view.findViewById(R.id.appetizer_image);
 
         tv.setText(selectedFood.getName());
-        iv.setImageResource(selectedFood.getImage());
+        Glide.with(getContext()).load(selectedFood.getImage()).into(iv);
     }
 
     private void getSelectedFood(){

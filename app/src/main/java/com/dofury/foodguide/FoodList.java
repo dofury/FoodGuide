@@ -13,6 +13,13 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.dofury.foodguide.inform.FoodInform;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class FoodList extends Fragment{
@@ -120,12 +127,32 @@ public class FoodList extends Fragment{
 
     //데이터셋팅//
     private void setUpData() {
-        Food food1 = new Food("1","샌드위치",R.drawable.sandwich);
-        foodList.add(food1);
-        Food food2 = new Food("2","치킨",R.drawable.chicken);
-        foodList.add(food2);
-        Food food3 = new Food("3","국수",R.drawable.steaming_bowl);
-        foodList.add(food3);
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("FoodGuide");
+        dbRef.child("Food").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                for(DataSnapshot dataSnapshot : task.getResult().getChildren()) {
+                    Food food = new Food();
+
+                    FoodInform foodInform =  dataSnapshot.child("foodInform").getValue(FoodInform.class);
+                    food.setFoodInform(foodInform);
+                    food.setId(dataSnapshot.child("id").getValue().toString());
+                    food.setName(dataSnapshot.child("name").getValue().toString());
+                    food.setImage(dataSnapshot.child("image").getValue().toString());
+                    food.setComment(dataSnapshot.child("comment").getValue().toString());
+                    String json = dataSnapshot.child("like").getValue().toString();
+
+                    if(json.isEmpty()) {
+                        food.setLike("[]");
+                    } else {
+                        food.setLike(json);
+                    }
+
+                    foodList.add(food);
+                }
+            }
+        });
+
     }
     //리스트 셋팅//
     private void setUpList(){
