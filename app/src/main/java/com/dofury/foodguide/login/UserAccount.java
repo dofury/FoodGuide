@@ -85,4 +85,15 @@ public class UserAccount {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "UserAccount{" +
+                "idToken='" + idToken + '\'' +
+                ", email='" + email + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", profile='" + profile + '\'' +
+                ", profileM='" + profileM + '\'' +
+                ", foodLogs='" + foodLogs + '\'' +
+                '}';
+    }
 }

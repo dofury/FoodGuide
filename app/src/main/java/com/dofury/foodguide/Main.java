@@ -46,6 +46,7 @@ public class Main extends Fragment implements TextSetAble {
         view = inflater.inflate(R.layout.fragment_main, container, false);
         context = this.getContext();
 
+
         searchView = view.findViewById(R.id.food_search);
         searchView.setOnQueryTextListener(new MyTextQueryListener(this));
         searchView.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +58,12 @@ public class Main extends Fragment implements TextSetAble {
         });
         //dataSet();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("test", userAccount.toString());
     }
 
     private void dataSet(){

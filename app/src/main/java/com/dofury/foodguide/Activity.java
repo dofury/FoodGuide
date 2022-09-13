@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.dofury.foodguide.community.Community;
 import com.dofury.foodguide.diary.DiaryPost;
 import com.dofury.foodguide.inform.FoodInform;
+import com.dofury.foodguide.login.UserAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -49,6 +50,7 @@ public class Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_background);
+
         bottomNavigationView = findViewById(R.id.bottomNavi);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

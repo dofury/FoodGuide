@@ -30,6 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity{
 
+    private UserAccount userAccount = UserAccount.getInstance();
+
     private FirebaseAuth firebaseAuth;  // 파이어베이스 인증처리
     private FirebaseUser firebaseUser;
 
@@ -117,7 +119,7 @@ public class LoginActivity extends AppCompatActivity{
                     loaderLayout.setVisibility(View.GONE);
                     //Toast.makeText(LoginActivity.this, "환영합니다", Toast.LENGTH_SHORT).show();
 
-                    UserAccount userAccount = UserAccount.getInstance();
+
 
                     firebaseUser = firebaseAuth.getCurrentUser();
                     databaseReference.child("UserAccount").child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
