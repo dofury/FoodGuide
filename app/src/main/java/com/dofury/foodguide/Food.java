@@ -15,7 +15,7 @@ public class Food implements Parcelable {
     private int image;
     private int like;
     private FoodInform foodInform;
-    private FoodComment foodComment;
+    private String comment;
 
 
     public Food(String id, String name, int image){
@@ -24,12 +24,12 @@ public class Food implements Parcelable {
         this.name = name;
 
     }
-    public Food(String id,String name,int image,FoodInform foodInform,FoodComment foodComment,int like){
+    public Food(String id,String name,int image,FoodInform foodInform,String comment,int like){
         this.id = id;
         this.image = image;
         this.name = name;
         this.foodInform = foodInform;
-        this.foodComment = foodComment;
+        this.comment = comment;
         this.like = like;
     }
 
@@ -55,13 +55,14 @@ public class Food implements Parcelable {
         this.like = like;
     }
 
-    public FoodComment getFoodComment() {
-        return foodComment;
+    public String getFoodComment() {
+        return comment;
     }
 
-    public void setFoodComment(FoodComment foodComment) {
-        this.foodComment = foodComment;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
+    public String getComment() { return this.comment;}
     public int getLike() {
         return like;
     }

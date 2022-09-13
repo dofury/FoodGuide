@@ -88,12 +88,12 @@ public class Activity extends AppCompatActivity {
         String intro = "빵을 포갠 음식";
         String origin = "미국에서 즐겨먹는다";
         String recipe = "https://wtable.co.kr/recipes/2qn9139vimEpjh8e3QN9PFFA";
+        String comment = "";
         FoodInform foodInform = new FoodInform();
         foodInform.setIntro(intro);
         foodInform.setOrigin(origin);
         foodInform.setRecipes(recipe);
-        FoodComment foodComment = new FoodComment();
-        Food food = new Food(id,name,0,foodInform,foodComment,0);
+        Food food = new Food(id,name,0,foodInform,comment,0);
         databaseReference.child("Food").child(name).setValue(food).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

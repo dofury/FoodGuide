@@ -29,8 +29,8 @@ import java.util.List;
 
 
 public class FoodDtComment extends Fragment {
-    private List<FoodComment> foodCommentList = new ArrayList<>();
     private final UserAccount userAccount = UserAccount.getInstance();
+    private List<FoodComment> foodCommentList = new ArrayList<>();
     private RecyclerView recyclerView;
     private String mFoodName;
     Activity activity;
@@ -51,7 +51,6 @@ public class FoodDtComment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.rv_list);
         FloatingActionButton fab = view.findViewById(R.id.fab_add);
-
         getSelectedFood();
         mFoodName = selectedFood.getName();
         /*getParentFragmentManager().setFragmentResultListener("key", this, (requestKey, result) -> {
@@ -77,7 +76,6 @@ public class FoodDtComment extends Fragment {
                     databaseReference.child("Food").child(mFoodName).child("comment").get().addOnCompleteListener(task -> {
                         String json = String.valueOf(task.getResult().getValue());
 
-                        if(!json.equals("null")) foodCommentList = new Gson().fromJson(json, new TypeToken<List<FoodComment>>(){}.getType());
                         foodCommentList.add(foodComment);
                         json = new Gson().toJson(foodCommentList);
                         databaseReference.child("Food").child(mFoodName).child("comment").setValue(json).addOnCompleteListener(task1 -> {
