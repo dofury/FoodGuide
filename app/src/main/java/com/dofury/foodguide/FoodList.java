@@ -31,6 +31,7 @@ public class FoodList extends Fragment{
     SearchView searchview;
     String text;
     String preFrag;
+    private String selFoodName;
     public static FoodList newInstance(){
         return new FoodList();
     }
@@ -58,6 +59,7 @@ public class FoodList extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.food_list, container, false);
         searchview = view.findViewById(R.id.food_search_view);
+        textListener();
         switch(preFrag) {
             case "main":
                 setUpData();
@@ -76,48 +78,34 @@ public class FoodList extends Fragment{
         return view;
     }
 
-
-    public void searchFood(){
+    public void textListener(){
         searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Log.d("test", query);
-                ArrayList<Food> filterFood = new ArrayList<>();
-                for(int i =0;i<foodList.size();i++){
-                    Food food = foodList.get(i);
-
-                    //데이터와 비교해서 내가 쓴 동물 이름이 있다면
-                    if(food.getName().toLowerCase().contains(query.toLowerCase())){
-
-                        filterFood.add(food);
-                    }
-                }
-                FoodAdapter adapter = new FoodAdapter(view.getContext(),0,filterFood);
-                listView.setAdapter(adapter);
-
+                selFoodName = query;
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String newText) {
-
-               /* ArrayList<Food> filterFood = new ArrayList<>();
-
-                for(int i =0;i<foodList.size();i++){
-
-                    Food food = foodList.get(i);
-
-                    //데이터와 비교해서 내가 쓴 동물 이름이 있다면
-                    if(food.getName().toLowerCase().contains(newText.toLowerCase())){
-
-                        filterFood.add(food);
-                    }
-                }
-                FoodAdapter adapter = new FoodAdapter(view.getContext(),0,filterFood);
-                listView.setAdapter(adapter);*/
-
                 return false;
             }
         });
+
+    }
+
+    public void searchFood(){
+        ArrayList<Food> filterFood = new ArrayList<>();
+        for(int i =0;i<foodList.size();i++){
+            Food food = foodList.get(i);
+
+            //데이터와 비교해서 내가 쓴 동물 이름이 있다면
+            if(food.getName().toLowerCase().contains(selFoodName.toLowerCase())){
+                filterFood.add(food);
+            }
+        }
+        FoodAdapter adapter = new FoodAdapter(view.getContext(),0,filterFood);
+        listView.setAdapter(adapter);
 
     }
 
@@ -148,7 +136,6 @@ public class FoodList extends Fragment{
 
                 }
                 setUpList();
-                searchFood();
             }
         });
 
@@ -167,7 +154,7 @@ public class FoodList extends Fragment{
             setUpOnClickListener();
         }
 
-
+        searchFood();
     }
 
     //상세 페이지 이벤트//
