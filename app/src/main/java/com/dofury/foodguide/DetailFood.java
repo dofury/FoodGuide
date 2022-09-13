@@ -4,14 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,31 +18,44 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
-import com.dofury.foodguide.diary.DiaryPost;
+import com.dofury.foodguide.community.CommunityDAO;
+import com.dofury.foodguide.login.UserAccount;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class DetailFood extends Fragment {
-    Food selectedFood;
-    View view;
-    ImageView imageView;
-    ImageButton selectImageBtn;
-    Uri uri;
-    Activity activity;
+    private Food selectedFood;
+    private View view;
+    private ImageView imageView;
+    private ImageButton selectImageBtn;
+    private Uri uri;
+    private Activity activity;
     private TabLayout mTabLayout;
     private ViewPager2 mViewPager;
     private ViewPageAdapter viewPageAdapter;
     Context context;
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
+
+    private final UserAccount userAccount = UserAccount.getInstance();
     public static DetailFood newInstance(){
         return new DetailFood();
     }
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_detail, container, false);
+        view = inflater.inflate(R.layout.fragment_detail, container, false);
         context = container.getContext();
         setTap();//탭 설정 함수
         imageView = view.findViewById(R.id.food_detail_icon);
@@ -51,6 +63,7 @@ public class DetailFood extends Fragment {
         getSelectedFood(); //선택한 음식정보 가져오기
         setValues(); //가져온 정보 화면에 보여주기
         foodTrans();//음식 정보 전송
+        setLoadLike();
         //write();
         //viewImage(); //이미지 구현 함수
         return view;
@@ -64,6 +77,66 @@ public class DetailFood extends Fragment {
         //getParentFragmentManager().setFragmentResult("key", bundle);
     }
 
+    private void setLoadLike()
+    {
+        ToggleButton tgb_like =  view.findViewById(R.id.food_detail_like_button);
+        TextView tv_like = view.findViewById(R.id.food_detail_like_text);
+        databaseReference.child("Food").child(selectedFood.getName()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        @Override
+        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                Food food = task.getResult().getValue(Food.class);
+                List<String>jsonLikeList = new ArrayList<>();
+                if(food.getLike() != null) jsonLikeList = new Gson().fromJson(food.getLike(), new TypeToken<List<String>>() {}.getType());
+
+                if(jsonLikeList.isEmpty()) tv_like.setText("0");
+                else tv_like.setText(String.valueOf(jsonLikeList.size()));
+
+                boolean flag = false;
+                for(String s : jsonLikeList) {
+                    if(s.equals(userAccount.getIdToken())) {
+                        flag = true;
+                        break;
+                    } else {
+                        flag = false;
+                    }
+                }
+                tgb_like.setChecked(flag);
+
+                tgb_like.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        databaseReference.child("Food").child(food.getName()).child("like").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                List<String>jsonLikeList = new ArrayList<>();
+                                String taskJson = String.valueOf(task.getResult().getValue());
+                                if(!taskJson.equals("null")) {
+                                    jsonLikeList = new Gson().fromJson(taskJson, new TypeToken<List<String>>(){}.getType());
+                                }
+
+                                if(tgb_like.isChecked()) {
+                                    jsonLikeList.add(userAccount.getIdToken());
+                                }
+                                else {
+                                    jsonLikeList.remove(userAccount.getIdToken());
+                                }
+
+                                taskJson = new Gson().toJson(jsonLikeList);
+
+                                databaseReference.child("Food").child(food.getName()).child("like").setValue(taskJson).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        setLoadLike();
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+        }
+        });
+
+    }
     private void setValues(){
 
         TextView tv1 = view.findViewById(R.id.food_detail_name);
@@ -73,6 +146,8 @@ public class DetailFood extends Fragment {
         tv1.setText(selectedFood.getName());
         tv2.setText("#"+selectedFood.getId());
         iv.setImageResource(selectedFood.getImage());
+
+
     }
 
     private void setTap(){
