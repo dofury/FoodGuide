@@ -2,6 +2,7 @@ package com.dofury.foodguide.community;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,6 +50,20 @@ public class RankDirAdapter extends RecyclerView.Adapter<RankDirAdapter.ViewHold
         holder.tv_name.setText(foodList.get(position).getName());
         holder.tv_rank.setText(String.valueOf(foodList.get(position).getRank()));
         Glide.with(context).load(foodList.get(position).getImage()).into(holder.iv_image);
+
+        switch (foodList.get(position).getRank()){
+            case 1:
+                holder.tv_rank.setTextColor(Color.parseColor("#D87F11"));
+                break;
+            case 2:
+                holder.tv_rank.setTextColor(Color.parseColor("#CEA06F"));
+                break;
+            case 3:
+                holder.tv_rank.setTextColor(Color.parseColor("#D1B596"));
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

@@ -56,7 +56,6 @@ public class Main extends Fragment implements TextSetAble {
             }
 
         });
-
         //dataSet();
         return view;
     }
@@ -64,8 +63,7 @@ public class Main extends Fragment implements TextSetAble {
     @Override
     public void onResume() {
         super.onResume();
-        if(userAccount.getIdToken()!=null)
-        {
+        if(userAccount.getIdToken() != null) {
             dataSet();
             Log.d("test", userAccount.toString());
         }
@@ -78,8 +76,8 @@ public class Main extends Fragment implements TextSetAble {
         databaseReference.child("UserAccount").child(userAccount.getIdToken()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                Log.d("test", "test");
                 List<String> foodLogs = new ArrayList<>();
+                Log.d("test", "onComplete");
                 if(userAccount.getFoodLogs() != null) foodLogs = new Gson().fromJson(userAccount.getFoodLogs(), new TypeToken<List<String>>() {}.getType());
                 for(String log: foodLogs)
                 {
