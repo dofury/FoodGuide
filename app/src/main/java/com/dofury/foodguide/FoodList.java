@@ -82,12 +82,24 @@ public class FoodList extends Fragment{
         searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                Log.d("test", query);
                 selFoodName = query;
+                searchFood();
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                 /* ArrayList<Food> filterFood = new ArrayList<>();
+                for(int i =0;i<foodList.size();i++){
+                    Food food = foodList.get(i);
+                    //데이터와 비교해서 내가 쓴 동물 이름이 있다면
+                    if(food.getName().toLowerCase().contains(newText.toLowerCase())){
+                        filterFood.add(food);
+                    }
+                }
+                FoodAdapter adapter = new FoodAdapter(view.getContext(),0,filterFood);
+                listView.setAdapter(adapter);*/
                 return false;
             }
         });
@@ -95,6 +107,7 @@ public class FoodList extends Fragment{
     }
 
     public void searchFood(){
+        if(foodList.isEmpty()) return;
         ArrayList<Food> filterFood = new ArrayList<>();
         for(int i =0;i<foodList.size();i++){
             Food food = foodList.get(i);
