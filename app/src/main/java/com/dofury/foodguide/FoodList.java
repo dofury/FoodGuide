@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FoodList extends Fragment{
     private View view;
@@ -60,33 +61,27 @@ public class FoodList extends Fragment{
         switch(preFrag) {
             case "main":
                 setUpData();
-                setUpList();
-                setUpOnClickListener();
-                searchFood();
                 searchview.setQuery(text, true);
                 preFrag = "";
                 break;
             case "table":
                 setUpData();
-                setUpList();
-                setFoodOnClickListener();
-                searchFood();
                 preFrag = "";
                 break;
             default:
                 setUpData();
-                setUpList();
-                setUpOnClickListener();
-                searchFood();
                 preFrag = "";
                 break;
         }
         return view;
     }
+
+
     public void searchFood(){
         searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                Log.d("test", query);
                 ArrayList<Food> filterFood = new ArrayList<>();
                 for(int i =0;i<foodList.size();i++){
                     Food food = foodList.get(i);
@@ -152,6 +147,8 @@ public class FoodList extends Fragment{
                     foodList.add(food);
 
                 }
+                setUpList();
+                searchFood();
             }
         });
 
@@ -159,9 +156,18 @@ public class FoodList extends Fragment{
     //리스트 셋팅//
     private void setUpList(){
         listView = view.findViewById(R.id.food_listView);
-
         FoodAdapter adapter = new FoodAdapter(view.getContext(), R.layout.food_item, foodList);
         listView.setAdapter(adapter);
+
+        if(preFrag.equals("main")) {
+            setUpOnClickListener();
+        } else if(preFrag.equals("table")) {
+            setFoodOnClickListener();
+        } else {
+            setUpOnClickListener();
+        }
+
+
     }
 
     //상세 페이지 이벤트//
