@@ -130,6 +130,7 @@ public class LoginActivity extends AppCompatActivity{
                             userAccount.setNickname(dataSnapshot.getValue(UserAccount.class).getNickname());
                             userAccount.setProfile(dataSnapshot.getValue(UserAccount.class).getProfile());
                             userAccount.setProfileM(dataSnapshot.getValue(UserAccount.class).getProfileM());
+                            userAccount.setFoodLogs(dataSnapshot.getValue(UserAccount.class).getFoodLogs());
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
