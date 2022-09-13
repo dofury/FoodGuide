@@ -44,6 +44,7 @@ public class Main extends Fragment implements TextSetAble {
     @Override
     public void onSearchEnd(String text) {
         preFrag = "main";
+
         ((Activity)getActivity()).setFrag(FoodList.newInstance(text,preFrag));
         //Toast.makeText(getCurrentContext(), "검색 처리됨 : " + text, Toast.LENGTH_SHORT).show();
     }

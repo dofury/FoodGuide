@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -21,8 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class FoodAdapter extends ArrayAdapter<Food> {
-    private List<Food> foodList;
-    public FoodAdapter(Context context, int resource, List<Food> foodList){
+    private ArrayList<Food> foodList;
+    public FoodAdapter(Context context, int resource, ArrayList<Food> foodList){
 
         super(context,resource,foodList);
         this.foodList = foodList;
