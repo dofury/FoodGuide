@@ -144,5 +144,18 @@ public class Food implements Parcelable, Comparable<Food> {
 
         return 0;
 
+
+    }
+
+    @Override
+    public String toString() {
+        return "Food{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", image='" + image + '\'' +
+                ", like='" + like + '\'' +
+                ", comment='" + comment + '\'' +
+                ", rank=" + rank +
+                '}';
     }
 }
