@@ -9,6 +9,7 @@
         <item name="colorSecondary">#FFC107</item>
         <item name="colorSecondaryVariant">#FF9800</item>
         <item name="colorOnSecondary">@color/white</item>
+        <item name="windowNoTitle">true</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->

@@ -45,7 +45,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<DiaryAdapter.DiaryViewHol
     private RelativeLayout loaderLayout;
     private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
     private final UserAccount userAccount = UserAccount.getInstance();
-    String key;
+    private String key;
     public static class DiaryViewHolder extends RecyclerView.ViewHolder {
         public CardView cardView;
         private TextView tv_delete;

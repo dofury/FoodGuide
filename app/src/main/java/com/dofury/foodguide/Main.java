@@ -25,7 +25,7 @@ public class Main extends Fragment implements TextSetAble {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_main, container, false);
+        view = inflater.inflate(R.layout.fragment_main, container, false);
         searchView = view.findViewById(R.id.food_search);
         searchView.setOnQueryTextListener(new MyTextQueryListener(this));
         searchView.setOnClickListener(new View.OnClickListener() {
