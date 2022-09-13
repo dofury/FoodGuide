@@ -15,14 +15,14 @@ public class Food implements Parcelable, Comparable<Food> {
 
     private String id;
     private String name;
-    private int image;
+    private String image;
     private String like;
     private FoodInform foodInform;
     private String comment;
     private int rank;
 
 
-    public Food(String id, String name, int image){
+    public Food(String id, String name, String image){
         this.id = id;
         this.image = image;
         this.name = name;
@@ -35,7 +35,7 @@ public class Food implements Parcelable, Comparable<Food> {
     public Food() {
     }
 
-    public Food(String id, String name, int image, FoodInform foodInform, String comment, String like){
+    public Food(String id, String name, String image, FoodInform foodInform, String comment, String like){
         this.id = id;
         this.image = image;
         this.name = name;
@@ -47,7 +47,7 @@ public class Food implements Parcelable, Comparable<Food> {
     protected Food(Parcel in) {
         id = in.readString();
         name = in.readString();
-        image = in.readInt();
+        image = in.readString();
     }
 
     public String getId() {
@@ -66,11 +66,11 @@ public class Food implements Parcelable, Comparable<Food> {
         this.name = name;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -124,7 +124,7 @@ public class Food implements Parcelable, Comparable<Food> {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
         dest.writeString(this.name);
-        dest.writeInt(this.image);
+        dest.writeString(this.image);
 
     }
     @Override

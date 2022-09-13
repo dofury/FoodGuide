@@ -5,16 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.dofury.foodguide.Food;
 import com.dofury.foodguide.R;
+import com.dofury.foodguide.inform.FoodInform;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -53,8 +58,16 @@ public class RankDirActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if(task.isSuccessful()) {
                     for(DataSnapshot dataSnapshot : task.getResult().getChildren()) {
-                        Food food = dataSnapshot.getValue(Food.class);
+                        Food food = new Food();
+
+                        FoodInform foodInform =  dataSnapshot.child("foodInform").getValue(FoodInform.class);
+                        food.setFoodInform(foodInform);
+                        food.setId(dataSnapshot.child("id").getValue().toString());
+                        food.setName(dataSnapshot.child("name").getValue().toString());
+                        food.setImage(dataSnapshot.child("image").getValue().toString());
+                        food.setComment(dataSnapshot.child("comment").getValue().toString());
                         String json = dataSnapshot.child("like").getValue().toString();
+
                         if(json.isEmpty()) {
                             food.setLike("[]");
                         } else {
