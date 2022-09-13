@@ -2,6 +2,7 @@ package com.dofury.foodguide.community;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -24,7 +25,7 @@ import java.util.List;
 public class RankDirActivity extends AppCompatActivity {
     List<Food> foodList = new ArrayList<>();
     RecyclerView rv_list;
-
+    FragmentManager fragmentManager = getSupportFragmentManager();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +33,7 @@ public class RankDirActivity extends AppCompatActivity {
 
         rv_list = findViewById(R.id.rv_list);
         rv_list.setHasFixedSize(true);
-        RankDirAdapter rankDirAdapter = new RankDirAdapter(foodList);
+        RankDirAdapter rankDirAdapter = new RankDirAdapter(foodList, RankDirActivity.this, fragmentManager);
         rv_list.setAdapter(rankDirAdapter);
 
     }
@@ -52,11 +53,8 @@ public class RankDirActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if(task.isSuccessful()) {
                     for(DataSnapshot dataSnapshot : task.getResult().getChildren()) {
-                        Food food = new Food();
-
-                        food.setName(dataSnapshot.child("name").getValue().toString());
+                        Food food = dataSnapshot.getValue(Food.class);
                         String json = dataSnapshot.child("like").getValue().toString();
-
                         if(json.isEmpty()) {
                             food.setLike("[]");
                         } else {
@@ -66,36 +64,20 @@ public class RankDirActivity extends AppCompatActivity {
                     }
                     Collections.sort(foodList);
 
-                    int rank = 1;
-                    for(int i=0; i<foodList.size()-1; i++) {
-                        boolean flag = false;
-                        int tmp = 0;
-                        for(int u=i; u<foodList.size()-1; u++) {
-                            List<String> list = new Gson().fromJson(foodList.get(u).getLike(), new TypeToken<List<String>>(){}.getType());
-                            List<String> list2 = new Gson().fromJson(foodList.get(u+1).getLike(), new TypeToken<List<String>>(){}.getType());
-                            if(list.size() > list2.size()) {
-                                foodList.get(u).setRank(rank);
-                                foodList.get(u+1).setRank(rank+1);
+                    for(int i=0; i<foodList.size(); i++){
+                        int rank = 1;
+                        List<String> list = new Gson().fromJson(foodList.get(i).getLike(), new TypeToken<List<String>>(){}.getType());
+                        for(int j=0; j<foodList.size(); j++){
+                            List<String> list2 = new Gson().fromJson(foodList.get(j).getLike(), new TypeToken<List<String>>(){}.getType());
 
-                                break;
-                            } else if (list.size() == list2.size()) {
-                                flag = true;
-                                tmp++;
-                            }
-                            else {
-                                break;
+                            if(list.size()<list2.size()){
+                                rank++;
                             }
                         }
-                        if(flag) {
-                            for(int j = i; j < tmp + i + 1; j++) {
-                                foodList.get(j).setRank(tmp);
-                            }
-                        }
-                        i += tmp;
-                        rank++;
+                        foodList.get(i).setRank(rank);
                     }
 
-                    RankDirAdapter rankDirAdapter = new RankDirAdapter(foodList);
+                    RankDirAdapter rankDirAdapter = new RankDirAdapter(foodList, RankDirActivity.this, fragmentManager);
                     rv_list.setAdapter(rankDirAdapter);
                 }
             }
