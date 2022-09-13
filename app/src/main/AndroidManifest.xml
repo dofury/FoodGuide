@@ -19,6 +19,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".community.RankDirActivity"
+            android:exported="false" />
+        <activity
             android:name=".community.CommunityReadActivity"
             android:exported="false" />
         <activity
@@ -47,7 +50,7 @@
             android:exported="true" />
         <activity
             android:name=".diary.DiaryPost"
-            android:exported="true"/>
+            android:exported="true" />
     </application>
 
 </manifest>

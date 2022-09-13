@@ -49,6 +49,12 @@ public class Community extends Fragment {
         rv_list = view.findViewById(R.id.rv_list);
         tv_isnull = view.findViewById(R.id.tv_isnull);
 
+        Button btn_rank = view.findViewById(R.id.btn_rank);
+        btn_rank.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), RankDirActivity.class);
+            startActivity(intent);
+        });
+
         FloatingActionButton fab_add = view.findViewById(R.id.fab_add);
         fab_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +79,7 @@ public class Community extends Fragment {
                 CommunityAdapter communityAdapter = new CommunityAdapter(communityDAOList, getContext());
 
                 rv_list.setHasFixedSize(true);
-                rv_list.addItemDecoration(new DividerItemDecoration(getContext(), 1));
+                rv_list.addItemDecoration(new DividerItemDecoration(requireContext(), 1));
                 rv_list.setAdapter(communityAdapter);
             }
         });

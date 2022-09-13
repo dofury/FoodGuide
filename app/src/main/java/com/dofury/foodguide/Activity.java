@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.dofury.foodguide.community.Community;
 import com.dofury.foodguide.diary.DiaryPost;
-import com.dofury.foodguide.foodComment.FoodComment;
 import com.dofury.foodguide.inform.FoodInform;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

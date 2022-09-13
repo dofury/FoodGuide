@@ -3,13 +3,10 @@ package com.dofury.foodguide;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.dofury.foodguide.foodComment.FoodComment;
-import com.dofury.foodguide.inform.FoodInform;
-
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Comparator;
 
-public class Food implements Parcelable {
+public class Food implements Parcelable, Comparable<Food> {
 
     private String id;
     private String name;
@@ -44,6 +41,14 @@ public class Food implements Parcelable {
         image = in.readInt();
     }
 
+    public int getLike() {
+        return likes;
+    }
+
+    public void setLike(int like) {
+        this.likes = like;
+    }
+
     public static final Creator<Food> CREATOR = new Creator<Food>() {
         @Override
         public Food createFromParcel(Parcel in) {
@@ -56,6 +61,15 @@ public class Food implements Parcelable {
         }
     };
 
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public String getComment() {
     public void setLike(String like) {
         this.like = like;
     }
@@ -95,15 +109,6 @@ public class Food implements Parcelable {
         this.image = image;
     }
 
-    public FoodInform getFoodInform() {
-        return this.foodInform;
-    }
-
-    public void setFoodInform(FoodInform foodInform) {
-        this.foodInform = foodInform;
-    }
-
-
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
@@ -114,5 +119,19 @@ public class Food implements Parcelable {
     @Override
     public int describeContents() {
         return 0;
+    }
+
+
+
+    @Override
+    public int compareTo(Food o) {
+        if(this.likes > o.getLike()) {
+            return -1;
+        } else if(this.likes < o.getLike()) {
+            return 1;
+        }
+
+        return 0;
+
     }
 }
