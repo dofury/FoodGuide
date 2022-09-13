@@ -27,7 +27,6 @@
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/fragment_food_detail_comment.xml" value="0.31302083333333336" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/fragment_food_detail_diary.xml" value="0.45677083333333335" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/fragment_food_detail_dirary_write.xml" value="0.31302083333333336" />
-        <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/fragment_food_detail_information.xml" value="0.5536458333333333" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/fragment_food_detail_page1.xml" value="0.45677083333333335" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/fragment_food_detail_page2.xml" value="0.45677083333333335" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/fragment_second.xml" value="0.2984375" />
@@ -69,6 +68,7 @@
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/custom_dialog.xml" value="0.5526041666666667" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/custom_item_community.xml" value="0.5" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/custom_item_community_reply.xml" value="0.5" />
+        <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/custom_rank_item.xml" value="0.22864583333333333" />
         <entry key="..\:/Users/ymail/AndroidStudioProjects/FoodGuide/app/src/main/res/layout/food_item.xml" value="0.5536458333333333" />
       </map>
     </option>
