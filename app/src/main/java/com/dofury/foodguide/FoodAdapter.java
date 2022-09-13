@@ -21,38 +21,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class FoodAdapter extends ArrayAdapter<Food> {
-
+    private List<Food> foodList;
     public FoodAdapter(Context context, int resource, List<Food> foodList){
 
         super(context,resource,foodList);
+        this.foodList = foodList;
+
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
-        Food food = new Food();
-
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("FoodGuide");
-        dbRef.child("Food").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                for(DataSnapshot dataSnapshot : task.getResult().getChildren()) {
-                    FoodInform foodInform =  dataSnapshot.child("foodInform").getValue(FoodInform.class);
-                    food.setFoodInform(foodInform);
-                    food.setId(dataSnapshot.child("id").getValue().toString());
-                    food.setName(dataSnapshot.child("name").getValue().toString());
-                    food.setImage(dataSnapshot.child("image").getValue().toString());
-                    food.setComment(dataSnapshot.child("comment").getValue().toString());
-                    String json = dataSnapshot.child("like").getValue().toString();
-
-                    if(json.isEmpty()) {
-                        food.setLike("[]");
-                    } else {
-                        food.setLike(json);
-                    }
-                }
-            }
-        });
+        Food food = foodList.get(position);
 
 
         if(convertView == null){
