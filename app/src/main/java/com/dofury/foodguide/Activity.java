@@ -7,9 +7,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -20,6 +22,7 @@ import com.dofury.foodguide.inform.FoodInform;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -77,6 +80,28 @@ public class Activity extends AppCompatActivity {
             requestPermissions(permission_list, 0);
         } else {
         }
+
+        Intent intent = getIntent();
+        String foodName = intent.getStringExtra("foodNameForRank");
+        if(foodName != null) {
+            DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("FoodGuide").child("Food");
+            dbRef.child(foodName).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if(task.isSuccessful()) {
+                        Food food = task.getResult().getValue(Food.class);
+                        Bundle bundle = new Bundle();
+                        DetailFood detailFood = new DetailFood();
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        bundle.putParcelable("ClickedFood", food);
+                        detailFood.setArguments(bundle);
+                        transaction.replace(R.id.main_frame, detailFood);
+                        transaction.commit();
+                    }
+                }
+            });
+        }
+
         //foodInit();
     }
     //메뉴 추가시 사용하는 관리함수
