@@ -86,6 +86,7 @@ public class Main extends Fragment implements TextSetAble {
                     databaseReference.child("Food").child(log).child("image").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            Log.d("test", "test");
                             list.clear();
                             for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
                                 Food food = dataSnapshot.getValue(Food.class);
