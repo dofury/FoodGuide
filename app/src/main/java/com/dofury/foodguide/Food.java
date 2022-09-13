@@ -3,6 +3,7 @@ package com.dofury.foodguide;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.dofury.foodguide.foodComment.FoodComment;
 import com.dofury.foodguide.inform.FoodInform;
 
 import java.util.ArrayList;
@@ -12,31 +13,24 @@ public class Food implements Parcelable {
     private String id;
     private String name;
     private int image;
-    private String comment;
     private int like;
-
-    public int getLike() {
-        return like;
-    }
-
-    public void setLikes(int likes) {
-        this.like = likes;
-    }
-
     private FoodInform foodInform;
+    private FoodComment foodComment;
 
-    public Food(String id,String name,int image){
+
+    public Food(String id, String name, int image){
         this.id = id;
         this.image = image;
         this.name = name;
 
     }
-    public Food(String id,String name,int image,FoodInform foodInform,int likes){
+    public Food(String id,String name,int image,FoodInform foodInform,FoodComment foodComment,int like){
         this.id = id;
         this.image = image;
         this.name = name;
         this.foodInform = foodInform;
-
+        this.foodComment = foodComment;
+        this.like = like;
     }
 
     protected Food(Parcel in) {
@@ -57,12 +51,19 @@ public class Food implements Parcelable {
         }
     };
 
-    public String getComment() {
-        return comment;
+    public void setLike(int like) {
+        this.like = like;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public FoodComment getFoodComment() {
+        return foodComment;
+    }
+
+    public void setFoodComment(FoodComment foodComment) {
+        this.foodComment = foodComment;
+    }
+    public int getLike() {
+        return like;
     }
 
     public String getId(){

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.dofury.foodguide.community.Community;
 import com.dofury.foodguide.diary.DiaryPost;
+import com.dofury.foodguide.foodComment.FoodComment;
 import com.dofury.foodguide.inform.FoodInform;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -91,7 +92,8 @@ public class Activity extends AppCompatActivity {
         foodInform.setIntro(intro);
         foodInform.setOrigin(origin);
         foodInform.setRecipes(recipe);
-        Food food = new Food(id,name,0,foodInform,0);
+        FoodComment foodComment = new FoodComment();
+        Food food = new Food(id,name,0,foodInform,foodComment,0);
         databaseReference.child("Food").child(name).setValue(food).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
