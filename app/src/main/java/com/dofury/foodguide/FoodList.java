@@ -31,7 +31,8 @@ public class FoodList extends Fragment{
     SearchView searchview;
     String text;
     String preFrag;
-    private String selFoodName;
+    private String selFoodName = "";
+    private int flag;
     public static FoodList newInstance(){
         return new FoodList();
     }
@@ -63,16 +64,15 @@ public class FoodList extends Fragment{
         switch(preFrag) {
             case "main":
                 setUpData();
+                flag = 1;
                 searchview.setQuery(text, true);
-                preFrag = "";
                 break;
             case "table":
                 setUpData();
-                preFrag = "";
+                flag = 2;
                 break;
             default:
                 setUpData();
-                preFrag = "";
                 break;
         }
         return view;
@@ -82,7 +82,6 @@ public class FoodList extends Fragment{
         searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Log.d("test", query);
                 selFoodName = query;
                 searchFood();
                 return false;
@@ -107,7 +106,7 @@ public class FoodList extends Fragment{
     }
 
     public void searchFood(){
-        if(foodList.isEmpty()) return;
+        if(flag == 1 && foodList.isEmpty()) return;
         ArrayList<Food> filterFood = new ArrayList<>();
         for(int i =0;i<foodList.size();i++){
             Food food = foodList.get(i);
@@ -193,14 +192,13 @@ public class FoodList extends Fragment{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-
+                Log.d("test", "onItemClick");
                 Food selectFood = (Food) listView.getItemAtPosition(position);
                 Bundle bundle = new Bundle();
                 Table table = new Table();
-                preFrag = "foodlist";
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 bundle.putParcelable("foodlist", selectFood);
-                bundle.putString("preFrag",preFrag);
+                bundle.putString("preFrag", "foodlist");
                 table.setArguments(bundle);
                 transaction.replace(R.id.main_frame, table);
                 transaction.commit();
