@@ -13,14 +13,14 @@ public class Food implements Parcelable {
     private String name;
     private int image;
     private String comment;
-    private int likes;
+    private int like;
 
-    public int getLikes() {
-        return likes;
+    public int getLike() {
+        return like;
     }
 
     public void setLikes(int likes) {
-        this.likes = likes;
+        this.like = likes;
     }
 
     private FoodInform foodInform;
