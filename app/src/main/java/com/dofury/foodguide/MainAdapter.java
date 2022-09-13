@@ -46,7 +46,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
-        if(mData.get(position).getImage() != 0) {
+        if(mData.get(position).getImage() != null) {
             Glide.with(fragment).load(mData.get(position).getImage()).into(holder.imageView);
         }
     }

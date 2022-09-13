@@ -12,9 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dofury.foodguide.login.UserAccount;
 import com.dofury.foodguide.diary.PostInfo;
 import com.dofury.foodguide.login.UserAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,13 +31,12 @@ import java.util.List;
 
 public class Main extends Fragment implements TextSetAble {
     private View view;
-    private SearchView searchView;
+    SearchView searchView;
+    Context context;
     private FirebaseDatabase firebaseDatabase;
-    private String preFrag;
-    private Context context;
-    private Fragment fragment;
-    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
-    private final UserAccount userAccount = UserAccount.getInstance();
+    UserAccount userAccount = UserAccount.getInstance();
+    String preFrag;
+    Fragment fragment;
     public static Main newInstance(){
         return new Main();
     }
@@ -46,7 +45,8 @@ public class Main extends Fragment implements TextSetAble {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_main, container, false);
         context = this.getContext();
-        fragment = this;
+
+
         searchView = view.findViewById(R.id.food_search);
         searchView.setOnQueryTextListener(new MyTextQueryListener(this));
         searchView.setOnClickListener(new View.OnClickListener() {
@@ -61,15 +61,21 @@ public class Main extends Fragment implements TextSetAble {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("test", userAccount.toString());
+    }
+
     private void dataSet(){
         // 리사이클러뷰에 표시할 데이터 리스트 생성.
         ArrayList<Food> list = new ArrayList<>();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
         databaseReference.child("UserAccount").child(userAccount.getIdToken()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 List<String> foodLogs = new ArrayList<>();
                 if(userAccount.getFoodLogs() != null) foodLogs = new Gson().fromJson(userAccount.getFoodLogs(), new TypeToken<List<String>>() {}.getType());
-
                 for(String log: foodLogs)
                 {
                     databaseReference.child("Food").child(log).child("image").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
