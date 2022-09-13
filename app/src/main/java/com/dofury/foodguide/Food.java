@@ -3,8 +3,13 @@ package com.dofury.foodguide;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.dofury.foodguide.inform.FoodInform;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 public class Food implements Parcelable, Comparable<Food> {
 
@@ -14,6 +19,7 @@ public class Food implements Parcelable, Comparable<Food> {
     private String like;
     private FoodInform foodInform;
     private String comment;
+    private int rank;
 
 
     public Food(String id, String name, int image){
@@ -25,8 +31,11 @@ public class Food implements Parcelable, Comparable<Food> {
     public Food(String like) {
         this.like = like;
     }
-    Food() {}
-    public Food(String id,String name,int image,FoodInform foodInform,String comment,String like){
+
+    public Food() {
+    }
+
+    public Food(String id, String name, int image, FoodInform foodInform, String comment, String like){
         this.id = id;
         this.image = image;
         this.name = name;
@@ -41,12 +50,52 @@ public class Food implements Parcelable, Comparable<Food> {
         image = in.readInt();
     }
 
-    public int getLike() {
-        return likes;
+    public String getId() {
+        return id;
     }
 
-    public void setLike(int like) {
-        this.likes = like;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
+    }
+
+    public String getLike() {
+        return like;
+    }
+
+    public void setLike(String like) {
+        this.like = like;
+    }
+
+    public FoodInform getFoodInform() {
+        return foodInform;
+    }
+
+    public void setFoodInform(FoodInform foodInform) {
+        this.foodInform = foodInform;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public static final Creator<Food> CREATOR = new Creator<Food>() {
@@ -61,6 +110,7 @@ public class Food implements Parcelable, Comparable<Food> {
         }
     };
 
+
     public int getRank() {
         return rank;
     }
@@ -69,45 +119,6 @@ public class Food implements Parcelable, Comparable<Food> {
         this.rank = rank;
     }
 
-    public String getComment() {
-    public void setLike(String like) {
-        this.like = like;
-    }
-
-    public String getFoodComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-    public String getComment() { return this.comment;}
-    public String getLike() {
-        return like;
-    }
-
-    public String getId(){
-        return id;
-    }
-    public void setId(String id){
-        this.id = id;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public void setName(String name){
-        this.name = name;
-    }
-
-    public int getImage(){
-        return image;
-    }
-
-    public void setImage(int image){
-        this.image = image;
-    }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -121,13 +132,13 @@ public class Food implements Parcelable, Comparable<Food> {
         return 0;
     }
 
-
-
     @Override
     public int compareTo(Food o) {
-        if(this.likes > o.getLike()) {
+        List<String> list = new Gson().fromJson(this.like, new TypeToken<List<String>>(){}.getType());
+        List<String> list2 = new Gson().fromJson(o.getLike(), new TypeToken<List<String>>(){}.getType());
+        if(list.size() > list2.size()) {
             return -1;
-        } else if(this.likes < o.getLike()) {
+        } else if(list.size() < list2.size()) {
             return 1;
         }
 

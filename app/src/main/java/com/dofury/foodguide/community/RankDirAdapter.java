@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dofury.foodguide.Food;
 import com.dofury.foodguide.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
@@ -31,8 +33,10 @@ public class RankDirAdapter extends RecyclerView.Adapter<RankDirAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull RankDirAdapter.ViewHolder holder, int position) {
-        holder.tv_like.setText(String.valueOf(foodList.get(position).getLike()));
+        List<String> list = new Gson().fromJson(foodList.get(position).getLike(), new TypeToken<List<String>>(){}.getType());
+        holder.tv_like.setText(String.valueOf(list.size()));
         holder.tv_name.setText(foodList.get(position).getName());
+        holder.tv_rank.setText(String.valueOf(foodList.get(position).getRank()));
     }
 
     @Override

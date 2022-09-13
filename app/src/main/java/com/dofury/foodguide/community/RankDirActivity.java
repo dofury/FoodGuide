@@ -58,10 +58,9 @@ public class RankDirActivity extends AppCompatActivity {
                         String json = dataSnapshot.child("like").getValue().toString();
 
                         if(json.isEmpty()) {
-                            food.setLike(0);
+                            food.setLike("[]");
                         } else {
-                            List<String> likes = new Gson().fromJson(json, new TypeToken<List<String>>(){}.getType());
-                            food.setLike(likes.size());
+                            food.setLike(json);
                         }
                         foodList.add(food);
                     }
@@ -69,17 +68,28 @@ public class RankDirActivity extends AppCompatActivity {
 
                     int rank = 1;
                     for(int i=0; i<foodList.size()-1; i++) {
+                        boolean flag = false;
                         int tmp = 0;
-                        for(int u=1; u<foodList.size(); u++) {
-                            if(foodList.get(i).getLike() > foodList.get(u).getLike()) {
-                                foodList.get(i).setRank(rank);
-                                break;
-                            } else if (foodList.get(i).getLike() == foodList.get(u).getLike()) {
-                                tmp++;
-                                foodList.get(i).setRank(rank);
+                        for(int u=i; u<foodList.size()-1; u++) {
+                            List<String> list = new Gson().fromJson(foodList.get(u).getLike(), new TypeToken<List<String>>(){}.getType());
+                            List<String> list2 = new Gson().fromJson(foodList.get(u+1).getLike(), new TypeToken<List<String>>(){}.getType());
+                            if(list.size() > list2.size()) {
                                 foodList.get(u).setRank(rank);
+                                foodList.get(u+1).setRank(rank+1);
+
+                                break;
+                            } else if (list.size() == list2.size()) {
+                                flag = true;
+                                tmp++;
                             }
-                            else break;
+                            else {
+                                break;
+                            }
+                        }
+                        if(flag) {
+                            for(int j = i; j < tmp + i + 1; j++) {
+                                foodList.get(j).setRank(tmp);
+                            }
                         }
                         i += tmp;
                         rank++;
