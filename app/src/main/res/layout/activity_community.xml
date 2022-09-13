@@ -21,13 +21,14 @@
 
     <Button
         android:layout_marginTop="20dp"
+        android:paddingHorizontal="50dp"
         android:layout_gravity="center_horizontal"
         android:layout_width="350dp"
-        android:layout_height="60dp"
+        android:layout_height="100dp"
         android:text="도감 랭킹 보러가기"
         android:textSize="16sp"
         android:drawableLeft="@drawable/ic_baseline_bar_chart_24"
-        android:backgroundTint="#E3AE0F"
+        android:backgroundTint="#EDBB26"
         android:id="@+id/btn_rank"/>
 
     <View
@@ -36,7 +37,7 @@
         android:layout_height="2dp"
         android:background="#676767"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="140dp"
         android:layout_marginHorizontal="30dp"
         />
 
@@ -45,7 +46,7 @@
         android:id="@+id/rv_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="150dp"
         tools:listitem="@layout/custom_item_community"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
