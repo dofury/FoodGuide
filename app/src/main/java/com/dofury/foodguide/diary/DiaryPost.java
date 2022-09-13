@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.Rating;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,15 +31,19 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class DiaryPost extends AppCompatActivity {
     private static final String TAG = "DiaryPost";
@@ -155,6 +160,7 @@ public class DiaryPost extends AppCompatActivity {
                                         if (task.isSuccessful()) {
                                             loaderLayout.setVisibility(View.GONE);
                                             Toast.makeText(DiaryPost.this, "다이어리가 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                                            foodLogUpdate();
                                             onBackPressed();
                                         } else {
                                             loaderLayout.setVisibility(View.GONE);
@@ -169,6 +175,47 @@ public class DiaryPost extends AppCompatActivity {
                 }
             });
         }
+    }
+    private void foodLogUpdate() {
+        databaseReference.child("UserAccount").child(userAccount.getIdToken()).child("foodLogs").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                List<String> foodLogs = new ArrayList<>();
+                String taskJson = String.valueOf(task.getResult().getValue());
+                String foodName = food.getName();
+                if (!taskJson.equals("null")) {
+                    foodLogs = new Gson().fromJson(taskJson, new TypeToken<List<String>>() {}.getType());
+                }
+                boolean check = false;
+                if(foodLogs.size() != 0)
+                {
+                    for (String log : foodLogs)
+                    {
+                        if (log.equals(foodName)) {
+                            check = true;
+                            foodLogs.remove(foodLogs.indexOf(food.getName()));
+                            foodLogs.add(0, log);
+                            break;
+                        }
+                    }
+                    if(check == false)
+                        foodLogs.add(0, food.getName());
+                }
+                else
+                {
+                    foodLogs.add(0, food.getName());
+                }
+
+
+                taskJson =new Gson().toJson(foodLogs);
+                databaseReference.child("UserAccount").child(userAccount.getIdToken()).child("foodLogs").setValue(taskJson).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete (@NonNull Task < Void > task) {
+                    Log.d("dd","dd");
+                }
+            });
+        }
+    });
     }
 
 }

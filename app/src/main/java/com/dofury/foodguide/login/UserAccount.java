@@ -11,6 +11,16 @@ public class UserAccount {
     private String nickname;
     private String profile;
     private String profileM;
+    private String foodLogs;
+
+    public String getFoodLogs() {
+        return foodLogs;
+    }
+
+    public void setFoodLogs(String foodLogs) {
+        this.foodLogs = foodLogs;
+    }
+
 
     private static final UserAccount singleton = new UserAccount();
 
@@ -70,6 +80,7 @@ public class UserAccount {
         result.put("nickname", nickname);
         result.put("profile", profile);
         result.put("profileM", profileM);
+        result.put("foodLogs", foodLogs);
 
         return result;
     }
