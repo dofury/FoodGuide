@@ -13,23 +13,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder> {
 
     private ArrayList<Food> mData;
     private Fragment fragment;
+    private List<String> foodLogs;
+    private int position;
 
     public static class MainViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         public MainViewHolder(View itemView){
             super(itemView);
-            imageView = itemView.findViewById(R.id.iv_main_item_image);
+            imageView = itemView.findViewById(R.id.iv_main_item);
         }
 
     }
-    MainAdapter(Fragment fragment, ArrayList<Food> list){
+    MainAdapter(Fragment fragment, ArrayList<Food> list, List<String> foodLogs){
         this.mData = list;
         this.fragment = fragment;
+        this.foodLogs = foodLogs;
     }
 
     @NonNull
@@ -50,7 +55,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             Glide.with(fragment).load(mData.get(position).getImage()).into(holder.imageView);
         }
     }
-
 
     @Override
     public int getItemCount() {

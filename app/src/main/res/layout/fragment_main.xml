@@ -28,10 +28,23 @@
 
     </androidx.appcompat.widget.SearchView>
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="20sp"
+
+        android:text="최근 다이어리에 등록한 음식" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/main_recycle_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:layout_gravity="center"
         android:layout_marginTop="20dp"/>
 
 
