@@ -22,7 +22,6 @@ public class PostInfo {
 
     public String getDate() { return this.date; }
     public void setDate(String date) { this.date = date; }
-    public String getTitle() { return this.id;}
     public String getContents() { return this.contents;}
 
     public String getId() {

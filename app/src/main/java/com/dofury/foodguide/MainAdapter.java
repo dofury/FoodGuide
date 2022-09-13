@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -15,7 +16,8 @@ import java.util.ArrayList;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder> {
 
-    private ArrayList<String> mData = null ;
+    private ArrayList<Food> mData;
+    private Fragment fragment;
 
     public static class MainViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
@@ -25,8 +27,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         }
 
     }
-    MainAdapter(ArrayList<String> list){
+    MainAdapter(Fragment fragment, ArrayList<Food> list){
         this.mData = list;
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -43,10 +46,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
-        String text = mData.get(position) ;
-        //if(mData.get(position).getImage() != null) {
-            //Glide.with(this).load(mData.get(position).getImage()).into(holder.imageView);
-        //}
+        if(mData.get(position).getImage() != 0) {
+            Glide.with(fragment).load(mData.get(position).getImage()).into(holder.imageView);
+        }
     }
 
 
