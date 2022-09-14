@@ -82,9 +82,13 @@ public class Activity extends AppCompatActivity {
             requestPermissions(permission_list, 0);
         } else {
         }
+        transFood();
 
+        //foodInit();
+    }
+    private void transFood(){
         Intent intent = getIntent();
-        String foodName = intent.getStringExtra("foodNameForRank");
+        String foodName = intent.getStringExtra("foodNameForPage");
         if(foodName != null) {
             DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("FoodGuide").child("Food");
             dbRef.child(foodName).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -118,8 +122,6 @@ public class Activity extends AppCompatActivity {
                 }
             });
         }
-
-        //foodInit();
     }
     //메뉴 추가시 사용하는 관리함수
     private void foodInit()
