@@ -192,13 +192,14 @@ public class FoodList extends Fragment{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Log.d("test", "onItemClick");
+
                 Food selectFood = (Food) listView.getItemAtPosition(position);
                 Bundle bundle = new Bundle();
                 Table table = new Table();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 bundle.putParcelable("foodlist", selectFood);
                 bundle.putString("preFrag", "foodlist");
+                bundle.putString("foodName", selectFood.getName());
                 table.setArguments(bundle);
                 transaction.replace(R.id.main_frame, table);
                 transaction.commit();

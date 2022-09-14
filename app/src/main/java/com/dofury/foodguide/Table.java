@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.dofury.foodguide.inform.FoodInform;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -43,7 +44,7 @@ public class Table extends Fragment {
     private int yDelta;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
     Food testA;
-
+    private String selListFoodName;
 
     public Table() {
 
@@ -65,8 +66,12 @@ public class Table extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_table, container, false);
         bundle = getArguments();
-        if(bundle != null)
+        if(bundle != null) {
             preFrag = bundle.getString("preFrag");
+            selListFoodName = bundle.getString("foodName");
+            Log.d("test", selListFoodName);
+        }
+
 
         mainLayout = view.findViewById(R.id.main);
         imageView = view.findViewById(R.id.appetizer_image);
@@ -82,6 +87,16 @@ public class Table extends Fragment {
         }
         return view;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        FloatingActionButton floatingActionButton = view.findViewById(R.id.table_item_add_button);
+        floatingActionButton.setOnClickListener(v -> {
+            ((Activity)getActivity()).setFrag(FoodList.newInstance("table"));
+        });
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     private View.OnTouchListener onTouchListener() {
         return (view, event) -> {

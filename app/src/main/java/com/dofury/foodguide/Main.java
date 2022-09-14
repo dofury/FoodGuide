@@ -93,12 +93,12 @@ public class Main extends Fragment implements TextSetAble {
         databaseReference.child("UserAccount").child(userAccount.getIdToken()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                Log.d("test", "test");
+
                 if(userAccount.getFoodLogs() != null) finalFoodLogs = new Gson().fromJson(userAccount.getFoodLogs(), new TypeToken<List<String>>() {}.getType());
                 databaseReference.child("Food").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        Log.d("test", "test");
+
                         list.clear();
                         for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
                             Boolean check = false;
