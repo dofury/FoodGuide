@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.dofury.foodguide.inform.FoodInform;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -43,7 +45,8 @@ public class Table extends Fragment {
     private int yDelta;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
     Food testA;
-
+    Activity activity;
+    private String selListFoodName = "";
 
     public Table() {
 
@@ -65,25 +68,40 @@ public class Table extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_table, container, false);
         bundle = getArguments();
-        if(bundle != null)
+        activity = (Activity) getActivity();
+        if(bundle != null) {
             preFrag = bundle.getString("preFrag");
+            selListFoodName = bundle.getString("foodName");
+            Log.d("test", selListFoodName);
+        }
 
         mainLayout = view.findViewById(R.id.main);
-        imageView = view.findViewById(R.id.appetizer_image);
-        imageView.setOnTouchListener(onTouchListener());
         switch (preFrag) {
             case "foodlist":
                     //selectFood();
                     //getSelectedFood();
                     dataLoad();
-                    setValues();
-
+                    Log.d("test","도착");
+                    break;
             default:
                     dataLoad();
+                    Log.d("test","도착2");
                     break;
         }
         return view;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        activity.fragmentSave(this,getContext());
+        FloatingActionButton floatingActionButton = view.findViewById(R.id.table_item_add_button);
+        floatingActionButton.setOnClickListener(v -> {
+            ((Activity)getActivity()).setFrag(FoodList.newInstance("table"));
+
+        });
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     private View.OnTouchListener onTouchListener() {
         return (view, event) -> {
@@ -122,12 +140,11 @@ public class Table extends Fragment {
     }
     private void dataLoad(){
         // 리사이클러뷰에 표시할 데이터 리스트 생성.
-        String selectedFoodName = "국수";
         databaseReference.child("Food").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
-                        if(selectedFoodName.equals(dataSnapshot.child("name").getValue().toString()))
+                        if(selListFoodName.equals(dataSnapshot.child("name").getValue().toString()))
                         {
                             selectedFood = new Food();
 
@@ -149,8 +166,7 @@ public class Table extends Fragment {
 
     }
 
-    private void selectFood(){
-        imageView = view.findViewById(R.id.appetizer_image);
+/*    private void selectFood(){
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,16 +174,14 @@ public class Table extends Fragment {
                 ((Activity)getActivity()).setFrag(FoodList.newInstance(preFrag));
             }
         });
-    }
+    }*/
     private void setValues(){
-        if(selectedFood != null)
-        {
-            TextView tv = view.findViewById(R.id.appetizer_name);
-            ImageView iv = view.findViewById(R.id.appetizer_image);
 
-            tv.setText(selectedFood.getName());
-            Glide.with(getContext()).load(selectedFood.getImage()).into(iv);
-        }
+        ImageView iv = new ImageView(activity.mContext);
+        iv.setOnTouchListener(onTouchListener());
+        iv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        Glide.with(getContext()).load(selectedFood.getImage()).into(iv);
+        mainLayout.addView(iv);
     }
 
     private void getSelectedFood(){

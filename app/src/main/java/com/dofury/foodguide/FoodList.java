@@ -31,6 +31,7 @@ public class FoodList extends Fragment{
     SearchView searchview;
     String text;
     String preFrag;
+    private Activity activity;
     private String selFoodName = "";
     private int flag;
     public static FoodList newInstance(){
@@ -59,6 +60,7 @@ public class FoodList extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.food_list, container, false);
+        activity = (Activity) getActivity();
         searchview = view.findViewById(R.id.food_search_view);
         textListener();
         switch(preFrag) {
@@ -192,16 +194,20 @@ public class FoodList extends Fragment{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Log.d("test", "onItemClick");
-                Food selectFood = (Food) listView.getItemAtPosition(position);
-                Bundle bundle = new Bundle();
-                Table table = new Table();
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                bundle.putParcelable("foodlist", selectFood);
-                bundle.putString("preFrag", "foodlist");
-                table.setArguments(bundle);
-                transaction.replace(R.id.main_frame, table);
-                transaction.commit();
+
+                if(activity.mFragment != null)
+                {
+                    Food selectFood = (Food) listView.getItemAtPosition(position);
+                    Bundle bundle = new Bundle();
+                    Table table = new Table();
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    bundle.putParcelable("foodlist", selectFood);
+                    bundle.putString("preFrag", "foodlist");
+                    bundle.putString("foodName", selectFood.getName());
+                    table.setArguments(bundle);
+                    transaction.replace(R.id.main_frame, table);
+                    transaction.commit();
+                }
             }
         });
     }
