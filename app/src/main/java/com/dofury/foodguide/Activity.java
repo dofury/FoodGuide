@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -39,6 +40,8 @@ public class Activity extends AppCompatActivity {
     private Setting setting;
     private Food fd;
     public Bundle mBundle;
+    public Fragment mFragment;
+    public Context mContext;
     private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
     // 확인할 권한 목록
     String [] permission_list = {
@@ -192,5 +195,9 @@ public class Activity extends AppCompatActivity {
 
     public void bundleSave(Bundle bundle) {
         this.mBundle = bundle;
+    }
+    public void fragmentSave(Fragment fragment,Context context) {
+        this.mFragment = fragment;
+        this.mContext = context;
     }
 }

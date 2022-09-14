@@ -18,26 +18,6 @@
         android:textSize="40sp"/>
 
 
-        <ImageView
-            android:id="@+id/appetizer_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:padding="30dp"
-            app:srcCompat="@drawable/sandwich" />
-
-        <TextView
-            android:id="@+id/appetizer_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="음식"
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/table_item_add_button"
         android:layout_width="wrap_content"
