@@ -182,6 +182,7 @@ public class Table extends Fragment {
         iv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         Glide.with(getContext()).load(selectedFood.getImage()).into(iv);
         mainLayout.addView(iv);
+        Log.d("s","ss");
     }
 
     private void getSelectedFood(){
