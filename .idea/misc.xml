@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/activity_table.xml" value="0.2190982776089159" />
+        <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/activity_write.xml" value="0.4505208333333333" />
+        <entry key="..\:/Users/dofury/AndroidStudioProjects/FoodGuide3/app/src/main/res/layout/main_item.xml" value="0.4505208333333333" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide/app/src/main/res/drawable/border_bottom.xml" value="0.454" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide/app/src/main/res/drawable/border_sides.xml" value="0.454" />
         <entry key="..\:/Users/mo700/AndroidStudioProjects/FoodGuide/app/src/main/res/drawable/ic_baseline_power_input_24.xml" value="0.547" />

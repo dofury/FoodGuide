@@ -1,6 +1,7 @@
 package com.dofury.foodguide;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +24,22 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     private List<String> foodLogs;
     private int position;
 
-    public static class MainViewHolder extends RecyclerView.ViewHolder {
+    public class MainViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         public MainViewHolder(View itemView){
             super(itemView);
             imageView = itemView.findViewById(R.id.iv_main_item);
+            itemView.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                // 랭크 클릭
+                Intent intent = new Intent(fragment.getContext(), Activity.class);
+                intent.putExtra("foodNameForPage", String.valueOf(mData.get(pos).getName()));
+                fragment.getContext().startActivity(intent);
+            });
+
+
         }
+
 
     }
     MainAdapter(Fragment fragment, ArrayList<Food> list, List<String> foodLogs){
@@ -55,6 +66,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             Glide.with(fragment).load(mData.get(position).getImage()).into(holder.imageView);
         }
     }
+
 
     @Override
     public int getItemCount() {
