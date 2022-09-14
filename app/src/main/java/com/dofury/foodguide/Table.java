@@ -73,12 +73,14 @@ public class Table extends Fragment {
         imageView.setOnTouchListener(onTouchListener());
         switch (preFrag) {
             case "foodlist":
-                selectFood();
-                getSelectedFood();
-                setValues();
-                break;
+                    //selectFood();
+                    //getSelectedFood();
+                    dataLoad();
+                    setValues();
+
             default:
-                break;
+                    dataLoad();
+                    break;
         }
         return view;
     }
@@ -118,7 +120,34 @@ public class Table extends Fragment {
 
         };
     }
+    private void dataLoad(){
+        // 리사이클러뷰에 표시할 데이터 리스트 생성.
+        String selectedFoodName = "국수";
+        databaseReference.child("Food").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
+                        if(selectedFoodName.equals(dataSnapshot.child("name").getValue().toString()))
+                        {
+                            selectedFood = new Food();
 
+                            FoodInform foodInform =  dataSnapshot.child("foodInform").getValue(FoodInform.class);
+                            selectedFood.setFoodInform(foodInform);
+                            selectedFood.setId(dataSnapshot.child("id").getValue().toString());
+                            selectedFood.setName(dataSnapshot.child("name").getValue().toString());
+                            selectedFood.setImage(dataSnapshot.child("image").getValue().toString());
+                            selectedFood.setComment(dataSnapshot.child("comment").getValue().toString());
+                            setValues();
+                            break;
+                        }
+
+                }
+
+            }
+        });
+
+
+    }
 
     private void selectFood(){
         imageView = view.findViewById(R.id.appetizer_image);
@@ -131,12 +160,14 @@ public class Table extends Fragment {
         });
     }
     private void setValues(){
+        if(selectedFood != null)
+        {
+            TextView tv = view.findViewById(R.id.appetizer_name);
+            ImageView iv = view.findViewById(R.id.appetizer_image);
 
-        TextView tv = view.findViewById(R.id.appetizer_name);
-        ImageView iv = view.findViewById(R.id.appetizer_image);
-
-        tv.setText(selectedFood.getName());
-        Glide.with(getContext()).load(selectedFood.getImage()).into(iv);
+            tv.setText(selectedFood.getName());
+            Glide.with(getContext()).load(selectedFood.getImage()).into(iv);
+        }
     }
 
     private void getSelectedFood(){
