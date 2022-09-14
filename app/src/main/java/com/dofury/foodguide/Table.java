@@ -1,20 +1,36 @@
 package com.dofury.foodguide;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.dofury.foodguide.inform.FoodInform;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Table extends Fragment {
     View view;
@@ -25,6 +41,7 @@ public class Table extends Fragment {
     private ViewGroup mainLayout;
     private int xDelta;
     private int yDelta;
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
     Food testA;
 
 
@@ -65,6 +82,7 @@ public class Table extends Fragment {
         }
         return view;
     }
+    @SuppressLint("ClickableViewAccessibility")
     private View.OnTouchListener onTouchListener() {
         return (view, event) -> {
 
@@ -74,7 +92,7 @@ public class Table extends Fragment {
                 switch (event.getAction() & MotionEvent.ACTION_MASK) {
 
                     case MotionEvent.ACTION_DOWN:
-                        LinearLayout.LayoutParams lParams = (LinearLayout.LayoutParams)
+                        RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams)
                                 view.getLayoutParams();
 
                         xDelta = x - lParams.leftMargin;
@@ -82,11 +100,10 @@ public class Table extends Fragment {
                         break;
 
                     case MotionEvent.ACTION_UP:
-                        ((Activity)getActivity()).setFrag(FoodList.newInstance("table"));
                         break;
 
                     case MotionEvent.ACTION_MOVE:
-                        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) view.getLayoutParams();
+                        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
                         layoutParams.leftMargin = x - xDelta;
                         layoutParams.topMargin = y - yDelta;
                         layoutParams.rightMargin = 0;
@@ -101,6 +118,8 @@ public class Table extends Fragment {
 
         };
     }
+
+
     private void selectFood(){
         imageView = view.findViewById(R.id.appetizer_image);
         imageView.setOnClickListener(new View.OnClickListener() {
