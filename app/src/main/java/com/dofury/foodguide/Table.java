@@ -177,12 +177,23 @@ public class Table extends Fragment {
     }*/
     private void setValues(){
 
-        ImageView iv = new ImageView(activity.mContext);
+        ImageView iv = new ImageView(getContext());
+        iv.setMaxHeight(10);
+        iv.setMaxWidth(10);
         iv.setOnTouchListener(onTouchListener());
-        iv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        iv.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
+        iv.getLayoutParams().height=500;
+        iv.getLayoutParams().width=500;
+        iv.setX(500);
+        iv.setY(800);
+
+
         Glide.with(getContext()).load(selectedFood.getImage()).into(iv);
         mainLayout.addView(iv);
-        Log.d("s","ss");
+        Log.d("s","s");
     }
 
     private void getSelectedFood(){
