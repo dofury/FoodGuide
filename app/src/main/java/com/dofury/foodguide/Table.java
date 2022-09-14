@@ -187,8 +187,8 @@ public class Table extends Fragment {
         ));
         iv.getLayoutParams().height=500;
         iv.getLayoutParams().width=500;
-        iv.setX(500);
-        iv.setY(800);
+        iv.setX(320);
+        iv.setY(750);
 
 
         Glide.with(getContext()).load(selectedFood.getImage()).into(iv);
