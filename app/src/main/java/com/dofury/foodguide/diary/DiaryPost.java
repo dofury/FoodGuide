@@ -187,6 +187,8 @@ public class DiaryPost extends AppCompatActivity {
                     foodLogs = new Gson().fromJson(taskJson, new TypeToken<List<String>>() {}.getType());
                 }
                 boolean check = false;
+                if(foodLogs.size() > 16)
+                    foodLogs.remove(foodLogs.size());
                 if(foodLogs.size() != 0)
                 {
                     for (String log : foodLogs)

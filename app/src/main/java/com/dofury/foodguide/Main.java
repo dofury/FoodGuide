@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,19 +16,21 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dofury.foodguide.inform.FoodInform;
+import com.dofury.foodguide.login.LoginActivity;
 import com.dofury.foodguide.login.UserAccount;
 import com.dofury.foodguide.diary.PostInfo;
 import com.dofury.foodguide.login.UserAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 
@@ -40,6 +43,7 @@ public class Main extends Fragment implements TextSetAble {
     String preFrag;
     Fragment fragment;
     List<String> finalFoodLogs;
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
     public static Main newInstance(){
         return new Main();
     }
@@ -68,27 +72,32 @@ public class Main extends Fragment implements TextSetAble {
     @Override
     public void onResume() {
         super.onResume();
-        if(userAccount.getIdToken()!=null)
-        {
-            dataSet();
-            Log.d("test", userAccount.toString());
-        }
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                dataSet();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(context, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void dataSet(){
         // 리사이클러뷰에 표시할 데이터 리스트 생성.
         ArrayList<Food> list = new ArrayList<>();
         finalFoodLogs = new ArrayList<>();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
         databaseReference.child("UserAccount").child(userAccount.getIdToken()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                Log.d("test", "test");
+
                 if(userAccount.getFoodLogs() != null) finalFoodLogs = new Gson().fromJson(userAccount.getFoodLogs(), new TypeToken<List<String>>() {}.getType());
                 databaseReference.child("Food").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        Log.d("test", "test");
+
                         list.clear();
                         for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
                             Boolean check = false;

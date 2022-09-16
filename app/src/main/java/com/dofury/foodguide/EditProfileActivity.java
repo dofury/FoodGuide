@@ -192,7 +192,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 String pw = editText.getText().toString();
                 loaderLayout = findViewById(R.id.loaderLayout);
                 loaderLayout.setVisibility(View.VISIBLE);
-                Log.d("test", pw);
+
                 if(pw.isEmpty()) {
                     loaderLayout.setVisibility(View.GONE);
                     Toast.makeText(EditProfileActivity.this, "패스워드를 정확하게 입력하세요.", Toast.LENGTH_SHORT).show();

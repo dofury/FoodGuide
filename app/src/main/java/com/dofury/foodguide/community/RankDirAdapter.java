@@ -85,7 +85,7 @@ public class RankDirAdapter extends RecyclerView.Adapter<RankDirAdapter.ViewHold
                 int pos = getAdapterPosition();
                 // 랭크 클릭
                 Intent intent = new Intent(context, Activity.class);
-                intent.putExtra("foodNameForRank", String.valueOf(foodList.get(pos).getName()));
+                intent.putExtra("foodNameForPage", String.valueOf(foodList.get(pos).getName()));
                 context.startActivity(intent);
             });
         }

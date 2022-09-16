@@ -186,7 +186,7 @@ public class CommunityReadActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             if(task.isSuccessful()) {
-                                String profile = task.getResult().getValue().toString();
+                                String profile = String.valueOf(task.getResult().getValue());
                                 if(!profile.equals("null")) Glide.with(CommunityReadActivity.this).load(profile).into(civ_profile);
                             }
                         }
