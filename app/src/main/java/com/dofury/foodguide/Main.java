@@ -1,6 +1,7 @@
 package com.dofury.foodguide;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dofury.foodguide.diary.DiaryPost;
 import com.dofury.foodguide.inform.FoodInform;
 import com.dofury.foodguide.login.LoginActivity;
 import com.dofury.foodguide.login.UserAccount;
@@ -22,6 +24,7 @@ import com.dofury.foodguide.diary.PostInfo;
 import com.dofury.foodguide.login.UserAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,6 +46,7 @@ public class Main extends Fragment implements TextSetAble {
     String preFrag;
     Fragment fragment;
     List<String> finalFoodLogs;
+    FloatingActionButton floatingActionButton;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
     public static Main newInstance(){
         return new Main();
@@ -64,6 +68,13 @@ public class Main extends Fragment implements TextSetAble {
             }
 
         });
+        floatingActionButton = view.findViewById(R.id.main_diary_add_button);
+        floatingActionButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                myStartActivity();
+            }
+        });
 
         //dataSet();
         return view;
@@ -83,6 +94,12 @@ public class Main extends Fragment implements TextSetAble {
                 Toast.makeText(context, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void myStartActivity()
+    {
+        Intent intent = new Intent(getContext(), DiaryPost.class);
+        startActivity(intent);
     }
 
     private void dataSet(){

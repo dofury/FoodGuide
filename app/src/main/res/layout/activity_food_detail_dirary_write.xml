@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".diary.DiaryPost"
+    android:padding="10dp"
+    android:orientation="vertical"
+    android:background="#FFF6DE">
+
+    <TextView
+        android:id="@+id/tv_diary_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="내용"
+        android:textColor="#2C2C2C"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/et_diary_content"
+        android:layout_width="match_parent"
+        android:layout_height="230sp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/tv_diary_content"
+        android:background="@drawable/custom_edit_text"
+        android:gravity="center" />
+
+    <RatingBar
+        android:id="@+id/diary_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/et_diary_content" />
+    <ImageView
+
+        android:id="@+id/iv_diary_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_centerHorizontal="true"
+        tools:src = "@drawable/sandwich"
+        android:layout_below="@id/diary_rating" />
+
+    <Button
+
+        android:id="@+id/btn_diary_image_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/btn_diary_save"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="#CC8216"
+        android:text="이미지 선택"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/btn_diary_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#CC8216"
+        android:text="등록"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true" />
+
+    <include
+        layout="@layout/view_loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+
+</RelativeLayout>

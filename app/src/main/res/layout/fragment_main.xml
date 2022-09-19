@@ -5,47 +5,72 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
     android:background="#FAECC5">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingTop="30dp"
-        android:paddingBottom="30dp"
-        android:text="Food Guide"
-        android:textColor="#000"
-        android:textSize="40sp"
-        android:textStyle="bold" />
-    <androidx.appcompat.widget.SearchView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/food_search"
-        android:background="#fff"
-        app:iconifiedByDefault="true"
-        app:queryHint="음식 이름을 입력하세요">
+        android:orientation="vertical"
+        android:padding="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp"
+            android:text="Food Guide"
+            android:textColor="#000"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+        <androidx.appcompat.widget.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/food_search"
+            android:background="#fff"
+            app:iconifiedByDefault="true"
+            app:queryHint="음식 이름을 입력하세요">
 
-    </androidx.appcompat.widget.SearchView>
+        </androidx.appcompat.widget.SearchView>
 
-    <TextView
-        android:id="@+id/textView2"
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+
+            android:text="최근 다이어리에 등록한 음식" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/main_recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"/>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="20sp"
+        android:layout_height="match_parent">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/main_diary_add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:src="@drawable/ic_baseline_edit_24" />
 
-        android:text="최근 다이어리에 등록한 음식" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_recycle_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"/>
+    </RelativeLayout>
+
 
 
 </LinearLayout>
