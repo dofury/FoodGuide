@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FAECC5">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,14 +19,14 @@
             android:paddingTop="30dp"
             android:paddingBottom="30dp"
             android:text="Food Guide"
-            android:textColor="#000"
+            android:textColor="@color/food1"
             android:textSize="40sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/maruburi_bold" />
         <androidx.appcompat.widget.SearchView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/food_search"
-            android:background="#fff"
+            android:background="@drawable/search_view_background"
             app:iconifiedByDefault="true"
             app:queryHint="음식 이름을 입력하세요">
 
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:textStyle="bold"
+            android:fontFamily="@font/maruburi_bold"
             android:textSize="20sp"
 
             android:text="최근 다이어리에 등록한 음식" />
@@ -57,14 +57,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/main_diary_add_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_margin="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:clickable="true"
             android:src="@drawable/ic_baseline_edit_24" />
 

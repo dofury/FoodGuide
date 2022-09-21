@@ -35,7 +35,8 @@
             android:layout_marginTop="30dp"
             android:layout_marginLeft="20dp"
             android:textSize="20dp"
-            android:text="미등록"
+            tools:text="미등록"
+            android:fontFamily="@font/maruburi_bold"
             app:layout_constraintLeft_toRightOf="@id/food_detail_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,14 +46,16 @@
             android:id="@+id/food_detail_number"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
-            android:text="#1"
+            tools:text="#1"
+            android:fontFamily="@font/maruburi_bold"
             app:layout_constraintLeft_toRightOf="@id/food_detail_icon"
             app:layout_constraintTop_toTopOf="parent" />
         <TextView
             android:id="@+id/food_detail_like_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            tools:text="0"
+            android:fontFamily="@font/maruburi_bold"
             android:textSize="11sp"
             android:textColor="#B77E7E7E"
             app:layout_constraintRight_toLeftOf="@id/food_detail_like_button"
@@ -90,19 +93,22 @@
             android:id="@+id/food_detail_tap_item1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="tap1" />
+            android:fontFamily="@font/maruburi_bold"
+            tools:text="tap1" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/food_detail_tap_item2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="tap2" />
+            android:fontFamily="@font/maruburi_bold"
+            tools:text="tap2" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/food_detail_tap_item3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="tap3" />
+            android:fontFamily="@font/maruburi_bold"
+            tools:text="tap3" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2

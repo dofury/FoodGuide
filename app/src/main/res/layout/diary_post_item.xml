@@ -10,18 +10,11 @@
 
 
     <LinearLayout
+        android:id="@+id/diary_content_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/diary_content_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-S
-        </LinearLayout>
 
         <ImageView
             android:id="@+id/iv_diary_item_image"
