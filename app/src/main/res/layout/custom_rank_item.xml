@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1"
+            android:fontFamily="@font/maruburi_regular"
             android:textSize="50sp"
             android:paddingLeft="10dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,8 +31,9 @@
             android:layout_height="51dp"
             android:layout_marginStart="10dp"
             android:maxLines="1"
-            android:text="음식 이름"
-            android:textSize="35sp"
+            android:fontFamily="@font/maruburi_bold"
+            tools:text="이름"
+            android:textSize="30sp"
             android:ellipsize="end"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_rank_end"
@@ -39,6 +41,8 @@
 
         <TextView
             android:text="등"
+            android:textSize="40sp"
+            android:fontFamily="@font/maruburi_regular"
             android:id="@+id/tv_rank_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,10 +53,11 @@
             android:id="@+id/tv_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/maruburi_regular"
             android:layout_marginRight="30dp"
             android:drawableLeft="@drawable/custon_tgb_favorites"
             android:text="5"
-            android:textSize="50sp"
+            android:textSize="20sp"
             app:layout_constraintRight_toLeftOf="@id/cardView"
             app:layout_constraintTop_toTopOf="parent" />
 

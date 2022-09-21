@@ -15,6 +15,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:text="제목"
+        android:fontFamily="@font/maruburi_bold"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,10 +38,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="닉네임"
+        android:fontFamily="@font/maruburi_bold"
         android:textColor="#707070"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@id/tv_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+        android:paddingLeft="10dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_time"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
         android:id="@+id/tv_time"
@@ -48,6 +51,7 @@
         android:layout_height="wrap_content"
         android:text="2000-05-00"
         android:layout_marginTop="5dp"
+        android:fontFamily="@font/maruburi_regular"
         android:textColor="#707070"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/tv_title"
@@ -59,6 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
         android:text="0"
+        android:fontFamily="@font/maruburi_bold"
         android:visibility="invisible"
         android:textColor="#B7000000"
         android:textSize="15sp"
@@ -84,10 +89,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="글의 내용"
+        android:fontFamily="@font/maruburi_regular"
         android:textColor="@color/black"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="@+id/tv_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nickname" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
 
 

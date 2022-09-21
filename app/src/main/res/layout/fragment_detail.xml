@@ -36,7 +36,7 @@
             android:layout_marginLeft="20dp"
             android:textSize="20dp"
             tools:text="미등록"
-            android:fontFamily="@font/maruburi_bold"
+            android:fontFamily="@font/maruburi_regular"
             app:layout_constraintLeft_toRightOf="@id/food_detail_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,21 +93,19 @@
             android:id="@+id/food_detail_tap_item1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/maruburi_bold"
+            android:fontFamily="@font/maruburi_regular"
             tools:text="tap1" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/food_detail_tap_item2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/maruburi_bold"
             tools:text="tap2" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/food_detail_tap_item3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/maruburi_bold"
             tools:text="tap3" />
     </com.google.android.material.tabs.TabLayout>
 

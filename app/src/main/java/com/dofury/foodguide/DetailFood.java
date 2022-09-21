@@ -8,6 +8,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -165,8 +166,11 @@ public class DetailFood extends Fragment {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 TextView textView = new TextView(context);
+                Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "font/maruburi_regular.otf");
+                textView.setTypeface(typeface);
                 textView.setText(tabElement.get(position));
                 textView.setGravity(Gravity.CENTER);
+                textView.setFontFeatureSettings("@font/maruburi_regular");
                 textView.setTextColor(Color.parseColor("#000000"));
                 //textView.setBackgroundColor(Color.parseColor("#afe3ff"));//백그라운드 색 설정
                 tab.setCustomView(textView);
