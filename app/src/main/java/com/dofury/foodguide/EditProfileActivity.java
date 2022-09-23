@@ -14,7 +14,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,9 +47,9 @@ public class EditProfileActivity extends AppCompatActivity {
     private final FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     private final StorageReference storageReference = firebaseStorage.getReference();
     private final UserAccount userAccount = UserAccount.getInstance();
+    private TextView tv_nickname;
     private EditText et_nickname, et_email;
-    private Button btn_save, btn_delete;
-    private TextView tv_change_profile;
+    private Button btn_save;
     private CircleImageView civ_profile;
     private RelativeLayout loaderLayout;
 
@@ -68,8 +67,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
         et_nickname = findViewById(R.id.et_nickname);
         et_email = findViewById(R.id.et_email);
-        tv_change_profile = findViewById(R.id.tv_change_profile);
-        tv_change_profile.setOnClickListener(new View.OnClickListener() {
+        tv_nickname = findViewById(R.id.tv_nickname);
+        civ_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 changeProfile();
@@ -86,13 +85,13 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
-        btn_delete = findViewById(R.id.btn_delete);
+        /*btn_delete = findViewById(R.id.btn_delete);
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 delete();
             }
-        });
+        });*/
     }
 
     private void changeProfile() {
@@ -116,6 +115,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private void setInit() {
         et_nickname.setText(userAccount.getNickname());
         et_email.setText(userAccount.getEmail());
+        tv_nickname.setText(userAccount.getNickname());
+
     }
 
     private void save() {

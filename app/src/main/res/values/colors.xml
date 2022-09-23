@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="food2">#FAECC5</color>
     <color name="food1">#FFC107</color>
+    <color name="gray1">#46505a</color>
+    <color name="sky1">#87cefa</color>
+    <color name="orange1">#FFA500</color>
 </resources>

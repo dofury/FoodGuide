@@ -1,129 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditProfileActivity"
-    android:background="#FFF6DE">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Setting"
+    android:background="@color/white">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/civ_profile"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:src="@drawable/ic_baseline_person_24"
-        app:civ_border_width="2dp"
-        app:civ_border_color="#FF000000"
-        android:layout_marginTop="50dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-
-
-    <TextView
-        android:id="@+id/tv_change_profile"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/civ_profile"
-        android:layout_width="wrap_content"
-        android:text="프로필 사진 변경하기 >"
-        android:layout_marginTop="20dp"
-        android:textSize="15sp"
-        android:textColor="#B66D00"
-         android:layout_height="wrap_content"/>
-
-    <View
-        android:id="@+id/view"
-        android:layout_marginTop="45dp"
-        android:layout_marginHorizontal="45dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#676767"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_change_profile"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:padding="25dp"
+        android:layout_weight="10">
 
-    <TextView
-        android:textColor="@color/black"
-        android:id="@+id/tv_nickname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:text="닉네임"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/et_nickname"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_profile"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_baseline_person_24"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp" />
 
-    <EditText
-        android:textSize="12sp"
-        android:id="@+id/et_nickname"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="10dp"
-        android:inputType="text"
-        android:background="@drawable/custom_edit_text"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nickname"
-        android:paddingStart="10dp"/>
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/civ_profile"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:fontFamily="@font/maruburi_bold"
+            tools:text="닉네임"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
-    <TextView
-        android:textColor="@color/black"
-        android:id="@+id/tv_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="이메일"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/et_email"
-        app:layout_constraintTop_toBottomOf="@+id/et_nickname" />
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#676767"
+            android:layout_marginTop="40dp"
+            android:layout_alignTop="@id/tv_nickname" />
+    </RelativeLayout>
 
-    <EditText
-        android:textSize="12sp"
-        android:id="@+id/et_email"
-        android:layout_width="300dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/custom_edit_text"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_email"
-        android:paddingStart="10dp"/>
 
-    <Button
-        android:id="@+id/btn_save"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:textSize="12sp"
-        android:layout_marginTop="70dp"
-        android:text="저장하기"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="@+id/et_email"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_email" />
+    <RelativeLayout
+        android:id="@+id/setting_recycle_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E7E7E7"
+        android:padding="10dp"
+        android:layout_weight="5">
 
-    <Button
-        android:id="@+id/btn_delete"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="184dp"
-        android:text="회원 탈퇴하기"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/btn_save"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/et_email"
-        app:layout_constraintTop_toTopOf="@+id/btn_save" />
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/maruburi_bold"
+            android:text="이메일"/>
 
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@id/tv_email"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_edit_text1"
+            android:focusableInTouchMode="false"
+            android:fontFamily="@font/maruburi_regular"
+            android:paddingStart="10dp"
+            android:textColor="#828282"
+            android:textSize="12sp"
+            tools:text="aaa@aaa.aaa" />
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/tv_nickname_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:layout_alignTop="@id/tv_email"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/maruburi_bold"
+            android:text="닉네임"/>
+
+        <EditText
+            android:id="@+id/et_nickname"
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@id/tv_nickname_name"
+            android:layout_alignTop="@id/et_email"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/custom_edit_text2"
+            android:paddingStart="10dp"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_email" />
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginEnd="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:fontFamily="@font/maruburi_bold"
+            android:text="수정"
+            android:inputType="textEmailAddress" />
+
+    </RelativeLayout>
+    </LinearLayout>
     <include
         layout="@layout/view_loader"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

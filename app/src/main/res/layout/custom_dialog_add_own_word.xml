@@ -24,7 +24,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_title"
         android:layout_width="300dp"
         android:layout_height="80dp"
-        android:background="@drawable/custom_edit_text"
+        android:background="@drawable/custom_edit_text1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

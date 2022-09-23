@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -75,6 +76,24 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.SettingV
         holder.textView1.setText(list.get(position).getTitle());
         holder.textView2.setText(list.get(position).getContent());
         holder.imageView.setImageResource(list.get(position).getImage());
+        holder.imageView.setMaxHeight(300);
+        holder.imageView.setMaxWidth(300);
+        switch(position)
+        {
+            case 0:
+                holder.imageView.setColorFilter(ContextCompat.getColor(fragment.getContext(),R.color.sky1));
+                break;
+            case 1:
+                holder.imageView.setColorFilter(ContextCompat.getColor(fragment.getContext(),R.color.orange1));
+                break;
+            case 2:
+                holder.imageView.setColorFilter(ContextCompat.getColor(fragment.getContext(),R.color.food1));
+                break;
+            case 3:
+                holder.imageView.setColorFilter(ContextCompat.getColor(fragment.getContext(),R.color.gray1));
+                break;
+
+        }
     }
 
 

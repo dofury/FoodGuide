@@ -42,7 +42,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_now_pw"
-        android:background="@drawable/custom_edit_text"/>
+        android:background="@drawable/custom_edit_text1"/>
 
     <TextView
         android:id="@+id/tv_change_pw"
@@ -68,7 +68,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_change_pw"
-        android:background="@drawable/custom_edit_text"/>
+        android:background="@drawable/custom_edit_text1"/>
 
     <TextView
         android:id="@+id/tv_change_pw_"
@@ -94,7 +94,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_change_pw_"
-        android:background="@drawable/custom_edit_text"/>
+        android:background="@drawable/custom_edit_text1"/>
 
     <TextView
         android:id="@+id/tv_info"
