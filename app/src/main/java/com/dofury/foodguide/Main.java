@@ -76,7 +76,6 @@ public class Main extends Fragment implements TextSetAble {
             }
         });
 
-        //dataSet();
         return view;
     }
 

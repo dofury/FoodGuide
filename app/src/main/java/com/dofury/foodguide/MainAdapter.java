@@ -24,6 +24,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     private List<String> foodLogs;
     private int position;
 
+
     public class MainViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         public MainViewHolder(View itemView){

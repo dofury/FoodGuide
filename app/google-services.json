@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "1076429461340-7blk9vpq8b257pc58p2jq86go9m24ube.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dofury.foodguide",
+            "certificate_hash": "98286f4c313f886a797a1788605ad82421e86993"
+          }
+        },
+        {
+          "client_id": "1076429461340-q9v7clc7nerjnr267luh4h0it6io842o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dofury.foodguide",
+            "certificate_hash": "d486dd1e4883fae284b1f020207354b53050eaf7"
+          }
+        },
+        {
           "client_id": "1076429461340-rr9u8qpdid7962hvbu644nj6c6b9ovqd.apps.googleusercontent.com",
           "client_type": 3
         }

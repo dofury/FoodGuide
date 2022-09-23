@@ -147,7 +147,6 @@ public class LoginActivity extends AppCompatActivity{
     }
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
     registerCheck = 0;
-        FirebaseUser user = firebaseAuth.getCurrentUser();
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -155,32 +154,72 @@ public class LoginActivity extends AppCompatActivity{
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
                             updateUI(user);
 
-                            readData(databaseReference.child("UserAccount"), new OnGetDataListener() {
+
+
+                            databaseReference.child("UserAccount").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                 @Override
-                                public void onSuccess(DataSnapshot dataSnapshot) {
+                                public void onComplete(@NonNull Task<DataSnapshot> task) {
                                     // 데이터베이스 연동에 성공하여 로그인이 성공함
                                     firebaseUser = firebaseAuth.getCurrentUser();
-                                                String key = dataSnapshot.child("idToken").getValue().toString();
-                                                if(key.equals(firebaseUser.getUid()))
-                                                {
-                                                    registerCheck = 2;
-                                                }
-                                                registerCheck = 1;
+                                    for(DataSnapshot dataSnapshot : task.getResult().getChildren())
+                                    {
+                                        String key = dataSnapshot.child("idToken").getValue().toString();
+                                        if(key.equals(firebaseUser.getUid()))
+                                        {
+                                            registerCheck = 2;
+                                            break;
+                                        }
+                                        registerCheck = 1;
+                                    }
+
+                                    if(registerCheck == 2)
+                                    {
+                                        Log.d("ssd","ssd");
+                                        databaseReference.child("UserAccount").child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                Log.d("ssdd","ssdd");
+                                                userAccount.setIdToken(dataSnapshot.getValue(UserAccount.class).getIdToken());
+                                                userAccount.setEmail(dataSnapshot.getValue(UserAccount.class).getEmail());
+                                                userAccount.setNickname(dataSnapshot.getValue(UserAccount.class).getNickname());
+                                                userAccount.setProfile(dataSnapshot.getValue(UserAccount.class).getProfile());
+                                                userAccount.setProfileM(dataSnapshot.getValue(UserAccount.class).getProfileM());
+                                                userAccount.setFoodLogs(dataSnapshot.getValue(UserAccount.class).getFoodLogs());
                                             }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                loaderLayout.setVisibility(View.GONE);
+                                                Toast.makeText(LoginActivity.this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
 
-                                @Override
-                                public void onStart() {
-                                    //when starting
-                                    Log.d("ONSTART", "Started");
-                                }
-
-                                @Override
-                                public void onFailure() {
-                                    Log.d("onFailure", "Failed");
+                                    }
+                                    else if(registerCheck==1)
+                                    {
+                                        UserAccount userAccount = UserAccount.getInstance();
+                                        userAccount.setIdToken(user.getUid());
+                                        // setEmail에는 연동된 이메일을 set
+                                        userAccount.setEmail(acct.getEmail());
+                                        userAccount.setNickname(acct.getDisplayName());
+                                        userAccount.setProfile("null");
+                                        userAccount.setProfileM("null");
+                                        userAccount.setFoodLogs("[]");
+                                        // 데이터 베이스 삽입
+                                        databaseReference.child("UserAccount").child(user.getUid()).setValue(userAccount);
+                                        Toast.makeText(LoginActivity.this, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else{
+                                        firebaseAuthWithGoogle(acct);
+                                    }
                                 }
                             });
+
+
+
+
 
 
 
@@ -194,53 +233,17 @@ public class LoginActivity extends AppCompatActivity{
                         } else {
                             // If sign in fails, display a message to the user.
                             updateUI(null);
+                            Toast.makeText(LoginActivity.this, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
-        if(registerCheck == 2)
-        {
-            Log.d("ssd","ssd");
-            databaseReference.child("UserAccount").child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    userAccount.setIdToken(dataSnapshot.getValue(UserAccount.class).getIdToken());
-                    userAccount.setEmail(dataSnapshot.getValue(UserAccount.class).getEmail());
-                    userAccount.setNickname(dataSnapshot.getValue(UserAccount.class).getNickname());
-                    userAccount.setProfile(dataSnapshot.getValue(UserAccount.class).getProfile());
-                    userAccount.setProfileM(dataSnapshot.getValue(UserAccount.class).getProfileM());
-                    userAccount.setFoodLogs(dataSnapshot.getValue(UserAccount.class).getFoodLogs());
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    loaderLayout.setVisibility(View.GONE);
-                    Toast.makeText(LoginActivity.this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        }
-        else if(registerCheck==1)
-        {
-            UserAccount userAccount = UserAccount.getInstance();
-            userAccount.setIdToken(user.getUid());
-            // setEmail에는 연동된 이메일을 set
-            userAccount.setEmail(acct.getEmail());
-            userAccount.setNickname(acct.getDisplayName());
-            userAccount.setProfile("null");
-            userAccount.setProfileM("null");
-            userAccount.setFoodLogs("[]");
-            // 데이터 베이스 삽입
-            databaseReference.child("UserAccount").child(user.getUid()).setValue(userAccount);
-            Toast.makeText(LoginActivity.this, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            firebaseAuthWithGoogle(acct);
-        }
     }
     private void updateUI(FirebaseUser user) { //update ui code here
         if (user != null) {
             Intent intent = new Intent(this, Activity.class);
             startActivity(intent);
+            Log.d("abc","abc");
             finish();
         }
     }
@@ -321,22 +324,6 @@ public class LoginActivity extends AppCompatActivity{
         });
 
     }
-    public void readData(DatabaseReference ref,final OnGetDataListener listener) {
-        listener.onStart();
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                listener.onSuccess(dataSnapshot);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                listener.onFailure();
-            }
-
-        });
-
-    }
 
 
     private void register() {
@@ -344,10 +331,4 @@ public class LoginActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-}
-interface OnGetDataListener {
-    //this is for callbacks
-    void onSuccess(DataSnapshot dataSnapshot);
-    void onStart();
-    void onFailure();
 }

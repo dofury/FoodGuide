@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".Setting"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:padding="25dp"
+        android:layout_weight="10">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@drawable/ic_baseline_person_24"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+             />
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/maruburi_bold"
+            android:text="닉네임"
+            android:textColor="@color/black"
+            android:layout_centerHorizontal="true"
+            android:layout_alignTop="@id/iv_profile"
+            android:layout_marginTop="100dp"
+            android:textSize="20sp" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#676767"
+            android:layout_marginTop="40dp"
+            android:layout_alignTop="@id/tv_nickname" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/setting_recycle_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E7E7E7"
+        android:layout_weight="5">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="20dp"
+            android:id="@+id/setting_recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <ListView
+            android:id="@+id/lv_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/maruburi_regular"
+            android:padding="20dp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+
+</LinearLayout>

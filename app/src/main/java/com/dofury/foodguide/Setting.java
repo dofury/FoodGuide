@@ -1,23 +1,21 @@
 package com.dofury.foodguide;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.dofury.foodguide.login.LoginActivity;
@@ -38,13 +36,15 @@ public class Setting extends Fragment {
     private ArrayAdapter<String>adapter;
     private CircleImageView circleImageView;
     private TextView tv_nickname;
+    private View view;
     public static Setting newInstance(){
         return new Setting();
     }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_setting, container, false);
+        view = inflater.inflate(R.layout.fragment_setting, container, false);
+        return view;
     }
 
     @Override
@@ -98,6 +98,45 @@ public class Setting extends Fragment {
         List<String> data = Arrays.asList("프로필 수정", "비밀번호 변경", "도움말", "문의하기", "로그아웃");
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, data);
         lv_list.setAdapter(adapter);
+
+        // 리사이클러뷰에 LinearLayoutManager 객체 지정.
+        RecyclerView recyclerView = view.findViewById(R.id.setting_recycle_view);
+        recyclerView.setHasFixedSize(true);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2,GridLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
+        ArrayList<SettingItem> list = new ArrayList<>();
+        for(int i =0;i<4;i++)
+        {
+            SettingItem settingItem = new SettingItem();
+            switch(i)
+            {
+                case 0:
+                    settingItem.setTitle("내 정보");
+                    settingItem.setContent("나의 정보");
+                    settingItem.setImage(R.drawable.ic_baseline_info_24);
+                    break;
+                case 1:
+                    settingItem.setTitle("내 피드");
+                    settingItem.setContent("내가 올린 다이어리");
+                    settingItem.setImage(R.drawable.ic_baseline_post_add_24);
+                    break;
+                case 2:
+                    settingItem.setTitle("도움말");
+                    settingItem.setContent("궁금한 사항");
+                    settingItem.setImage(R.drawable.ic_baseline_emoji_objects_24);
+                    break;
+                case 3:
+                    settingItem.setTitle("설정");
+                    settingItem.setContent("환경 설정");
+                    settingItem.setImage(R.drawable.ic_baseline_settings_24);
+                    break;
+            }
+            list.add(settingItem);
+        }
+
+        SettingAdapter adapter = new SettingAdapter(this,list);
+        recyclerView.setAdapter(adapter);
     }
 
     void editProfile() {
