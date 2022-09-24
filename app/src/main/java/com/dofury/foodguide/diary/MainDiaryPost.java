@@ -209,7 +209,7 @@ public class MainDiaryPost extends AppCompatActivity {
                 databaseReference.child("UserAccount").child(userAccount.getIdToken()).child("foodLogs").setValue(taskJson).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete (@NonNull Task < Void > task) {
-                    Log.d("dd","dd");
+                    Log.d("dd1","dd");
                 }
             });
         }

@@ -27,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
+import com.dofury.foodguide.Food;
 import com.dofury.foodguide.R;
 import com.dofury.foodguide.login.UserAccount;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -175,9 +176,11 @@ public class CommunityReadActivity extends AppCompatActivity {
                         }
                     });
 
-
                     if(communityDAO.getImage() != null) {
-                        Glide.with(CommunityReadActivity.this).load(communityDAO.getImage()).into(iv_image);
+                        ArrayList<String> imageList = new ArrayList<>();
+                        imageList = new ArrayList<>();
+                        imageList = new Gson().fromJson(communityDAO.getImage(), new TypeToken<List<String>>() {}.getType());
+                        Glide.with(CommunityReadActivity.this).load(imageList.get(0)).into(iv_image);//0번사진 출력
                     } else {
                         iv_image.setVisibility(View.GONE);
                     }
