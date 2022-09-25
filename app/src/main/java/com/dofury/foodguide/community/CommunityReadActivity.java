@@ -1,6 +1,7 @@
 package com.dofury.foodguide.community;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -27,6 +28,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,7 +68,8 @@ public class CommunityReadActivity extends AppCompatActivity {
     private CircleImageView civ_profile;
     private ToggleButton tgb_like;
     private RecyclerView rv_reply;
-    private ImageView btn_send;
+    private ImageView btn_send,btn_more;
+    private TextView cancel;
     private String key;
     private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
     private RelativeLayout loaderLayout;
@@ -77,29 +80,10 @@ public class CommunityReadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_community_read_background);
-        FrameLayout contentFrame = findViewById(R.id.community_read_frame);
-        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.activity_community_read,contentFrame,true);
         Intent intent = getIntent();
         key = intent.getStringExtra("id");
+        init();
 
-        fbInit();
-        loaderLayout = findViewById(R.id.loaderLayout);
-        loaderLayout.setVisibility(View.VISIBLE);
-
-        btn_send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendReply();
-            }
-        });
-
-        tv_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                delete();
-            }
-        });
         loadContent();
     }
 
@@ -111,26 +95,7 @@ public class CommunityReadActivity extends AppCompatActivity {
         Log.d("abc1","check2");
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.community_read_menu, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId())
-        {
-            case R.id.action_tap1:
-                break;
-            case R.id.action_tap2:
-                break;
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     private void delete() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
@@ -245,6 +210,8 @@ public class CommunityReadActivity extends AppCompatActivity {
                             layout.addView(iv); // 기존 linearLayout에 imageView 추가
                             layout.addView(tv);
                             Glide.with(CommunityReadActivity.this).load(imageList.get(i)).into(iv);//0번사진 출력
+                            iv.setBackground(getResources().getDrawable(R.drawable.custom_image_view1));
+                            iv.setClipToOutline(true);
                             tv.setText(imageTextList.get(i));
                             tv.setTextColor(Color.parseColor("#000000"));
                             Typeface typeface = Typeface.createFromAsset(getApplication().getAssets(), "font/maruburi_regular.otf");
@@ -329,7 +296,10 @@ public class CommunityReadActivity extends AppCompatActivity {
 
     }
 
-    private void fbInit() {
+    private void init() {
+        FrameLayout contentFrame = findViewById(R.id.community_read_frame);
+        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.activity_community_read,contentFrame,true);
         tv_title = findViewById(R.id.tv_title);
         tv_nickname = findViewById(R.id.tv_nickname);
         tv_date = findViewById(R.id.tv_date);
@@ -342,6 +312,62 @@ public class CommunityReadActivity extends AppCompatActivity {
         tv_delete = findViewById(R.id.tv_delete);
         tv_like = findViewById(R.id.tv_like);
         tgb_like = findViewById(R.id.tgb_like);
+        loaderLayout = findViewById(R.id.loaderLayout);
+        loaderLayout.setVisibility(View.VISIBLE);
+        cancel = findViewById(R.id.community_top_menu_tv1);
+        btn_more = findViewById(R.id.community_top_menu_button3);
+        btn_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popEvent(v);
+            }
+        });
+        btn_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendReply();
+            }
+        });
+
+        tv_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                delete();
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+    }
+    private void popEvent(View v){
+        PopupMenu popupMenu = new PopupMenu(this,v);
+
+        MenuInflater inflater = popupMenu.getMenuInflater();
+
+        Menu menu = popupMenu.getMenu();
+
+        inflater.inflate(R.menu.community_read_menu,menu);
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.action_tap1:
+                        break;
+                    case R.id.action_tap2:
+                        break;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
+        popupMenu.show();
     }
     private void update()
     {
