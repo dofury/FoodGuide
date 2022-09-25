@@ -10,14 +10,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,22 +65,27 @@ public class CommunityReadActivity extends AppCompatActivity {
     private EditText et_reply;
     private CircleImageView civ_profile;
     private ToggleButton tgb_like;
-    private ImageView iv_image;
     private RecyclerView rv_reply;
-    private ImageButton btn_send;
+    private ImageView btn_send;
     private String key;
     private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
+    private RelativeLayout loaderLayout;
+    private Boolean loadCheck = false;
 
     private final UserAccount userAccount = UserAccount.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_community_read);
+        setContentView(R.layout.activity_community_read_background);
+        FrameLayout contentFrame = findViewById(R.id.community_read_frame);
+        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.activity_community_read,contentFrame,true);
         Intent intent = getIntent();
         key = intent.getStringExtra("id");
 
         fbInit();
-        loadContent();
+        loaderLayout = findViewById(R.id.loaderLayout);
+        loaderLayout.setVisibility(View.VISIBLE);
 
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,9 +100,36 @@ public class CommunityReadActivity extends AppCompatActivity {
                 delete();
             }
         });
+        loadContent();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loaderLayout.setVisibility(View.GONE);
+        loadCheck = true;
+        Log.d("abc1","check2");
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.community_read_menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.action_tap1:
+                break;
+            case R.id.action_tap2:
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void delete() {
@@ -168,7 +209,7 @@ public class CommunityReadActivity extends AppCompatActivity {
                                     databaseReference.child("Community").child(key).child("likes").setValue(taskJson).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                                loadContent();
+                                            update();
                                         }
                                     });
                                 }
@@ -178,11 +219,38 @@ public class CommunityReadActivity extends AppCompatActivity {
 
                     if(communityDAO.getImage() != null) {
                         ArrayList<String> imageList = new ArrayList<>();
-                        imageList = new ArrayList<>();
                         imageList = new Gson().fromJson(communityDAO.getImage(), new TypeToken<List<String>>() {}.getType());
-                        Glide.with(CommunityReadActivity.this).load(imageList.get(0)).into(iv_image);//0번사진 출력
+                        ArrayList<String> imageTextList = new ArrayList<>();
+                        imageTextList = new Gson().fromJson(communityDAO.getImageContent(), new TypeToken<List<String>>() {}.getType());
+                        LinearLayout layout = (LinearLayout) findViewById(R.id.cl_content);
+                        // layout param 생성
+                        for(int i=0;i<imageList.size();i++)
+                        {
+                            LinearLayout.LayoutParams layoutParams =
+
+                                    new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT /* layout_width */, LinearLayout.LayoutParams.WRAP_CONTENT /* layout_height */, 1f /* layout_weight */);
+
+
+                            layoutParams.topMargin = 100;
+
+
+                            ImageView iv = new ImageView(getApplicationContext());  // 새로 추가할 imageView 생성
+                            TextView tv = new TextView(getApplicationContext());
+
+
+                            iv.setLayoutParams(layoutParams);  // imageView layout 설정
+                            tv.setLayoutParams(layoutParams);
+
+
+                            layout.addView(iv); // 기존 linearLayout에 imageView 추가
+                            layout.addView(tv);
+                            Glide.with(CommunityReadActivity.this).load(imageList.get(i)).into(iv);//0번사진 출력
+                            tv.setText(imageTextList.get(i));
+                            tv.setTextColor(Color.parseColor("#000000"));
+                            Typeface typeface = Typeface.createFromAsset(getApplication().getAssets(), "font/maruburi_regular.otf");
+                            tv.setTypeface(typeface);
+                        }
                     } else {
-                        iv_image.setVisibility(View.GONE);
                     }
 
                     databaseReference.child("UserAccount").child(communityDAO.getUid()).child("profile").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -218,7 +286,6 @@ public class CommunityReadActivity extends AppCompatActivity {
 
                         }
                     });
-
                 }
             }
         });
@@ -253,7 +320,7 @@ public class CommunityReadActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(CommunityReadActivity.this, "댓글이 등록되었습니다.", Toast.LENGTH_SHORT);
-                            loadContent();
+                            update();
                         }
                     });
                 }
@@ -270,12 +337,18 @@ public class CommunityReadActivity extends AppCompatActivity {
         tv_content = findViewById(R.id.tv_content);
         et_reply = findViewById(R.id.et_reply);
         civ_profile = findViewById(R.id.civ_profile);
-        iv_image = findViewById(R.id.iv_image);
         rv_reply = findViewById(R.id.rv_reply);
-        btn_send = findViewById(R.id.btn_send);
+        btn_send = findViewById(R.id.iv_send);
         tv_delete = findViewById(R.id.tv_delete);
         tv_like = findViewById(R.id.tv_like);
         tgb_like = findViewById(R.id.tgb_like);
+    }
+    private void update()
+    {
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
     }
 }
 

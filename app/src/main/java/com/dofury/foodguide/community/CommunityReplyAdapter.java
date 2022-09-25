@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.dofury.foodguide.R;
 import com.dofury.foodguide.login.UserAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,7 +31,7 @@ public class CommunityReplyAdapter extends RecyclerView.Adapter<CommunityReplyAd
     private final Context context;
     private List<Reply> replyList = new ArrayList<>();
     private final String key;
-
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("FoodGuide");
     public CommunityReplyAdapter(String stringJson, Context context, String key) {
         this.context = context;
         if(stringJson != null) {
@@ -55,7 +57,15 @@ public class CommunityReplyAdapter extends RecyclerView.Adapter<CommunityReplyAd
         holder.tv_reply.setText(reply.getReply());
         holder.tv_nickname.setText(reply.getNickname());
         holder.tv_date.setText(reply.getDate());
-
+        databaseReference.child("UserAccount").child(reply.getUid()).child("profile").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.isSuccessful()) {
+                    String profile = String.valueOf(task.getResult().getValue());
+                    if(!profile.equals("null")) Glide.with(context).load(profile).into(holder.iv_profile);
+                }
+            }
+        });
         if(userAccount.getIdToken().equals(reply.getUid())) {
             holder.tv_delete.setVisibility(View.VISIBLE);
         }
@@ -116,6 +126,7 @@ public class CommunityReplyAdapter extends RecyclerView.Adapter<CommunityReplyAd
         private final TextView tv_reply;
         private final TextView tv_date;
         private final TextView tv_delete;
+        private final ImageView iv_profile;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -123,6 +134,8 @@ public class CommunityReplyAdapter extends RecyclerView.Adapter<CommunityReplyAd
             tv_reply = itemView.findViewById(R.id.tv_reply);
             tv_date = itemView.findViewById(R.id.tv_date);
             tv_delete = itemView.findViewById(R.id.tv_delete);
+            iv_profile = itemView.findViewById(R.id.iv_profile);
+
 
 
         }

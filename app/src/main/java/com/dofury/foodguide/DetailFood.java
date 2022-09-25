@@ -170,7 +170,6 @@ public class DetailFood extends Fragment {
                 textView.setTypeface(typeface);
                 textView.setText(tabElement.get(position));
                 textView.setGravity(Gravity.CENTER);
-                textView.setFontFeatureSettings("@font/maruburi_regular");
                 textView.setTextColor(Color.parseColor("#000000"));
                 //textView.setBackgroundColor(Color.parseColor("#afe3ff"));//백그라운드 색 설정
                 tab.setCustomView(textView);

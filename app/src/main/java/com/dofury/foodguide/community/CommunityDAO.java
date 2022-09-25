@@ -1,5 +1,7 @@
 package com.dofury.foodguide.community;
 
+import java.util.ArrayList;
+
 public class CommunityDAO {
     String title;
     String uid;
@@ -12,6 +14,7 @@ public class CommunityDAO {
     String data;
     String data_;
     String cUid;
+    String imageContent;
 
     public String getReply() {
         return reply;
@@ -23,7 +26,15 @@ public class CommunityDAO {
 
     public CommunityDAO() {}
 
-    public CommunityDAO(String title, String uid, String nickname, String content, String likes, String image, String reply, Boolean delete, String data, String data_, String cUid) {
+    public String getImageContent() {
+        return imageContent;
+    }
+
+    public void setImageContent(String imageContent) {
+        this.imageContent = imageContent;
+    }
+
+    public CommunityDAO(String title, String uid, String nickname, String content, String likes, String image, String reply, Boolean delete, String data, String data_, String cUid, String imageContent) {
         this.title = title;
         this.uid = uid;
         this.nickname = nickname;
@@ -35,6 +46,7 @@ public class CommunityDAO {
         this.data = data;
         this.data_ = data_;
         this.cUid = cUid;
+        this.imageContent = imageContent;
     }
 
     public String getcUid() {

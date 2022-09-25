@@ -24,9 +24,11 @@
             android:exported="false" />
         <activity
             android:name=".community.CommunityReadActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".community.CommunityAddActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:exported="false" />
         <activity
             android:name=".EditProfileActivity"

@@ -71,6 +71,7 @@ public class RankDirAdapter extends RecyclerView.Adapter<RankDirAdapter.ViewHold
         return foodList.size();
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tv_rank, tv_name, tv_like;
         private ImageView iv_image;
